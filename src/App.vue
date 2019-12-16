@@ -1,28 +1,34 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: sueRimn
+ * @Date: 2019-09-16 19:13:01
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2019-12-16 10:28:05
+ -->
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+ <div id="app">
+   <router-view></router-view>
+   <!-- 底部导航栏-->
+   <tab-bar></tab-bar>
+ </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import TabBar from '@/pages/tabBar/tabBar'
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
+   components:{
+     TabBar
+   }
 }
 </script>
-
 <style>
+html,
+body,
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+  /* touch-action: none 这样任何触摸事件都不会产生默认行为，但是 touch 事件照样触发。 */
+   touch-action: none;
 }
 </style>
+

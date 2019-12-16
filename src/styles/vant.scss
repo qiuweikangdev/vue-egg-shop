@@ -1,0 +1,21 @@
+// vant样式
+$fonColor: #fff;  //字体颜色
+$bgColor: #e5017d;  //背景颜色
+
+// 导航栏
+.van-nav-bar__title {
+    // color: $fonColor;
+    border-radius:10px;
+  }
+
+// 图标
+.van-nav-bar__arrow+.van-nav-bar__text,.van-nav-bar .van-icon{
+    // color: $fonColor;
+} 
+//按钮
+.van-button{
+    border-radius:10px;
+    box-shadow: 0 0 0.9rem rgba(211, 210, 210, 0.1) inset;
+}
+
+ 
