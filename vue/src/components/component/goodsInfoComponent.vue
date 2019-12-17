@@ -4,19 +4,19 @@
             <img v-lazy="goodsImage" width="90%" />
         </div>
         <div class="goods-name">{{goodsName}}</div>
-        <div class="goods-price">￥{{goodsPrice | moneyFilter }}</div>
+        <div class="goods-price">￥{{goodsPrice | moneyFormat }}</div>
     </div>
 </template>
 
 <script>
-    import {toMoney}  from '@/filter/moneyFilter.js'
+    // import {toMoney}  from '@/filter/moneyFilter.js'
     export default {
         props:['goodsImage','goodsName','goodsPrice','goodsId'],
-        filters:{
-            moneyFilter(money){
-                return toMoney(money)
-            }
-        },
+        // filters:{
+        //     moneyFilter(money){
+        //         return toMoney(money)
+        //     }
+        // },
         methods: {
             goGoodsPage() {
                 this.$router.push({name:'Goods',query:{goodsId:this.goodsId}})

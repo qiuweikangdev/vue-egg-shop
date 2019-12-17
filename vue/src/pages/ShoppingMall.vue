@@ -84,7 +84,7 @@
     import { createNamespacedHelpers } from 'vuex'   //导入命名空间辅助函数
     const { mapState } = createNamespacedHelpers('shop')
     // import floorComponent from '../component/floorComponent'
-    import { toMoney } from '@/filter/moneyFilter.js'
+    // import { toMoney } from '@/filter/moneyFilter.js'
     // import goodsInfo from '../component/goodsInfoComponent'
     // import url from '@/serviceAPI.config.js'
    
@@ -134,11 +134,11 @@
         created(){
              this.$store.dispatch('shop/reqHomeCarousel') 
         },
-       filters:{
-            moneyFilter(money){
-                return toMoney(money)
-            }
-        },
+    //    filters:{
+    //         moneyFilter(money){
+    //             return toMoney(money)
+    //         }
+    //     },
      
        
     }

@@ -4,6 +4,7 @@
  * @LastEditTime: 2019-12-13 16:03:10
  */
 //对金钱的格式化处理
-export function toMoney(money = 0) {
-    return '¥' + Number(money).toFixed(2);
-}
+import Vue from 'vue'
+Vue.filter('moneyFormat', (value) => {
+    return '¥' + Number(value).toFixed(2);
+})

@@ -41,3 +41,12 @@ export const ADD_TO_CART = 'ADD_TO_CART'
 
 //13. 初始化购物车数据
 export const INIT_SHOP_CART = 'INIT_SHOP_CART'
+
+//14.减少商品
+export const REDUCE_GOODS = 'REDUCE_GOODS'
+
+//15.单个商品复选框事件
+export const SINGLE_SELECT_GOODS = 'SINGLE_SELECT_GOODS'
+
+//15.全选商品品事件
+export const ALL_SELECT_GOODS = 'ALL_SELECT_GOODS'

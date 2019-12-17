@@ -1,10 +1,6 @@
 /*
- * @Descripttion: 
- * @version: 
- * @Author: sueRimn
- * @Date: 2019-11-27 11:54:05
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-14 19:46:02
+ * @Descripttion: 商品类数据存储
+ * @Author: qqqiu
  */
 import { getHomeCarousel, getHomeNav, getHomeFlash } from '@/api/shop'
 // import { getToken, setToken, removeToken} from '@/utils/auth'

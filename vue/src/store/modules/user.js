@@ -10,7 +10,10 @@ import {
     CHANGE_USER_SHIPPING_ADDRESS,
     ADD_GOODS,
     ADD_TO_CART,
-    INIT_SHOP_CART
+    INIT_SHOP_CART,
+    REDUCE_GOODS,
+    SINGLE_SELECT_GOODS,
+    ALL_SELECT_GOODS
 } from './mutation-types'
 // 引入本地存储
 import {
@@ -18,7 +21,7 @@ import {
     setLocalStore,
     removeLocalStore,
 } from '@/config/global'
-
+import Vue from 'vue'
 import router from '@/router'
 import {
     Toast
@@ -27,7 +30,7 @@ const state = {
     token: getToken(),
     userInfo: {}, // 用户信息
     shippingAddress: [], //配送地址
-    shopCart: {} //购物车商品
+    shopCart: {} //用户购物车商品
 
 }
 
@@ -98,7 +101,7 @@ const mutations = {
         // 7.2查找id的那个对象
         for (let index = 0; index < shippingAddress.length; index++) {
             if (shippingAddress[index].id == content.id) {
-                console.log(shippingAddress[index]);
+                // console.log(shippingAddress[index]);
                 shippingAddress[index] = content;
                 break;
             }
@@ -118,7 +121,7 @@ const mutations = {
         let shopCart = state.shopCart;
         // 8.1 根据ID判断商品是否存在
         if (shopCart[goodsID]) {
-            console.log(shopCart)
+            // console.log(shopCart)
                 //让数量goodsID里面的num +1
             shopCart[goodsID]['num']++;
         } else {
@@ -176,7 +179,69 @@ const mutations = {
             // 10.2 如何购物车有数据那么就把它通过对象的方式赋值给store
             state.shopCart = JSON.parse(initShopCart);
         }
-    }
+    },
+    //11.减少商品
+    [REDUCE_GOODS](state,{goodsID}){
+        //11.1取出state中的商品数据
+        let shopCart = state.shopCart;
+         //12.1通过商品ID来找到这个商品
+        let goods = shopCart[goodsID];
+        if(goods){
+            if (goods['num'] > 0) {
+                // 12.2 减少商品数量
+                goods['num']--;
+            }else{
+                //12.3等于0的时候就删除商品
+                delete shopCart[goodsID];
+            }
+         
+             //12.4 更新state中的商品数据
+             state.shopCart = {
+                ...shopCart
+             }
+            //12.5 更新本地中的商品数据
+            setLocalStore('shopCart', state.shopCart);
+        }
+    },
+    //12.单个商品复选框事件
+     [SINGLE_SELECT_GOODS](state,{goodsID}){
+            // 12.1 取出state中的商品数据
+          let shopCart = state.shopCart;
+           // 12.2 根据商品id取到goods
+         let goods = shopCart[goodsID];
+        // 12.3 判断商品是否存在
+        if (goods) {
+            //12.4 判断checked是否存在
+            if(goods.checked){
+                goods.checked = !goods.checked;
+            }else{
+                //如果不存在，则设置checked属性
+                Vue.set(goods,'checked')
+
+            }
+        }
+     },
+     //13. 全选商品事件
+     [ALL_SELECT_GOODS](state,{isCheckedAll}){
+          // 13.1 取出state中的商品数据
+          let shopCart = state.shopCart;
+          Object.values(shopCart).forEach((goods)=>{
+              if(goods.checked){
+                  goods.checked = false;
+                //   goods.checked = !isCheckedAll;
+              }else{
+                goods.checked = true;
+                // goods.checked = isCheckedAll;
+                // Vue.set(goods, 'checked', true);
+              }
+          })
+          // 13.2
+          state.shopCart = {
+            ...shopCart
+        };
+       // 13.3 将数据更新到本地
+        setLocalStore('shopCart', state.shopCart);
+     }
 }
 
 const actions = {

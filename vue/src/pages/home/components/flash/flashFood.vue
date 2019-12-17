@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { toMoney } from '@/filter/moneyFilter'
+// import { toMoney } from '@/filter/moneyFilter'
 import { mapMutations,mapState } from 'vuex'
 export default {
   data() {
@@ -46,15 +46,16 @@ export default {
   },
   computed: {
   ...mapState({
+    //2. token
     token:state =>state.user.token
   })
 },
-  filters:{
-    //2. 对价格的格式过滤
-      moneyFormat(money){
-          return toMoney(money)
-      }
-  },
+  // filters:{
+  //   //2. 对价格的格式过滤
+  //     moneyFormat(money){
+  //         return toMoney(money)
+  //     }
+  // },
   methods:{
     //3 添加购物车方法
     ...mapMutations({

@@ -15,6 +15,7 @@ import '@/styles/index.scss'
 import uploader from 'vue-simple-uploader'
 import VTop from '@/components/backToTop'
 import '@/icons'
+import '@/config/fillter'  //全局引入过滤器
 import FastClick from 'fastclick'
 //推荐局部引入组件库中的组件
 import { Cell, CellGroup, Tabbar, TabbarItem, PullRefresh, Stepper, Tab, Tabs, Button, Row, Col, Swipe, SwipeItem, Lazyload, List, Field, NavBar, Skeleton, Divider, Uploader, SwitchCell, Grid, GridItem, AddressList, AddressEdit, Area, Search, CountDown, SubmitBar, Checkbox } from 'vant'

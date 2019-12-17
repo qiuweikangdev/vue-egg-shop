@@ -55,8 +55,7 @@
     // import url from '@/serviceAPI.config.js'
     import {Toast} from 'vant'
     import {  getGoodsInfo,getRecommendInfo, getGoods } from '@/api/shop'
-    import {toMoney} from '@/filter/moneyFilter.js'
-import { async } from 'q'
+    // import {toMoney} from '@/filter/moneyFilter.js'
     export default {
         data() {
             return {
@@ -64,11 +63,11 @@ import { async } from 'q'
                 goods:'',  //商品详细信息 
             }
         },
-        filters:{
-            moneyFilter(money){
-                return toMoney(money)
-            }
-        },
+        // filters:{
+        //     moneyFilter(money){
+        //         return toMoney(money)
+        //     }
+        // },
         created(){
             this.goodsId= this.$route.query.goodsId ?this.$route.query.goodsId : this.$route.params.goodsId
             // console.log(this.goodsId)
