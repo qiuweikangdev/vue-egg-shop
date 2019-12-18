@@ -215,30 +215,37 @@ const mutations = {
             if(goods.checked){
                 goods.checked = !goods.checked;
             }else{
-                //如果不存在，则设置checked属性
+                //12.5如果不存在，则设置checked属性
                 Vue.set(goods,'checked')
 
             }
         }
+          // 12.6 将数据更新到本地
+        state.shopCart = {
+            ...shopCart
+        }
+         // 12.7 将数据更新到本地
+         setLocalStore('shopCart', state.shopCart);
      },
      //13. 全选商品事件
      [ALL_SELECT_GOODS](state,{isCheckedAll}){
           // 13.1 取出state中的商品数据
           let shopCart = state.shopCart;
           Object.values(shopCart).forEach((goods)=>{
-              if(goods.checked){
+              if(goods.checked && !isCheckedAll){
+                  //当商品有选中且取消全选时
                   goods.checked = false;
                 //   goods.checked = !isCheckedAll;
               }else{
+                   //当没有商品选中且全选时
                 goods.checked = true;
-                // goods.checked = isCheckedAll;
                 // Vue.set(goods, 'checked', true);
               }
           })
           // 13.2
           state.shopCart = {
             ...shopCart
-        };
+         };
        // 13.3 将数据更新到本地
         setLocalStore('shopCart', state.shopCart);
      }

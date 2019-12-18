@@ -122,16 +122,18 @@ export default {
     isCheckedAll: {
       //由于我们给商品添加了checked属性，商品存储在vuex中,要修改state的值,需要通过mutations
       get() {
-        let flag = true;
+        let flag = true;  
         Object.values(this.shopCart).forEach(goods => {
+          //如果商品有一个没有选中，则返回false
           if (!goods.checked) {
-            flag = false;
+             flag = false;
           }
         });
         return flag;
       },
       set(isCheckedAll) {
-        console.log(isCheckedAll, "value");
+        // console.log(isCheckedAll);
+           // 取消全选返回false,全选返回ture
         this.ALL_SELECT_GOODS({ isCheckedAll });
       }
     },
