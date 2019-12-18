@@ -34,5 +34,14 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+#header{
+  /deep/ .van-search--show-action{
+     background-color: #D4237A !important;
+   /deep/ .van-search__action{
+     color: #fff;
+   }
 
+  }
+ 
+}
 </style>

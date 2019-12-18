@@ -18,9 +18,9 @@ import '@/icons'
 import '@/config/fillter'  //全局引入过滤器
 import FastClick from 'fastclick'
 //推荐局部引入组件库中的组件
-import { Cell, CellGroup, Tabbar, TabbarItem, PullRefresh, Stepper, Tab, Tabs, Button, Row, Col, Swipe, SwipeItem, Lazyload, List, Field, NavBar, Skeleton, Divider, Uploader, SwitchCell, Grid, GridItem, AddressList, AddressEdit, Area, Search, CountDown, SubmitBar, Checkbox } from 'vant'
+import { Cell, CellGroup, Tabbar, TabbarItem, Stepper, Tab, Tabs, Button, Row, Col, Swipe, SwipeItem, Lazyload, Field, NavBar, Skeleton, Divider, Uploader, SwitchCell, Grid, GridItem, AddressList, AddressEdit, Area, Search, CountDown, SubmitBar, Checkbox ,List, PullRefresh} from 'vant'
 Vue.use(uploader)
-Vue.use(Cell).use(CellGroup).use(Tabbar).use(TabbarItem).use(Stepper).use(PullRefresh).use(Tab).use(Tabs).use(Field).use(NavBar).use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(List).use(Skeleton).use(Divider).use(Uploader).use(SwitchCell).use(Grid).use(GridItem).use(AddressList).use(AddressEdit).use(Area).use(Search).use(CountDown).use(SubmitBar).use(Checkbox);
+Vue.use(Cell).use(CellGroup).use(Tabbar).use(TabbarItem).use(Stepper).use(Tab).use(Tabs).use(Field).use(NavBar).use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(Skeleton).use(Divider).use(Uploader).use(SwitchCell).use(Grid).use(GridItem).use(AddressList).use(AddressEdit).use(Area).use(Search).use(CountDown).use(SubmitBar).use(Checkbox).use(List).use(PullRefresh);
 
 Vue.component('v-top', VTop)
 

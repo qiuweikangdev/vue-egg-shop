@@ -16,9 +16,13 @@
       <Nav :homenav='homenav'></Nav>
       <!-- 4.限时抢购 -->
       <flash-sale ></flash-sale>
-      <!-- 5.限时抢购商品 -->
+      <!-- 5.限时抢购商品横向滚动 -->
       <flash-food :FlashFood='homeflash'></flash-food>
-      <!-- 5.回到顶部 -->
+      <!-- 6. 热门 -->
+      <hot-sale></hot-sale>
+       <!-- 7. 热门商品下拉刷新 -->
+      <hot-food></hot-food>
+      <!-- 8.回到顶部 -->
        <v-top />
       <!-- <router-view></router-view> -->
   </div>
@@ -43,7 +47,7 @@ export default {
         return {}
     },
     computed:{
-        //获取轮播图、
+        //获取轮播图、导航滚动图、限时抢购数据
          ...mapState(['homecarousel','homenav','homeflash']),
     },
     created(){

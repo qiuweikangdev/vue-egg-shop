@@ -6,15 +6,18 @@
  -->
 <template>
   <div id="flashFood">
-    <div class="food-wrapper">
-      <ul class="food-content">
+    <div class="food-wrapper" ref='wrapper'>
+      <ul class="food-content" ref='foodContent'>
         <li 
         class="food-item"
         v-for='(item,index) in FlashFood'
         :key='index'
-        >
+        ref='foodItem'
+        >  
+          <div class='item-image'>
             <img src="" alt=""  v-lazy="item.small_image" class='food-img'>
              <span class="title">{{item.name}}</span>
+           </div>  
              <div class="price">
             <p class="now-price">{{item.price | moneyFormat}}</p>
             <p class="original-price">{{item.origin_price | moneyFormat}}</p>
@@ -34,6 +37,7 @@
 <script>
 // import { toMoney } from '@/filter/moneyFilter'
 import { mapMutations,mapState } from 'vuex'
+import BScroll from 'better-scroll'
 export default {
   data() {
     return {
@@ -50,12 +54,13 @@ export default {
     token:state =>state.user.token
   })
 },
-  // filters:{
-  //   //2. 对价格的格式过滤
-  //     moneyFormat(money){
-  //         return toMoney(money)
-  //     }
-  // },
+  watch:{
+    FlashFood(){
+        this.$nextTick(()=>{
+            this._initBScroll()
+        })
+    }
+  },
   methods:{
     //3 添加购物车方法
     ...mapMutations({
@@ -66,6 +71,23 @@ export default {
       //  if(this.token){
          
       //  }
+    },
+  // 初始化滚动事件
+    _initBScroll(){
+          //获取所有li标签元素，返回的是伪数组
+        let allItems =  this.$refs.foodItem
+        let sumWidth = 0
+        //把所有li元素组成的伪数组转换真正的数组
+        Array.prototype.slice.call(allItems).forEach(item=>{
+            sumWidth += item.clientWidth
+        })
+        this.$refs.foodContent.style.width =sumWidth  + 'px'
+        this.scroll = new BScroll(this.$refs.wrapper, {
+          probeType: 3,
+          startX: 0,
+          click: true,
+          scrollX: true,  //开启横向滚动
+        });
     }
   }
 };
@@ -79,13 +101,17 @@ export default {
             display: flex;
             justify-content: flex-start;
             align-items: center;
+            padding-left:0.2rem;
         .food-item{
-            // flex: 1;
-            padding-right: 1.2rem;
+            padding-right: 2rem;
+            flex: 0 0 5rem;
         } 
+        .item-image{
+
+        }
         .food-img{
-            width: 5rem;
-            height: 5rem;
+            width:100%;
+            height:100%;
             border-radius: 50%;
           }
         .title{
@@ -118,7 +144,7 @@ export default {
          
          .buyCar {
                 position: absolute;
-                left:3.2rem;
+                left:3.5rem;
                 top:0.15rem;
                 width: 2.5rem;
                 height: 2.5rem;

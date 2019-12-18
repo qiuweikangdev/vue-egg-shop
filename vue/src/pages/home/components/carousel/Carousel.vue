@@ -24,7 +24,14 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.carousel{
-    
+#carousel{
+    padding:1rem;
+    background-image: url('~@/assets/images/flash/backImage.png');
+    .swiper-area{
+       
+    }
+    .van-swipe{
+         border-radius:30px 10px 30px 10px;
+    }
 }
 </style>

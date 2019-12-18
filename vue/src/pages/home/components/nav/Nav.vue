@@ -1,5 +1,5 @@
 <!--
- * @Descripttion: 导航触摸滚动区域
+ * @Descripttion: 导航栏触摸横向滚动区域 + 显示进度条
  -->
 <template>
   <div class="hot-nav">
@@ -81,7 +81,6 @@ export default {
     },
     // 开始移动
     handleTouchMove() {
-      console.log('开始移动');
       // 1. 获取第一个触点
       let touch = event.touches[0];
       // 2. 求出移动的距离

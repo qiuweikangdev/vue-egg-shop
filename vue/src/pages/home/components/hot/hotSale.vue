@@ -1,26 +1,16 @@
 <!--
- * @Descripttion: 限时抢购
+ * @Descripttion: 火爆商品
  * @version: 
  * @Author: qqqiu
  * @Date: 2019-11-27 15:14:39
  -->
 <template>
-  <div id='flash-main'>
-    <div class="count-down">
-          <div class="title">限时抢购</div>
-          <!-- vant的倒计时组件 -->
-          <van-count-down :time="time">
-          <template v-slot="timeData">
-            <span class="item">{{ timeData.hours }}</span>
-            <span class="item">{{ timeData.minutes }}</span>
-            <span class="item">{{ timeData.seconds }}</span>
-          </template>
-        </van-count-down>
-
+  <div id='hot-main'>
+    <div class="hot-content">
+          <div class="title">火爆商品</div>
         <!-- 抢购图片.. -->
-        <div class="flash-icon"><img :src="flashSaleIcon" alt=""></div>
-        </div>
-
+        <div class="hot-icon"><img :src="hotSaleIcon" alt=""></div>
+       </div> 
   </div>
 </template>
 
@@ -29,44 +19,37 @@ export default {
   data(){
     return {
        // 倒计时时间设置 单位毫秒
-        time:60*60*24*1000,  //倒计时一天
-        flashSaleIcon:require('@/assets/images/flash/flashSale.png')
+        hotSaleIcon:require('@/assets/images/hot/hot.png')
     }
   },
   props:{
-    FlashFood:Array
+    hotFood:Array
   }
 }
 </script>
 
 <style lang='scss' scoped>
-#flash-main{
+#hot-main{
   padding: 0 0 0 0.5rem;
   background: #F6F6F6;
+  transform: scaleY(0.7);
+  
 }
-.item {
-  display: inline-block;
-  width: 22px;
-  margin-right: 5px;
-  color: #fff;
-  font-size: 12px;
-  text-align: center;
-  background-color: #000;
-}
-.count-down{
+.hot-content{
   display: flex;
-  justify-content:start;
   align-items: center;
-  //  padding-left:1rem;
+
 }
+
 .title {
   display: inline-block;
   // border-left: 5px #E5017D solid;
   padding: 0 1rem;
-  height: 1.5rem;
+  // height: 1.5rem;
   vertical-align: middle;
   font-size: 1rem;
   position: relative;
+   transform: scaleY(1.3);
 }
 .title::before{
   content:'';
@@ -85,10 +68,12 @@ export default {
   border-right: 10px solid transparent;
   border-bottom: 10px solid transparent;
 }
-.flash-icon{
-  width: 40%;
-  height:50%;
-  background-size: 100% 100%;
+.hot-icon{
+  width: 50%;
+  // height:100%;
+  position: relative;
+  left:30px;
+   
   img{
     width:100%;
   }
