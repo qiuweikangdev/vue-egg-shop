@@ -21,7 +21,9 @@
       <!-- 6. 热门 -->
       <hot-sale></hot-sale>
        <!-- 7. 热门商品下拉刷新 -->
-      <hot-food></hot-food>
+      <!-- <hot-food></hot-food> -->
+      <hot-produce></hot-produce>
+          <van-divider >我是有底线的</van-divider>
       <!-- 8.回到顶部 -->
        <v-top />
       <!-- <router-view></router-view> -->
@@ -69,7 +71,13 @@ export default {
 <style lang='scss'>
 #home {
   background-color: "#f5f5f5";
-//   padding-bottom:20rem;
+  padding-bottom:3rem;
 }
-
+.van-divider {
+  background-color: #f5f5f5;
+  margin: 0;
+}
+.divider{
+  position: relative;
+}
 </style>

@@ -87,6 +87,7 @@ export default {
           startX: 0,
           click: true,
           scrollX: true,  //开启横向滚动
+          eventPassthrough:'vertical'  //保留原生滚动
         });
     }
   }
@@ -97,6 +98,7 @@ export default {
 #flashFood{
     .food-wrapper{
         overflow: hidden;
+        height: 100%;    
         .food-content{
             display: flex;
             justify-content: flex-start;
@@ -106,9 +108,6 @@ export default {
             padding-right: 2rem;
             flex: 0 0 5rem;
         } 
-        .item-image{
-
-        }
         .food-img{
             width:100%;
             height:100%;

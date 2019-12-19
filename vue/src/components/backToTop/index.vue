@@ -57,7 +57,7 @@ export default {
 .scrollTop {
   right: 0;
   position: fixed;
-  bottom: 5rem;
+  bottom: 4rem;
   cursor: pointer;
   z-index: 999999;
 }

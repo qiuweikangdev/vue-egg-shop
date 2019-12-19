@@ -3,7 +3,7 @@
  * @Author: qqqiu
  -->
 <template>
-  <div>
+  <!-- <div id="tabBar"> -->
     <!-- <van-icon name="friends-o" /> -->
       <van-tabbar v-model="active">
         <van-tabbar-item
@@ -21,7 +21,7 @@
       >
         </van-tabbar-item>
         </van-tabbar>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -106,6 +106,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+#tabBar{
+  height:auto;
+}
 </style>

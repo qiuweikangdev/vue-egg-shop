@@ -2,7 +2,7 @@
  * @Descripttion: 火爆商品下拉加载
  * @version: 
  * @Author: qqqiu
- * @Date: 2019-11-27 15:14:39
+ * @Date: 2019-11-27 15:14:39  
  -->
 <template>
   <div id='hotFood-main'>

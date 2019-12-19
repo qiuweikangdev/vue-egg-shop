@@ -28,7 +28,6 @@ body,
 #app {
   height: 100%;
   /* touch-action: none 这样任何触摸事件都不会产生默认行为，但是 touch 事件照样触发。 */
-   touch-action: none;
 }
 </style>
 
