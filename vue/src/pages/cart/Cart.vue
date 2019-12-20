@@ -9,10 +9,11 @@
     <van-nav-bar
       title="购物车"
       left-arrow
-      right-text="删除"
       @click-left="onClickLeft"
-      @click-right="onClickRight"
-    />
+      @click-right="clearGoods"
+    > 
+      <span slot="right" v-show='isShowEmptyCart' :style="selectedGoodNum ==0?{color:'#ccc'}:{color:'#D4237A'}">删除</span>
+    </van-nav-bar>
 
     <div class="cart-wrapper">
       <!--购物车没有商品时  -->
@@ -64,18 +65,28 @@
           v-show="isShowEmptyCart"
         >
           <van-checkbox v-model="isCheckedAll" checked-color="#D4237A">全选</van-checkbox>
-        </van-submit-bar>
+        </van-submit-bar> 
+         <!-- 猜你喜欢 -->
+       <!-- 猜你喜欢 -->
+      <van-divider :style="{ color: 'black', borderColor: 'grey' }">
+        猜你喜欢
+      </van-divider>
+      <hot-produce></hot-produce>
       </div>
-      
+        
     </div>
   </div>
 </template>
 
 <script>
-// import { mapState, mapGetters } from 'vuex'
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapState, mapMutations } = createNamespacedHelpers("user");
+import { Dialog, Toast } from 'vant'; //引入提示框、会话框
+import HotProduce from '@/pages/home/components/hot/hotProduce.vue'
 export default {
+  components:{
+    HotProduce
+  },
   data() {
     return {
       emptyCartIcon: require("@/assets/images/cart/empty.png"), //购物车为空的显示的图片
@@ -132,7 +143,6 @@ export default {
         return flag;
       },
       set(isCheckedAll) {
-        // console.log(isCheckedAll);
            // 取消全选返回false,全选返回ture
         this.ALL_SELECT_GOODS({ isCheckedAll });
       }
@@ -159,15 +169,27 @@ export default {
       "REDUCE_GOODS",
       "INIT_SHOP_CART",
       "SINGLE_SELECT_GOODS",
-      "ALL_SELECT_GOODS"
+      "DELETE_SELECT_GOODS",
+      "ALL_SELECT_GOODS",
     ]),
     onClickLeft() {
       // 4。 返回上一个界面
       this.$router.back();
     },
-    onClickRight() {
-      //5. 删除操作
-      console.log("xxx");
+    //删除选中商品
+    clearGoods() {
+      if(this.selectedGoodNum >0){
+        Dialog.confirm({
+        title: '温馨提示',
+        message: '确定删除选中商品吗?'
+          }).then(() => {
+            // on confirm 确认删除
+            this.DELETE_SELECT_GOODS();
+          }).catch(() => {
+            // on cancel
+          });
+        }
+      
     },
     onSubmit() {
       // 6.提交订单
@@ -175,9 +197,39 @@ export default {
     //单个选中商品复选框事件
     oneSelect(goodsID) {
       this.SINGLE_SELECT_GOODS({ goodsID });
-    }
+    },
     // isCheckedAll(){}
+      //减少商品
+  reduceGoods(goodsID, goodsNum){
+    if(goodsNum > 1){
+      // 3.1 通过goodsID减少商品
+        this.REDUCE_GOODS({
+          goodsID
+        });
+    }else if(goodsNum === 1){
+        Dialog.confirm({
+          title: '温馨提示',
+          message: '确定删除选中商品吗?'
+        }).then(() => {
+          // on confirm 确认删除
+          this.REDUCE_GOODS({goodsID});
+        }).catch(() => {
+          // on cancel
+        });
+    }
+  },
+  //添加商品
+  addGoods(goodsID, goodsName, goodsSmallImage, goodsPrice){
+      this.ADD_GOODS({
+        goodsID,
+        goodsName,
+        goodsSmallImage,
+        goodsPrice
+      });
   }
+  }
+
+  
 };
 </script>
 
@@ -185,6 +237,7 @@ export default {
 #cart {
   // background-color: #F5F5F5;
   height: 100%;
+  padding-bottom: 3rem;
   .title-wrapper {
     padding: 0.5rem 1rem;
     .cart-title {

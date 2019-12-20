@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-09-16 19:13:01
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-16 16:28:22
+ * @LastEditors  : sueRimn
+ * @LastEditTime : 2019-12-20 11:13:13
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -15,12 +15,12 @@ import '@/styles/index.scss'
 import uploader from 'vue-simple-uploader'
 import VTop from '@/components/backToTop'
 import '@/icons'
-import '@/config/fillter'  //全局引入过滤器
+import '@/config/fillter' //全局引入过滤器
 import FastClick from 'fastclick'
 //推荐局部引入组件库中的组件
-import { Cell, CellGroup, Tabbar, TabbarItem, Stepper, Tab, Tabs, Button, Row, Col, Swipe, SwipeItem, Lazyload, Field, NavBar, Skeleton, Divider, Uploader, SwitchCell, Grid, GridItem, AddressList, AddressEdit, Area, Search, CountDown, SubmitBar, Checkbox ,List, PullRefresh} from 'vant'
+import { Cell, CellGroup, Tabbar, TabbarItem, Stepper, Tab, Tabs, Button, Row, Col, Swipe, SwipeItem, Lazyload, Field, NavBar, Skeleton, Divider, Uploader, SwitchCell, Grid, GridItem, AddressList, AddressEdit, Area, Search, CountDown, SubmitBar, Checkbox, List, PullRefresh, GoodsAction, GoodsActionIcon, GoodsActionButton } from 'vant'
 Vue.use(uploader)
-Vue.use(Cell).use(CellGroup).use(Tabbar).use(TabbarItem).use(Stepper).use(Tab).use(Tabs).use(Field).use(NavBar).use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(Skeleton).use(Divider).use(Uploader).use(SwitchCell).use(Grid).use(GridItem).use(AddressList).use(AddressEdit).use(Area).use(Search).use(CountDown).use(SubmitBar).use(Checkbox).use(List).use(PullRefresh);
+Vue.use(Cell).use(CellGroup).use(Tabbar).use(TabbarItem).use(Stepper).use(Tab).use(Tabs).use(Field).use(NavBar).use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(Skeleton).use(Divider).use(Uploader).use(SwitchCell).use(Grid).use(GridItem).use(AddressList).use(AddressEdit).use(Area).use(Search).use(CountDown).use(SubmitBar).use(Checkbox).use(List).use(PullRefresh).use(GoodsAction).use(GoodsActionIcon).use(GoodsActionButton);
 
 Vue.component('v-top', VTop)
 

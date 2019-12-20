@@ -84,7 +84,7 @@ export default {
       // 1. 获取第一个触点
       let touch = event.touches[0];
       // 2. 求出移动的距离
-      let moveWidth = Number(touch.pageX) - this.startX;
+      let moveWidth = Number(touch.pageX || touch.screenX) - this.startX;
       // console.log(moveWidth);
       // 3. 求出滚动条走的距离
       this.barMoveWidth = -(

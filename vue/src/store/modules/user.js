@@ -12,6 +12,7 @@ import {
     ADD_TO_CART,
     INIT_SHOP_CART,
     REDUCE_GOODS,
+    DELETE_SELECT_GOODS,
     SINGLE_SELECT_GOODS,
     ALL_SELECT_GOODS
 } from './mutation-types'
@@ -30,7 +31,8 @@ const state = {
     token: getToken(),
     userInfo: {}, // 用户信息
     shippingAddress: [], //配送地址
-    shopCart: {} //用户购物车商品
+    shopCart: {}, //用户购物车商品
+    // goodsNum:'' //购物车商品数量
 
 }
 
@@ -122,7 +124,7 @@ const mutations = {
         // 8.1 根据ID判断商品是否存在
         if (shopCart[goodsID]) {
             // console.log(shopCart)
-                //让数量goodsID里面的num +1
+            //让数量goodsID里面的num +1
             shopCart[goodsID]['num']++;
         } else {
             // 8.2 不存在则设置shopCart购物车商品默认值
@@ -181,74 +183,92 @@ const mutations = {
         }
     },
     //11.减少商品
-    [REDUCE_GOODS](state,{goodsID}){
+    [REDUCE_GOODS](state, { goodsID }) {
         //11.1取出state中的商品数据
         let shopCart = state.shopCart;
-         //12.1通过商品ID来找到这个商品
+        //12.1通过商品ID来找到这个商品
         let goods = shopCart[goodsID];
-        if(goods){
-            if (goods['num'] > 0) {
-                // 12.2 减少商品数量
-                goods['num']--;
-            }else{
-                //12.3等于0的时候就删除商品
+
+        if (goods['num'] > 0) {
+            // 12.2 减少商品数量
+            goods['num']--;
+            //12.3等于0的时候就删除商品
+            if (goods['num'] === 0) {
                 delete shopCart[goodsID];
             }
-         
-             //12.4 更新state中的商品数据
-             state.shopCart = {
-                ...shopCart
-             }
-            //12.5 更新本地中的商品数据
-            setLocalStore('shopCart', state.shopCart);
         }
+        // delete shopCart[goodsID];
+        //12.4 更新state中的商品数据
+        state.shopCart = {
+                ...shopCart
+            }
+            //12.5 更新本地中的商品数据
+        setLocalStore('shopCart', state.shopCart);
     },
-    //12.单个商品复选框事件
-     [SINGLE_SELECT_GOODS](state,{goodsID}){
-            // 12.1 取出state中的商品数据
-          let shopCart = state.shopCart;
-           // 12.2 根据商品id取到goods
-         let goods = shopCart[goodsID];
+    //12.删除选中商品
+    [DELETE_SELECT_GOODS](state) {
+        // 12.1 取出state中的商品数据
+        let shopCart = state.shopCart;
+        // 12.2 通过商品ID来找到这个商品
+        Object.values(shopCart).forEach((goods) => {
+            if (goods.checked) {
+                // 12.3删除选中商品
+                delete shopCart[goods.id];
+            }
+        });
+        // 12.3 更新state数据
+        state.shopCart = {
+                ...shopCart
+            }
+            // 12.4 更新本地数据
+        setLocalStore('shopCart', state.shopCart);
+    },
+    //13.单个商品复选框事件
+    [SINGLE_SELECT_GOODS](state, { goodsID }) {
+        // 12.1 取出state中的商品数据
+        let shopCart = state.shopCart;
+        // 12.2 根据商品id取到goods
+        let goods = shopCart[goodsID];
         // 12.3 判断商品是否存在
         if (goods) {
             //12.4 判断checked是否存在
-            if(goods.checked){
+            if (goods.checked) {
                 goods.checked = !goods.checked;
-            }else{
+            } else {
                 //12.5如果不存在，则设置checked属性
-                Vue.set(goods,'checked')
+                Vue.set(goods, 'checked')
 
             }
         }
-          // 12.6 将数据更新到本地
+        // 12.6 将数据更新到本地
+        state.shopCart = {
+                ...shopCart
+            }
+            // 12.7 将数据更新到本地
+        setLocalStore('shopCart', state.shopCart);
+    },
+    //14. 全选商品事件
+    [ALL_SELECT_GOODS](state, { isCheckedAll }) {
+        // 13.1 取出state中的商品数据
+        let shopCart = state.shopCart;
+        Object.values(shopCart).forEach((goods) => {
+                if (goods.checked && !isCheckedAll) {
+                    //当商品有选中且取消全选时
+                    goods.checked = false;
+                    //   goods.checked = !isCheckedAll;
+                } else {
+                    //当没有商品选中且全选时
+                    goods.checked = true;
+                    // Vue.set(goods, 'checked', true);
+                }
+            })
+            // 13.2
         state.shopCart = {
             ...shopCart
-        }
-         // 12.7 将数据更新到本地
-         setLocalStore('shopCart', state.shopCart);
-     },
-     //13. 全选商品事件
-     [ALL_SELECT_GOODS](state,{isCheckedAll}){
-          // 13.1 取出state中的商品数据
-          let shopCart = state.shopCart;
-          Object.values(shopCart).forEach((goods)=>{
-              if(goods.checked && !isCheckedAll){
-                  //当商品有选中且取消全选时
-                  goods.checked = false;
-                //   goods.checked = !isCheckedAll;
-              }else{
-                   //当没有商品选中且全选时
-                goods.checked = true;
-                // Vue.set(goods, 'checked', true);
-              }
-          })
-          // 13.2
-          state.shopCart = {
-            ...shopCart
-         };
-       // 13.3 将数据更新到本地
+        };
+        // 13.3 将数据更新到本地
         setLocalStore('shopCart', state.shopCart);
-     }
+    }
 }
 
 const actions = {

@@ -10,19 +10,20 @@
       <ul class="food-content" ref='foodContent'>
         <li 
         class="food-item"
-        v-for='(item,index) in FlashFood'
+        v-for='(produce,index) in FlashFood'
         :key='index'
         ref='foodItem'
+        @click='goToGoodsDetail(produce)'
         >  
           <div class='item-image'>
-            <img src="" alt=""  v-lazy="item.small_image" class='food-img'>
-             <span class="title">{{item.name}}</span>
+            <img src="" alt=""  v-lazy="produce.small_image" class='food-img'>
+             <span class="title">{{produce.name}}</span>
            </div>  
              <div class="price">
-            <p class="now-price">{{item.price | moneyFormat}}</p>
-            <p class="original-price">{{item.origin_price | moneyFormat}}</p>
+            <p class="now-price">{{produce.price | moneyFormat}}</p>
+            <p class="original-price">{{produce.origin_price | moneyFormat}}</p>
             <div class="buyCar"
-                 @click="addToCart(item,index)">
+                 @click.stop="addToCart(produce,index)">
                  <!-- 购物车图标 -->
                     <svg-icon iconClass="car"
                         style="width:1.3rem;height:1.3rem"></svg-icon>
@@ -89,7 +90,21 @@ export default {
           scrollX: true,  //开启横向滚动
           eventPassthrough:'vertical'  //保留原生滚动
         });
-    }
+    },
+   goToGoodsDetail(produce){
+            this.$router.push({
+                path:'/goodsDetail',
+                query:{
+                    id: produce.id,
+                    name: produce.name,
+                    small_image: produce.small_image,
+                    price:produce.price,
+                    spec: produce.spec,
+                    total_sales:produce.total_sales,
+                    origin_price: produce.origin_price,
+                }
+            })
+      }
   }
 };
 </script>

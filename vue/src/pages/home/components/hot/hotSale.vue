@@ -32,13 +32,12 @@ export default {
 #hot-main{
   padding: 0 0 0 0.5rem;
   background: #F6F6F6;
-  transform: scaleY(0.7);
-  
+  // transform: scaleY(0.7);
 }
 .hot-content{
   display: flex;
   align-items: center;
-
+  // transform: scaleY(0.7);
 }
 
 .title {
@@ -49,7 +48,7 @@ export default {
   vertical-align: middle;
   font-size: 1rem;
   position: relative;
-   transform: scaleY(1.3);
+  //  transform: scaleY(1.3);
 }
 .title::before{
   content:'';
@@ -70,12 +69,12 @@ export default {
 }
 .hot-icon{
   width: 50%;
-  // height:100%;
+  height:80px;
   position: relative;
   left:30px;
-   
   img{
     width:100%;
+    height:80px;
   }
 }
 </style>

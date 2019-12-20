@@ -3,23 +3,23 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-09-16 19:13:01
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-16 10:28:05
+ * @LastEditors  : sueRimn
+ * @LastEditTime : 2019-12-20 10:30:02
  -->
 <template>
  <div id="app">
    <router-view></router-view>
    <!-- 底部导航栏-->
-   <tab-bar></tab-bar>
+   <!-- <tab-bar></tab-bar> -->
  </div>
 </template>
 
 <script>
-import TabBar from '@/pages/tabBar/tabBar'
+// import TabBar from '@/pages/tabBar/tabBar'
 export default {
-   components:{
-     TabBar
-   }
+  //  components:{
+  //    TabBar
+  //  }
 }
 </script>
 <style>

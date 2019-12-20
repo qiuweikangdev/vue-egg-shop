@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-10-05 22:50:30
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-16 15:07:57
+ * @LastEditors  : sueRimn
+ * @LastEditTime : 2019-12-20 14:48:10
  */
 /*
  * @Descripttion: mutations的事件变量
@@ -44,6 +44,9 @@ export const INIT_SHOP_CART = 'INIT_SHOP_CART'
 
 //14.减少商品
 export const REDUCE_GOODS = 'REDUCE_GOODS'
+
+//15.删除选中商品
+export const DELETE_SELECT_GOODS = 'DELETE_SELECT_GOODS'
 
 //15.单个商品复选框事件
 export const SINGLE_SELECT_GOODS = 'SINGLE_SELECT_GOODS'

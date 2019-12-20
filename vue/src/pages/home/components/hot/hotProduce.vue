@@ -1,10 +1,10 @@
 <template>
   <div id="produce-main">
-    <!-- 商品列表 -->
+    <!-- 火爆商品列表 -->
     <ul class="itemWrapper" >
         <li class="item"
         v-for="(product,index) in product_list" :key="index"
-        >
+         @click.stop="goToGoodsDetail(product)">
             <div class="item-image">
                 <img :src="product.small_image" alt="">
                 <span class="title">{{product.name}}</span>
@@ -15,7 +15,7 @@
                 <p class="now-price">{{product.price | moneyFormat}}</p>
                  <p class="original-price">{{product.origin_price | moneyFormat}}</p>
                   <div class="buyCar"
-                 @click="addToCart(item,index)">
+                 @click.stop="addToCart(product,index)">
                  <!-- 购物车图标 -->
                     <svg-icon iconClass="car"
                         style="width:1.3rem;height:1.3rem"></svg-icon>
@@ -32,6 +32,9 @@
 </template>
 
 <script>
+//1.引入vuex模块
+import { createNamespacedHelpers} from "vuex";
+const { mapActions ,mapState,mapMutations } = createNamespacedHelpers("user");
 export default {
   data() {
     return {
@@ -153,8 +156,23 @@ export default {
   },
   props: {},
   methods: {
-      addToCart(){
-
+    ...mapMutations(['ADD_TO_CART']),
+      addToCart(product){
+          this.ADD_TO_CART(product)
+      },
+      goToGoodsDetail(produce){
+            this.$router.push({
+                path:'/goodsDetail',
+                query:{
+                    id: produce.id,
+                    name: produce.name,
+                    small_image: produce.small_image,
+                    price:produce.price,
+                    spec: produce.spec,
+                    total_sales:produce.total_sales,
+                    origin_price: produce.origin_price,
+                }
+            })
       }
   }
 };

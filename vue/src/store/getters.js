@@ -9,6 +9,15 @@ const getters = {
             }
         })
         return totalPrice
+    },
+    //购物车商品数量
+    goodsNum(state){
+        let num = 0;
+        Object.values(state.user.shopCart).forEach(goods=>{
+            num +=goods.num;
+        })
+        return num
+
     }
 }
 export default getters

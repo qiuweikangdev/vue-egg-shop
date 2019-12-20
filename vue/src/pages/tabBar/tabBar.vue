@@ -65,6 +65,7 @@ export default {
      ...mapState(['shopCart','token']),
      //购物车数量
       goodsNum(){
+        // return this.$store.getters.goodsNum
           let num = 0
           Object.values(this.shopCart).forEach((goods)=>{
             num += goods.num
@@ -75,6 +76,8 @@ export default {
       }
   },
   created(){
+    //初始化购物车商品数据
+    this.INIT_SHOP_CART()
     // this.tabbarSelected()
   },
   watch:{
@@ -84,6 +87,8 @@ export default {
      }
   },
   methods:{
+    //获取mutaions里的方法，初始化购物车数据
+     ...mapMutations(['INIT_SHOP_CART']),
      handleTab(index,name){
         this.$router.push({name:name})
         // const token = getToken()

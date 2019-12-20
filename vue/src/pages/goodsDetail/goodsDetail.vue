@@ -1,0 +1,177 @@
+<template>
+<!-- 商品详情界面 -->
+ <div id='goods-detail'>
+     <!-- 导航栏 -->
+     <van-nav-bar title="商品详情"
+                 :fixed=true
+                 left-arrow
+                 @click-left="onClickLeft">
+    </van-nav-bar>
+    <div class='detail-wrapper'>
+         <!-- 商品图 -->
+         <div class='goods-image'>
+                <img :src="goodsInfo.small_image" alt="">
+         </div>
+         <div class='goods-info'>
+            <div class="title">{{goodsInfo.name}}</div>
+            <div class="sub-title">{{goodsInfo.spec}}</div>
+            <div class="easy-like" @click='handleLike'>
+                 <!-- 赞  (1) -->
+                 <span class="like-icon"><img :src="likeDefault" alt=""></span>
+                 <span class="like-num">{{likeNum}}</span>
+            </div>
+            <div class="price">
+            <span class="now-price">{{goodsInfo.price | moneyFormat}}</span>   
+            <span class="origin-price">{{goodsInfo.origin_price }}</span>
+            <span class="total-sales">已售:{{goodsInfo.total_sales}}</span>
+            </div>
+         </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <van-goods-action>
+        <van-goods-action-icon  icon="cart-o" text="购物车"  :info='goodsNum' @click='goCart' />
+        <van-goods-action-button type="warning" text="加入购物车"  @click="addToCar" />
+        <van-goods-action-button type="danger" text="立即购买" @click='goBuy' />
+    </van-goods-action>
+ </div>
+</template>
+
+<script>
+import { createNamespacedHelpers } from 'vuex'   //导入命名空间辅助函数
+const {  mapState, mapMutations, mapActions } = createNamespacedHelpers('user')
+import {
+    Toast
+} from 'vant'
+export default {
+    data(){
+        return {
+            goodsInfo:this.$route.query, //接受传过来路由参数
+            likeDefault:require('@/assets/images/easyLike/like_default.png'), //没点赞图标
+            likeSelected:require('@/assets/images/easyLike/like_selected.png'), //已点赞图标
+            flagLike:false, //点赞标志
+            likeNum:30 //点赞数
+        }
+    },
+    created(){
+    //初始化购物车商品数据
+    this.INIT_SHOP_CART()
+    // this.tabbarSelected()
+  },
+     methods:{
+         //获取mutaions里的方法，初始化购物车数据 、添加购物车
+        ...mapMutations(['INIT_SHOP_CART','ADD_TO_CART']),
+        //返回上一个界面
+         onClickLeft(){
+             this.$router.back()
+         },
+         //添加到购物车
+         addToCar(){
+             this.ADD_TO_CART(this.goodsInfo);  
+         },
+         //去购买
+         goBuy(){
+              Toast({
+                    message: '暂未实现',
+                    duration: 800
+                })
+         },
+         //点赞
+         handleLike(){
+             this.flagLike = !this.flagLike
+             if(this.flagLike){
+                 document.querySelector('.like-icon img').src = this.likeSelected
+                 document.querySelector('.like-num').style.color = '#6CBD45'
+                 this.likeNum++
+             }else{
+                  document.querySelector('.like-icon img').src = this.likeDefault
+                  document.querySelector('.like-num').style.color = '#ccc'
+                  this.likeNum--
+             }
+         },
+         //去购物车
+         goCart(){
+              this.$router.push({ name: 'cart' });
+         }
+     },
+     computed:{
+          ...mapState(['shopCart']),
+           //购物车数量
+         goodsNum(){
+          let num = 0
+          Object.values(this.shopCart).forEach((goods)=>{
+            num += goods.num
+          })
+          if(num>0){
+              return num            
+          }
+      }
+     }
+}
+</script>
+
+<style scoped lang='scss'>
+#goods-detail{
+    .detail-wrapper{
+        display: flex;
+        flex-direction: column;
+        .goods-image{
+            padding:1rem;
+            border-bottom: 3px #EFF8F5 solid;
+             img{
+                 width: 100%;
+                 height: 100%;
+             }
+        }
+        .goods-info{
+            font-size: 14px;
+            padding:0.5rem 0.3rem;
+            border-bottom: 2px #EFF8F5 solid;
+            position: relative;
+            div{
+                  padding-bottom: 0.3rem;
+            }
+            .sub-title{
+                font-size: 12px;
+                color:#A3A3A3;
+            }
+            .easy-like{  
+                position: absolute;
+                right:30px;
+                top:10px;
+                display: flex;
+                align-items: center;
+                color:gray;
+                border: 1px #A3A3A3 solid;
+                padding:0.2rem 0.5rem;
+                span{
+                    padding-left:0.5rem;
+                }
+                .like-num{
+                    font-weight: bold;
+                }
+                img{
+                    width: 1rem;
+                    height:1rem;
+                }
+            }
+            .price{
+                .origin-price{
+                    text-decoration: line-through;
+                }
+                .now-price{
+                    font-size:16px;
+                     color:#D51230;
+                }
+                span{
+                    padding:0 0.2rem;
+                }
+                .total-sales{
+                    float: right;
+                    color:#D51230;
+                }
+            }
+        }
+    }
+}
+</style>

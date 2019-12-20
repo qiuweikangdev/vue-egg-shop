@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-12-08 20:56:04
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-13 17:23:28
+ * @LastEditors  : sueRimn
+ * @LastEditTime : 2019-12-20 09:57:05
  -->
 <template>
   <div id='home'> 
@@ -76,8 +76,5 @@ export default {
 .van-divider {
   background-color: #f5f5f5;
   margin: 0;
-}
-.divider{
-  position: relative;
 }
 </style>

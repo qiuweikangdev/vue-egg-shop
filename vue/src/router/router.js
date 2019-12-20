@@ -1,12 +1,49 @@
 export default [{
-        //首页
+        //主界面 一级路由
         path: '/',
-        name: 'home',
+        redirect: '/home', //重定向到首页
         meta: {
             login_require: false
         },
         component: () =>
-            import ('@/pages/home/Home.vue')
+            import ('@/pages/index/index.vue'),
+        // 二级路由
+        children: [{
+                // 首页
+                path: 'home',
+                name: 'home',
+                meta: {
+                    login_require: false
+                },
+                component: () =>
+                    import ('@/pages/home/Home.vue')
+            }, //分类
+            {
+                path: '/category',
+                name: 'category',
+                component: () =>
+                    import ('@/pages/category/Category.vue')
+
+            }, {
+                // 个人中心
+                path: 'personal',
+                name: 'personal',
+                meta: {
+                    login_require: false
+                },
+                component: () =>
+                    import ('@/pages/personal/Personal.vue')
+            }, {
+                // 购物车
+                path: '/cart',
+                name: 'cart',
+                meta: {
+                    login_require: false
+                },
+                component: () =>
+                    import ('@/pages/cart/Cart.vue')
+            },
+        ]
     },
     //注册
     {
@@ -49,15 +86,15 @@ export default [{
             import ('@/pages/personal/components/Suggest.vue')
     },
     //个人中心
-    {
-        path: '/personal',
-        name: 'personal',
-        meta: {
-            login_require: false
-        },
-        component: () =>
-            import ('@/pages/personal/Personal.vue')
-    },
+    // {
+    //     path: '/personal',
+    //     name: 'personal',
+    //     meta: {
+    //         login_require: false
+    //     },
+    //     component: () =>
+    //         import ('@/pages/personal/Personal.vue')
+    // },
     {
         path: '/upload-demo',
         component: () =>
@@ -90,14 +127,6 @@ export default [{
         name: 'cart',
         component: () =>
             import ('@/pages/cart/Cart.vue')
-
-    },
-    //分类
-    {
-        path: '/category',
-        name: 'category',
-        component: () =>
-            import ('@/pages/category/Category.vue')
 
     },
     //加载订单相关的组件
@@ -154,9 +183,10 @@ export default [{
     // },
     //瀑布流
     {
-        path: '/test',
+        path: '/goodsDetail',
+        name: 'goodsDetail',
         component: () =>
-            import ('@/components/test.vue')
+            import ('@/pages/goodsDetail/goodsDetail.vue')
 
     }
 ]
