@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-02 17:03:12
+ * @LastEditors  : sueRimn
+ * @LastEditTime : 2019-12-24 17:13:29
  */
 'use strict';
 const { Service } = require('egg');
@@ -32,14 +32,6 @@ class UserService extends Service {
         return captcha;
     }
 
-    //验证码验证
-    // async verifyCode() {
-    //     const { authCode } = this.ctx.params // 获取客户端发送的类型和验证码
-    //     const code = this.ctx.session.code;
-    //     let result_success = { message: '验证码正确' } // 定义返回结果
-    //     let result_error = { message: '验证码错误' }
-    //     return this.ctx.session.code
-    // }
 
 }
 module.exports = UserService

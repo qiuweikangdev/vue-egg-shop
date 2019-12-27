@@ -146,7 +146,7 @@
         var ctx = canvas.getContext("2d");
         canvas.width =width;
         canvas.height = height;
-        ctx.drawImage(img,0,0, width, height);
+        ctx.drawImage(img,0,0, width, height); //绘制图片
         type = type === 'jpg'?"jpeg":type;
         return canvas.toDataURL("image/"+type, 0.7);//这里的0.7值的是图片的质量
   },

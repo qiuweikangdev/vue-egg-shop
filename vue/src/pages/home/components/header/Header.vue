@@ -19,6 +19,9 @@
 </template>
 
 <script>
+import {
+    Toast
+} from 'vant'
 export default {
   data(){
     return{
@@ -27,7 +30,10 @@ export default {
   },
   methods:{
     onSearch(){
-      
+          Toast({
+                    message: '暂未实现',
+                    duration: 800
+                })
     }
   }
 }

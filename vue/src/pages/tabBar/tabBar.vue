@@ -79,6 +79,11 @@ export default {
     //初始化购物车商品数据
     this.INIT_SHOP_CART()
     // this.tabbarSelected()
+    //保证每次页面加载前Tabbar选中正常
+    this.tabbarSelected(this.$route.name)
+  },
+  mounted(){
+      // console.log('aaaaa')
   },
   watch:{
       // 监听路由变化,保证路由跳转Tabbar选中正常

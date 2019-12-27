@@ -16,10 +16,10 @@ module.exports = {
     },
     //密码加密处理方法
     saltPassword(password) {
+        //password客户端传过来的密码
         return new Promise((resolve, reject) => {
+            //生成加盐密码
             bcrypt.genSalt(saltRounds, (err, salt) => {
-                //执行下一个方法使用next调用
-                //this指向当前对象实例userSchema
                 if (!err) {
                     bcrypt.hash(password, salt, (err, hash) => {
                         password = hash
@@ -34,8 +34,10 @@ module.exports = {
     },
 
     //加密后密码比对
+    //_password一个是客户端密码， password一个是数据库取出来的密码
     comparePassword(_password, password) {
         return new Promise((resolve, reject) => {
+            //比对方法
             bcrypt.compare(_password, password, (err, isMatch) => {
                 if (!err) resolve(isMatch)
                 else reject(err)

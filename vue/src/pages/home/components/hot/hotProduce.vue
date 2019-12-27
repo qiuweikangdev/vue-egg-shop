@@ -19,8 +19,8 @@
                  <!-- 购物车图标 -->
                     <svg-icon iconClass="car"
                         style="width:1.3rem;height:1.3rem"></svg-icon>
-            </div>
-            </div>
+               </div>
+             </div>
             <div>
             </div>
         </li>

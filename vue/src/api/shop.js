@@ -59,11 +59,32 @@ export const getHomeNav = () => {
     })
 }
 
-// 2.请求首页限时抢购
+// 3.请求首页限时抢购
 export const getHomeFlash = () => {
     return axios.request({
         url: 'goods/homeflash',
         method: 'get',
         baseURL: 'http://127.0.0.1:3000',
+    })
+}
+
+// 4.请求分类目录数据
+export const getCategorySub = () => {
+    return axios.request({
+        url: 'goods/CategorySub',
+        method: 'get',
+        baseURL: 'http://127.0.0.1:3000'
+    })
+}
+
+// 5.根据类别获取商品列表
+export const getAllGoods = (categorySubId) => {
+    return axios.request({
+        url: 'goods/CategorySub',
+        method: 'post',
+        baseURL: 'http://127.0.0.1:3000',
+        data:{
+            categorySubId
+        }
     })
 }

@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-03 20:17:24
+ * @LastEditors  : sueRimn
+ * @LastEditTime : 2019-12-23 11:39:36
  */
 
 'use strict';
@@ -12,48 +12,48 @@ const Controller = require('egg').Controller;
 const svgCaptcha = require('svg-captcha');
 class UserController extends Controller {
     async info() {
-        const { ctx } = this;
-        const userId = ctx.params.id;
-        const userInfo = await ctx.service.tools.find(userId);
-        ctx.body = userInfo;
-    }
-    //注册
+            const { ctx } = this;
+            const userId = ctx.params.id;
+            const userInfo = await ctx.service.tools.find(userId);
+            ctx.body = userInfo;
+        }
+        //注册
     async register() {
-        const { ctx } = this;
-        const { username, password, avatar, fileName, authCode } = ctx.params //接受客户端的参数
-            //avatar前端传过来的头像base64二进制流数据
-        var base64Data = avatar.replace(/^data:image\/\w+;base64,/, ""); //过滤base64的前缀
-        var dataBuffer = Buffer.from(base64Data, 'base64'); //二进制流转换base64
-        let saltPwd = await ctx.helper.saltPassword(password) //获取加密后的密码
-            // let queryUser = "SELECT * from  newUser where username ='" + username + "'"
-        let queryUser = 'SELECT * FROM newUser WHERE username = "' + username + '"'
-        let result1 = await ctx.service.tools.query(queryUser) //查询用户存不存在
-        if (!result1.length) {
-            //如果用户名不存在,则新建用户
-            let insertUser = 'INSERT INTO newUser(username,password,avatar) VALUES (?, ? , ?)'
-            let result2 = await ctx.service.tools.query(insertUser, [username, saltPwd, dataBuffer])
-            if (result2) {
+            const { ctx } = this;
+            const { username, password, avatar, fileName, authCode } = ctx.params //接受客户端的参数
+                //avatar前端传过来的头像base64二进制流数据
+            var base64Data = avatar.replace(/^data:image\/\w+;base64,/, ""); //过滤base64的前缀
+            var dataBuffer = Buffer.from(base64Data, 'base64'); //二进制流转换base64
+            let saltPwd = await ctx.helper.saltPassword(password) //获取加密后的密码
+                // let queryUser = "SELECT * from  users where username ='" + username + "'"
+            let queryUser = 'SELECT * FROM users WHERE username = "' + username + '"'
+            let result1 = await ctx.service.tools.query(queryUser) //查询用户存不存在
+            if (!result1.length) {
+                //如果用户名不存在,则新建用户
+                let insertUser = 'INSERT INTO users(username,password,avatar) VALUES (?, ? , ?)'
+                let result2 = await ctx.service.tools.query(insertUser, [username, saltPwd, dataBuffer])
+                if (result2) {
+                    ctx.body = {
+                        code: 200,
+                        message: '注册成功',
+                    }
+                }
+            } else {
                 ctx.body = {
                     code: 200,
-                    message: '注册成功',
+                    message: '用户名已存在,注册失败',
                 }
             }
-        } else {
-            ctx.body = {
-                code: 200,
-                message: '用户名已存在,注册失败',
-            }
-        }
 
-    }
-    //登录
+        }
+        //登录
     async login() {
             const { ctx, app } = this;
             const { username, password, authCode } = ctx.params;
             // const secret = app.config.secret;
             const secret = app.config.jwt.secret
                 // const token = ctx.helper.getToken({ username }, secret);
-            const sqlStr = 'SELECT * FROM newUser WHERE username = "' + username + '"'
+            const sqlStr = 'SELECT * FROM users WHERE username = "' + username + '"'
             const result = await ctx.service.tools.query(sqlStr)
 
 
@@ -115,17 +115,12 @@ class UserController extends Controller {
                 code: 200,
                 token
             }
-
         }
         //验证码
     async captcha() {
         const { ctx } = this;
         const captcha = await ctx.service.tools.captcha()
         ctx.response.type = 'image/svg+xml'; // 返回的类型
-        // ctx.body = {
-        //     // code: 200,
-        //     captcha: captcha.data // 返回一张svg图片
-        // }
         ctx.body = captcha.data
     }
 
@@ -156,7 +151,7 @@ class UserController extends Controller {
         const { ctx } = this;
         const { id } = ctx.state.user
         console.log(ctx.state.user)
-        const sqlStr = 'SELECT * FROM newUser WHERE id = "' + id + '"'
+        const sqlStr = 'SELECT * FROM users WHERE id = "' + id + '"'
         await ctx.service.tools.query(sqlStr).then(res => {
                 const str = res[0].avatar //获取头像的二进制流数据
                 const buffer = Buffer.from(str, 'utf8') //转换为buffer对象
@@ -177,6 +172,11 @@ class UserController extends Controller {
                     error: err
                 }
             })
+    }
+
+    //添加商品
+    async addGoods() {
+
     }
 
 }

@@ -137,13 +137,12 @@ const mutations = {
                     'checked': true //是否选中
                 }
                 // 8.3 给shopCart产生新对象
-            state.shopCart = {
-                ...shopCart
-            };
-            // 8.4 将商品数据存储到本地
-            setLocalStore('shopCart', state.shopCart);
         }
-
+        state.shopCart = {
+            ...shopCart
+        };
+        // 8.4 将商品数据存储到本地
+        setLocalStore('shopCart', state.shopCart);
 
     },
     //9.添加商品到购物车

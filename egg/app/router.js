@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-10 11:55:57
+ * @LastEditors  : sueRimn
+ * @LastEditTime : 2019-12-26 18:52:58
  */
 'use strict';
 /**
@@ -25,4 +25,6 @@ module.exports = app => {
     router.get('/goods/homecarousel', controller.goods.homecarousel); // 首页轮播图
     router.get('/goods/homenav', controller.goods.homenav); // 首页导航
     router.get('/goods/homeflash', controller.goods.homeflash); // 首页限时抢购
+    router.get('/insertAllGoods', controller.goods.insertAllGoods); // 插入商品数据到数据库
+    router.get('/insertCategorySub', controller.goods.insertCategorySub); // 插入分类目录到数据库
 };

@@ -65,16 +65,6 @@ export default [{
         component: () =>
             import ('@/pages/personal/components/Login')
     },
-    //商品列表
-    {
-        path: '/goods',
-        name: 'goods',
-        meta: {
-            login_require: false
-        },
-        component: () =>
-            import ('@/pages/Goods.vue')
-    },
     //建议反馈
     {
         path: '/suggest',
@@ -122,13 +112,13 @@ export default [{
             import ('@/components/countdown/index.vue')
     },
     //购物车
-    {
-        path: '/cart',
-        name: 'cart',
-        component: () =>
-            import ('@/pages/cart/Cart.vue')
+    // {
+    //     path: '/cart',
+    //     name: 'cart',
+    //     component: () =>
+    //         import ('@/pages/cart/Cart.vue')
 
-    },
+    // },
     //加载订单相关的组件
     {
         // 订单

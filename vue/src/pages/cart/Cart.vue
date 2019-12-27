@@ -170,7 +170,7 @@ export default {
       "INIT_SHOP_CART",
       "SINGLE_SELECT_GOODS",
       "DELETE_SELECT_GOODS",
-      "ALL_SELECT_GOODS",
+      "ALL_SELECT_GOODS"
     ]),
     onClickLeft() {
       // 4。 返回上一个界面

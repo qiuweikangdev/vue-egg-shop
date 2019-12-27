@@ -31,7 +31,7 @@ export default {
       // 2. 滚动内容的宽度
       scrollContentW: 720,
       // 3. 滚动条背景的长度
-      bgBarW: 100,
+      bgBarW: 100, 
       // 4. 滚动条的长度
       barXWidth: 0,
       // 5. 起点
@@ -39,9 +39,7 @@ export default {
       // 6. 记录结束点
       endFlag: 0,
       // 7. 移动的距离
-      barMoveWidth: 0,
-      
-    
+      barMoveWidth: 0
     };
   },
   props: {
@@ -62,7 +60,10 @@ export default {
   methods: {
     // 获取滚动条的长度
     getBottomBarWidth() {
-      this.barXWidth = this.bgBarW * (this.screenW / this.scrollContentW);
+      //    this.barXWidth /this.bgBarW = this.screenW / this.scrollContentW
+       this.barXWidth = this.bgBarW * (this.screenW / this.scrollContentW);
+      //  console.log(this.barXWidth)
+
     },
     // 移动端事件监听
     bindEvent() {
@@ -158,7 +159,7 @@ export default {
     position: absolute;
     left: 0;
     height: 100%;
-    background-color: orangered;
+    background-color: #D4237A;
     width: 0;
   }
 }

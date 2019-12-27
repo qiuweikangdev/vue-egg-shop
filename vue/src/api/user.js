@@ -38,7 +38,7 @@ export const login = (username, password, authCode) => {
 export const authorization = () => {
     return axios.request({
         url: '/user/authorization',
-        baseURL: 'http://127.0.0.1:3000' ,
+        baseURL: 'http://127.0.0.1:3000',
         method: 'get',
     })
 }
@@ -47,7 +47,7 @@ export const authorization = () => {
 export const upload = (files) => {
     return axios.request({
         url: '/user/upload',
-        baseURL:'http://127.0.0.1:3000' ,
+        baseURL: 'http://127.0.0.1:3000',
         method: 'post',
         // headers: {'Content-Type': 'multipart/form-data'},
         data: {
@@ -61,7 +61,7 @@ export const upload = (files) => {
 export const getUserInfo = () => {
     return axios.request({
         url: '/user/getUserInfo',
-        baseURL: 'http://127.0.0.1:3000' ,
+        baseURL: 'http://127.0.0.1:3000',
         method: 'get',
     })
 }

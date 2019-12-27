@@ -2,18 +2,15 @@
     "data": {
         "type": 3,
         "title": "限时抢购",
-        "product_list": [
-            {
+        "product_list": [{
                 "id": "5b72911c01a6eaaf048b5d79",
                 "product_name": "爱森五花肉 500g",
                 "name": "爱森五花肉 500g",
                 "origin_price": "46.90",
                 "price": "41.80",
-                "vip_price": "",
                 "spec": "高端五花肉 吃出幸福的滋味",
                 "small_image": "https://img.ddimg.mobi/product/4513b9fc5935f1548406258985.jpg!deliver.product.list",
                 "category_id": "58fa1cc1936edfe6568b58c2",
-                "sizes": [],
                 "total_sales": 8790
             },
             {
@@ -22,11 +19,9 @@
                 "name": "云南文山黄牛鲜牛腩 260g",
                 "origin_price": "29.90",
                 "price": "27.80",
-                "vip_price": "",
                 "spec": "黄油是黄牛牛腩的精华~",
                 "small_image": "https://img.ddimg.mobi/product/e5b12559464b71553495475772.jpg!deliver.product.list",
                 "category_id": "58fa2059936edf89778b56e5",
-                "sizes": [],
                 "total_sales": 8440
             },
             {
@@ -39,7 +34,6 @@
                 "spec": "金黄酥脆 黄金扑鼻",
                 "small_image": "https://ddimg.ddxq.mobi/becc0e6b257781528108118451.jpg!maicai.product.list",
                 "category_id": "5b0ffb3845cd42cb548c913c",
-                "sizes": [],
                 "total_sales": 8458
             },
             {
@@ -48,11 +42,9 @@
                 "name": "松花菜半颗 约500g",
                 "origin_price": "8.50",
                 "price": "7.59",
-                "vip_price": "",
                 "spec": "脆脆嫩嫩 花菜我一般选这种~",
                 "small_image": "https://ddimg.ddxq.mobi/47a79cef49d661492078512642.jpeg!maicai.product.list",
                 "category_id": "599fda09936edf10388f85fb",
-                "sizes": [],
                 "total_sales": 9027
             },
             {
@@ -61,11 +53,9 @@
                 "name": "美国车厘子 250g",
                 "origin_price": "32.90",
                 "price": "25.90",
-                "vip_price": "",
                 "spec": "果中钻石 甜蜜多汁~",
                 "small_image": "https://img.ddimg.mobi/product/b960de0ed28d11562551037392.jpg!deliver.product.list",
                 "category_id": "5953229c936edfd20c8b8bbe",
-                "sizes": [],
                 "total_sales": 8257
             },
             {
@@ -74,11 +64,9 @@
                 "name": "芸豆 300g",
                 "origin_price": "9.90",
                 "price": "5.99",
-                "vip_price": "",
                 "spec": "芸豆炒肉丝炖排骨 流口水ing",
                 "small_image": "https://img.ddimg.mobi/product/73c7833c39d6d1545274259948.jpg!maicai.product.list",
                 "category_id": "58fbf4d5936edfe4568b5986",
-                "sizes": [],
                 "total_sales": 8919
             },
             {
@@ -87,11 +75,9 @@
                 "name": "四季宝柔滑花生酱 340g/瓶",
                 "origin_price": "19.90",
                 "price": "16.90",
-                "vip_price": "",
                 "spec": "适合凉拌.涂抹、质地细腻味美，拌面也是超好吃~",
                 "small_image": "https://ddimg.ddxq.mobi/abf3023fb51611526109391551.jpg!maicai.product.list",
                 "category_id": "58fb3bb5936edfe5568b5909",
-                "sizes": [],
                 "total_sales": 7610
             },
             {
@@ -100,11 +86,9 @@
                 "name": "伊赛澳洲原切冷冻牛腱 1kg",
                 "origin_price": "79.90",
                 "price": "69.90",
-                "vip_price": "",
                 "spec": "鲜切急冻 锁住美味",
                 "small_image": "https://img.ddimg.mobi/product/718558731a1eb1562568919636.jpg!deliver.product.list",
                 "category_id": "58fa206a936edfe4568b57e6",
-                "sizes": [],
                 "total_sales": 7225
             },
             {
@@ -113,11 +97,9 @@
                 "name": "妙可蓝多马苏里拉奶酪碎 125g/袋",
                 "origin_price": "11.90",
                 "price": "8.90",
-                "vip_price": "",
                 "spec": "奶香浓郁 口感顺滑",
                 "small_image": "https://ddimg.ddxq.mobi/cedd7697d12571533723350035.jpg!maicai.product.list",
                 "category_id": "58fb3ac2936edfe5568b58e1",
-                "sizes": [],
                 "total_sales": 7303
             }
         ]
