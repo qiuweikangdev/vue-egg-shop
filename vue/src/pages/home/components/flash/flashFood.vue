@@ -20,7 +20,7 @@
              <span class="title">{{produce.name}}</span>
            </div>  
              <div class="price">
-            <p class="now-price">{{produce.price | moneyFormat}}</p>
+            <p class="now-price">{{produce.present_price | moneyFormat}}</p>
             <p class="original-price">{{produce.origin_price | moneyFormat}}</p>
             <div class="buyCar"
                  @click.stop="addToCart(produce,index)">
@@ -91,14 +91,15 @@ export default {
           eventPassthrough:'vertical'  //保留原生滚动
         });
     },
-   goToGoodsDetail(produce){
+    goToGoodsDetail(produce){
+             console.log(produce)
             this.$router.push({
                 path:'/goodsDetail',
                 query:{
                     id: produce.id,
                     name: produce.name,
                     small_image: produce.small_image,
-                    price:produce.price,
+                    present_price:produce.present_price,
                     spec: produce.spec,
                     total_sales:produce.total_sales,
                     origin_price: produce.origin_price,

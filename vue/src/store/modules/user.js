@@ -160,7 +160,7 @@ const mutations = {
                     goodsID: goods.id, //商品ID
                     goodsName: goods.name, //商品名
                     smallImage: goods.small_image, //图片地址
-                    goodsPrice: goods.price //价格
+                    goodsPrice: goods.present_price //价格
                 })
                 Toast({
                     message: '成功加入购物车',
@@ -239,7 +239,7 @@ const mutations = {
 
             }
         }
-        // 12.6 将数据更新到本地
+        // 12.6 更新state数据
         state.shopCart = {
                 ...shopCart
             }
@@ -261,7 +261,7 @@ const mutations = {
                     // Vue.set(goods, 'checked', true);
                 }
             })
-            // 13.2
+            // 13.2 更新state数据
         state.shopCart = {
             ...shopCart
         };

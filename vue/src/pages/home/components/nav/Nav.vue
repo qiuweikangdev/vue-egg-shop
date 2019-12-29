@@ -88,6 +88,10 @@ export default {
       let moveWidth = Number(touch.pageX || touch.screenX) - this.startX;
       // console.log(moveWidth);
       // 3. 求出滚动条走的距离
+
+      /* 
+    this.barMoveWidth / moveWidth = -(this.bgBarW / this.scrollContentW)
+      */
       this.barMoveWidth = -(
         (this.bgBarW / this.scrollContentW) * moveWidth -
         this.endFlag

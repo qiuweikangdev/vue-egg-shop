@@ -7,7 +7,7 @@
          <div class="swiper-area">
             <van-swipe :autoplay="1000">
                 <van-swipe-item v-for="( banner ,index) in homecarousel" :key="index" >
-                    <img v-lazy="banner.imgUrl" width="100%" height="140px"/>
+                    <img v-lazy="banner.imgUrl" width="100%" class="carousel-img"/>
                 </van-swipe-item>
             </van-swipe>
         </div>  
@@ -32,6 +32,9 @@ export default {
     }
     .van-swipe{
          border-radius:30px 10px 30px 10px;
+    }
+    .carousel-img{
+        max-height: 140px;
     }
 }
 </style>

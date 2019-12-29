@@ -44,7 +44,7 @@ export default {
           product_name: "爱森五花肉 500g",
           name: "爱森五花肉 500g",
           origin_price: "46.90",
-          price: "41.80",
+          present_price: "41.80",
           vip_price: "",
           spec: "高端五花肉 吃出幸福的滋味",
           small_image:
@@ -58,7 +58,7 @@ export default {
           product_name: "云南文山黄牛鲜牛腩 260g",
           name: "云南文山黄牛鲜牛腩 260g",
           origin_price: "29.90",
-          price: "27.80",
+          present_price: "27.80",
           vip_price: "",
           spec: "黄油是黄牛牛腩的精华~",
           small_image:
@@ -72,7 +72,7 @@ export default {
           product_name: "粮全其美葱香味手抓饼 900g/袋",
           name: "粮全其美葱香味手抓饼 900g/袋",
           origin_price: "20.80",
-          price: "18.80",
+          present_price: "18.80",
           vip_price: "",
           spec: "金黄酥脆 黄金扑鼻",
           small_image:
@@ -86,7 +86,7 @@ export default {
           product_name: "松花菜半颗 约500g",
           name: "松花菜半颗 约500g",
           origin_price: "8.50",
-          price: "7.59",
+          present_price: "7.59",
           vip_price: "",
           spec: "脆脆嫩嫩 花菜我一般选这种~",
           small_image:
@@ -100,7 +100,7 @@ export default {
           product_name: "美国车厘子 250g",
           name: "美国车厘子 250g",
           origin_price: "32.90",
-          price: "25.90",
+          present_price: "25.90",
           vip_price: "",
           spec: "果中钻石 甜蜜多汁~",
           small_image:
@@ -114,7 +114,7 @@ export default {
           product_name: "芸豆 300g",
           name: "芸豆 300g",
           origin_price: "9.90",
-          price: "5.99",
+          present_price: "5.99",
           vip_price: "",
           spec: "芸豆炒肉丝炖排骨 流口水ing",
           small_image:
@@ -128,7 +128,7 @@ export default {
           product_name: "四季宝柔滑花生酱 340g/瓶",
           name: "四季宝柔滑花生酱 340g/瓶",
           origin_price: "19.90",
-          price: "16.90",
+          present_price: "16.90",
           vip_price: "",
           spec: "适合凉拌.涂抹、质地细腻味美，拌面也是超好吃~",
           small_image:
@@ -142,7 +142,7 @@ export default {
           product_name: "伊赛澳洲原切冷冻牛腱 1kg",
           name: "伊赛澳洲原切冷冻牛腱 1kg",
           origin_price: "79.90",
-          price: "69.90",
+          present_price: "69.90",
           vip_price: "",
           spec: "鲜切急冻 锁住美味",
           small_image:

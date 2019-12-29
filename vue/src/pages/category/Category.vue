@@ -12,61 +12,53 @@
           <div class='left-area'> 
                 <ul class="left-wrapper">
                   <li 
-                      v-for="(item, index) in categoriesData"
+                      v-for="(item, index) in CategorySub"
                       :key="index"
                       :class='[{selected:currentIndex === index},{categoryItem:true}]'
-                      @click="clickLeft(index)"
+                      @click="clickLeft(item,index)"
                   >
-                     <span class="text-item">{{item.name}}</span>
+                     <span class="text-item">{{item.mall_sub_name}}</span>
                   </li>
                 </ul>
           </div>
+
+          <!-- 右边区域 -->
+           <Category-Goods :categoriesDetailData='categoriesDetailData'></Category-Goods>
       </div>
   </div>
 </template>
 
 <script>
 import Search from './components/Search'
+import CategoryGoods from './components/categoryGoods'
 import BScroll from 'better-scroll'
+import { createNamespacedHelpers} from "vuex";
+const { mapActions ,mapState,mapMutations } = createNamespacedHelpers("shop");
+import { getGoodsByCategoryID } from '@/api/shop'
 export default {
-   components:{ Search },
+   components:{ Search ,CategoryGoods},
     data(){
       return {
         //是否显示分类内容
          isCategory:true,
          currentIndex:0,  //当前左边的索引
-         //左边分类列表数据
-         categoriesData:[
-            {name:'水果'},
-            {name:'水果'},
-            {name:'水果'},
-            {name:'水果'},
-            {name:'水果'},
-            {name:'肉类'},
-            {name:'肉类'},
-            {name:'肉类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'},
-            {name:'乳类'}
-         ]
+         //左边分类目录数据
+         categoriesData:[],
+         //右边分类数据
+         categoriesDetailData:[]
       }
     },
     created(){
+       //初始化左边分类目录数据
+       this.$store.dispatch('shop/reqCategorySub')
+       //初始化分类数据
+       this.initCategoriesData()
+    },
+    computed:{
+      //获取商品分类
+      ...mapState(['homenav','CategorySub'])
+    },
+    updated(){
     },
     mounted(){
       if(this.isCategory){
@@ -76,22 +68,7 @@ export default {
          
       }
     },
-    computed:{
-      // showCategory:{
-      //       get(){
-      //           return this.isCategory
-      //     },
-      //       set(val){
-      //           this.isCategory = val
-      //       }
-      // }
-        
-    },
     methods:{
-      // showTab(flag){
-      //    this.$emit('showTab',flag)
-      //    this.isCategory = flag
-      // },
       // 1、初始化滚动事件
       _initBScroll(){
             // 1.1.初始化滚动视图
@@ -109,11 +86,25 @@ export default {
               }
             });
      },
-      clickLeft(index){
+     //初始化分类商品数据
+     async initCategoriesData(){
+        let initID = '2c9f6c946016ea9b016016f79c8e0000'  //分类目录商品第一个ID
+        let result = await getGoodsByCategoryID(initID)
+          if(result.data.success){
+          this.categoriesDetailData = result.data.success
+        }
+      },
+     async  clickLeft(item,index){
         //改变当前索引值
          this.currentIndex = index;
-         //
-      }
+         // 根据分类id读取某分类商品数据
+        let result = await getGoodsByCategoryID(item.id)
+        if(result.data.success){
+          this.categoriesDetailData = result.data.success
+          console.log(this.categoriesDetailData)
+        }
+      },
+     
     }
 }
 </script>
@@ -130,7 +121,7 @@ export default {
   }
    //左边区域
    .left-area{
-      width: 5rem;
+      width: 6rem;
       background: #F4F4F4;
       .categoryItem {
           padding: 0.7rem 0;
@@ -138,8 +129,10 @@ export default {
           position: relative;
           font-size:0.8rem;
            .text-item{
+             display: inline-block;
              color: #666;
              padding:0.2rem 1rem;
+             white-space: nowrap;
       }
      }
    }

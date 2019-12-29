@@ -1,199 +1,199 @@
 {
-    "RECORDS": [{
-            "ID": "2c9f6c946016ea9b016016f79c8e0000",
-            "MALL_CATEGORY_ID": "1",
-            "MALL_SUB_NAME": "热带水果",
-            "COMMENTS": null,
-            "SORT": 1
+    "records": [{
+            "id": "2c9f6c946016ea9b016016f79c8e0000",
+            "mall_category_id": "1",
+            "mall_sub_name": "热带水果",
+            "comments": null,
+            "sort": 1
         },
         {
-            "ID": "2c9f6c946016f86f01601709335d0000",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "乳制饮料",
-            "COMMENTS": null,
-            "SORT": 9
+            "id": "2c9f6c946016f86f01601709335d0000",
+            "mall_category_id": "5",
+            "mall_sub_name": "乳制饮料",
+            "comments": null,
+            "sort": 9
         },
         {
-            "ID": "2c9f6c9460337d540160337fefd60000",
-            "MALL_CATEGORY_ID": "2",
-            "MALL_SUB_NAME": "白酒",
-            "COMMENTS": null,
-            "SORT": 1
+            "id": "2c9f6c9460337d540160337fefd60000",
+            "mall_category_id": "2",
+            "mall_sub_name": "白酒",
+            "comments": null,
+            "sort": 1
         },
         {
-            "ID": "2c9f6c946077476a0160781eb392000d",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "咖啡茶饮",
-            "COMMENTS": null,
-            "SORT": 10
+            "id": "2c9f6c946077476a0160781eb392000d",
+            "mall_category_id": "5",
+            "mall_sub_name": "咖啡茶饮",
+            "comments": null,
+            "sort": 10
         },
         {
-            "ID": "2c9f6c946077476a0160781f6d8c000e",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "功能饮料",
-            "COMMENTS": null,
-            "SORT": 12
+            "id": "2c9f6c946077476a0160781f6d8c000e",
+            "mall_category_id": "5",
+            "mall_sub_name": "功能饮料",
+            "comments": null,
+            "sort": 12
         },
         {
-            "ID": "2c9f6c94608ff843016095163b8c0177",
-            "MALL_CATEGORY_ID": "1",
-            "MALL_SUB_NAME": "时令水果",
-            "COMMENTS": null,
-            "SORT": 2
+            "id": "2c9f6c94608ff843016095163b8c0177",
+            "mall_category_id": "1",
+            "mall_sub_name": "时令水果",
+            "comments": null,
+            "sort": 2
         },
         {
-            "ID": "2c9f6c94609a62be0160a02d1dc20021",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "饼干糕点",
-            "COMMENTS": null,
-            "SORT": 1
+            "id": "2c9f6c94609a62be0160a02d1dc20021",
+            "mall_category_id": "5",
+            "mall_sub_name": "饼干糕点",
+            "comments": null,
+            "sort": 1
         },
         {
-            "ID": "2c9f6c94609a62be0160a02de70e0022",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "冲调饮品",
-            "COMMENTS": null,
-            "SORT": 4
+            "id": "2c9f6c94609a62be0160a02de70e0022",
+            "mall_category_id": "5",
+            "mall_sub_name": "冲调饮品",
+            "comments": null,
+            "sort": 4
         },
         {
-            "ID": "2c9f6c9460a03c0c0160a041ab1d0000",
-            "MALL_CATEGORY_ID": "3",
-            "MALL_SUB_NAME": "奶油奶酪",
-            "COMMENTS": null,
-            "SORT": 4
+            "id": "2c9f6c9460a03c0c0160a041ab1d0000",
+            "mall_category_id": "3",
+            "mall_sub_name": "奶油奶酪",
+            "comments": null,
+            "sort": 4
         },
         {
-            "ID": "2c9f6c94621970a801626a35cb4d0175",
-            "MALL_CATEGORY_ID": "4",
-            "MALL_SUB_NAME": "进口护理",
-            "COMMENTS": null,
-            "SORT": 1
+            "id": "2c9f6c94621970a801626a35cb4d0175",
+            "mall_category_id": "4",
+            "mall_sub_name": "进口护理",
+            "comments": null,
+            "sort": 1
         },
         {
-            "ID": "2c9f6c94621970a801626a363e5a0176",
-            "MALL_CATEGORY_ID": "4",
-            "MALL_SUB_NAME": "口腔护理",
-            "COMMENTS": null,
-            "SORT": 2
+            "id": "2c9f6c94621970a801626a363e5a0176",
+            "mall_category_id": "4",
+            "mall_sub_name": "口腔护理",
+            "comments": null,
+            "sort": 2
         },
         {
-            "ID": "2c9f6c94621970a801626a3770620177",
-            "MALL_CATEGORY_ID": "4",
-            "MALL_SUB_NAME": "特殊用纸",
-            "COMMENTS": null,
-            "SORT": 3
+            "id": "2c9f6c94621970a801626a3770620177",
+            "mall_category_id": "4",
+            "mall_sub_name": "特殊用纸",
+            "comments": null,
+            "sort": 3
         },
         {
-            "ID": "2c9f6c94621970a801626a40feac0178",
-            "MALL_CATEGORY_ID": "2",
-            "MALL_SUB_NAME": "洋酒",
-            "COMMENTS": null,
-            "SORT": 4
+            "id": "2c9f6c94621970a801626a40feac0178",
+            "mall_category_id": "2",
+            "mall_sub_name": "洋酒",
+            "comments": null,
+            "sort": 4
         },
         {
-            "ID": "2c9f6c94621970a801626a412c240179",
-            "MALL_CATEGORY_ID": "2",
-            "MALL_SUB_NAME": "海外直采",
-            "COMMENTS": null,
-            "SORT": 5
+            "id": "2c9f6c94621970a801626a412c240179",
+            "mall_category_id": "2",
+            "mall_sub_name": "海外直采",
+            "comments": null,
+            "sort": 5
         },
         {
-            "ID": "2c9f6c94626a435f01626a4a7f590000",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "进口食品",
-            "COMMENTS": null,
-            "SORT": 5
+            "id": "2c9f6c94626a435f01626a4a7f590000",
+            "mall_category_id": "5",
+            "mall_sub_name": "进口食品",
+            "comments": null,
+            "sort": 5
         },
         {
-            "ID": "402880e86016d1b5016016db9b290001",
-            "MALL_CATEGORY_ID": "1",
-            "MALL_SUB_NAME": "苹果\/梨",
-            "COMMENTS": null,
-            "SORT": 3
+            "id": "402880e86016d1b5016016db9b290001",
+            "mall_category_id": "1",
+            "mall_sub_name": "苹果\/梨",
+            "comments": null,
+            "sort": 3
         },
         {
-            "ID": "402880e86016d1b5016016dbff2f0002",
-            "MALL_CATEGORY_ID": "1",
-            "MALL_SUB_NAME": "柑橘橙柚",
-            "COMMENTS": null,
-            "SORT": 4
+            "id": "402880e86016d1b5016016dbff2f0002",
+            "mall_category_id": "1",
+            "mall_sub_name": "柑橘橙柚",
+            "comments": null,
+            "sort": 4
         },
         {
-            "ID": "402880e86016d1b5016016df1f92000c",
-            "MALL_CATEGORY_ID": "2",
-            "MALL_SUB_NAME": "葡萄酒",
-            "COMMENTS": null,
-            "SORT": 3
+            "id": "402880e86016d1b5016016df1f92000c",
+            "mall_category_id": "2",
+            "mall_sub_name": "葡萄酒",
+            "comments": null,
+            "sort": 3
         },
         {
-            "ID": "402880e86016d1b5016016e083f10010",
-            "MALL_CATEGORY_ID": "2",
-            "MALL_SUB_NAME": "啤酒",
-            "COMMENTS": null,
-            "SORT": 2
+            "id": "402880e86016d1b5016016e083f10010",
+            "mall_category_id": "2",
+            "mall_sub_name": "啤酒",
+            "comments": null,
+            "sort": 2
         },
         {
-            "ID": "402880e86016d1b5016016e135440011",
-            "MALL_CATEGORY_ID": "3",
-            "MALL_SUB_NAME": "鲜奶",
-            "COMMENTS": null,
-            "SORT": 1
+            "id": "402880e86016d1b5016016e135440011",
+            "mall_category_id": "3",
+            "mall_sub_name": "鲜奶",
+            "comments": null,
+            "sort": 1
         },
         {
-            "ID": "402880e86016d1b5016016e171cc0012",
-            "MALL_CATEGORY_ID": "3",
-            "MALL_SUB_NAME": "酸奶",
-            "COMMENTS": null,
-            "SORT": 2
+            "id": "402880e86016d1b5016016e171cc0012",
+            "mall_category_id": "3",
+            "mall_sub_name": "酸奶",
+            "comments": null,
+            "sort": 2
         },
         {
-            "ID": "402880e86016d1b5016016e240e60013",
-            "MALL_CATEGORY_ID": "3",
-            "MALL_SUB_NAME": "乳酸菌",
-            "COMMENTS": null,
-            "SORT": 3
+            "id": "402880e86016d1b5016016e240e60013",
+            "mall_category_id": "3",
+            "mall_sub_name": "乳酸菌",
+            "comments": null,
+            "sort": 3
         },
         {
-            "ID": "402880e86016d1b5016016e4ac16001d",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "坚果炒货",
-            "COMMENTS": null,
-            "SORT": 6
+            "id": "402880e86016d1b5016016e4ac16001d",
+            "mall_category_id": "5",
+            "mall_sub_name": "坚果炒货",
+            "comments": null,
+            "sort": 6
         },
         {
-            "ID": "402880e86016d1b5016016e4dca2001e",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "休闲小食",
-            "COMMENTS": null,
-            "SORT": 2
+            "id": "402880e86016d1b5016016e4dca2001e",
+            "mall_category_id": "5",
+            "mall_sub_name": "休闲小食",
+            "comments": null,
+            "sort": 2
         },
         {
-            "ID": "402880e86016d1b5016016e51380001f",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "糖果巧克力",
-            "COMMENTS": null,
-            "SORT": 3
+            "id": "402880e86016d1b5016016e51380001f",
+            "mall_category_id": "5",
+            "mall_sub_name": "糖果巧克力",
+            "comments": null,
+            "sort": 3
         },
         {
-            "ID": "402880e86016d1b5016016e549710020",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "饮用水",
-            "COMMENTS": null,
-            "SORT": 7
+            "id": "402880e86016d1b5016016e549710020",
+            "mall_category_id": "5",
+            "mall_sub_name": "饮用水",
+            "comments": null,
+            "sort": 7
         },
         {
-            "ID": "402880e86016d1b5016016e62bbd0021",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "碳酸饮料",
-            "COMMENTS": null,
-            "SORT": 11
+            "id": "402880e86016d1b5016016e62bbd0021",
+            "mall_category_id": "5",
+            "mall_sub_name": "碳酸饮料",
+            "comments": null,
+            "sort": 11
         },
         {
-            "ID": "402880e86016d1b5016016e656c50022",
-            "MALL_CATEGORY_ID": "5",
-            "MALL_SUB_NAME": "果蔬汁",
-            "COMMENTS": null,
-            "SORT": 8
+            "id": "402880e86016d1b5016016e656c50022",
+            "mall_category_id": "5",
+            "mall_sub_name": "果蔬汁",
+            "comments": null,
+            "sort": 8
         }
     ]
 }

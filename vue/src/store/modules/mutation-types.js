@@ -53,3 +53,10 @@ export const SINGLE_SELECT_GOODS = 'SINGLE_SELECT_GOODS'
 
 //15.全选商品品事件
 export const ALL_SELECT_GOODS = 'ALL_SELECT_GOODS'
+
+//商品分类目录
+export const CATEGORY_SUB = 'CATEGORY_SUB'
+
+
+
+

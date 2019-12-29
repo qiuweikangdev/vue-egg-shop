@@ -21,7 +21,7 @@
                  <span class="like-num">{{likeNum}}</span>
             </div>
             <div class="price">
-            <span class="now-price">{{goodsInfo.price | moneyFormat}}</span>   
+            <span class="now-price">{{goodsInfo.present_price | moneyFormat}}</span>   
             <span class="origin-price">{{goodsInfo.origin_price }}</span>
             <span class="total-sales">已售:{{goodsInfo.total_sales}}</span>
             </div>
@@ -158,6 +158,7 @@ export default {
             .price{
                 .origin-price{
                     text-decoration: line-through;
+                    color:#333;
                 }
                 .now-price{
                     font-size:16px;

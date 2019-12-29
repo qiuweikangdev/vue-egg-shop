@@ -71,20 +71,20 @@ export const getHomeFlash = () => {
 // 4.请求分类目录数据
 export const getCategorySub = () => {
     return axios.request({
-        url: 'goods/CategorySub',
+        url: 'goods/getCategorySub',
         method: 'get',
         baseURL: 'http://127.0.0.1:3000'
     })
 }
 
-// 5.根据类别获取商品列表
-export const getAllGoods = (categorySubId) => {
+// 5.根据分类id读取某分类商品数据
+export const getGoodsByCategoryID = (subID) => {
     return axios.request({
-        url: 'goods/CategorySub',
+        url: 'goods/getGoodsByCategoryID',
         method: 'post',
         baseURL: 'http://127.0.0.1:3000',
         data:{
-            categorySubId
+            subID
         }
     })
 }

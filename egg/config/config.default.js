@@ -56,12 +56,12 @@ module.exports = appInfo => {
             enable: false,
             ignoreJSON: true
         },
-        domainWhiteList: ['http://localhost:8080']
+        domainWhiteList: ['http://127.0.0.1:8080']
     };
     config.cors = {
         allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
         credentials: true, //获得前端的cookie
-        origin: () => 'http://localhost:8080' //这边不能为*号，需要指定明确的、与请求网页一致的域名
+        origin: () => 'http://127.0.0.1:8080' //这边不能为*号，需要指定明确的、与请求网页一致的域名
 
     };
 

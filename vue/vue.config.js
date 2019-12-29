@@ -15,12 +15,14 @@ module.exports = {
     // : './',
     devServer: {
         open: true, //自动打开浏览器
-        host: 'localhost', //本地主机
+        host: '127.0.0.1', //本地主机
         port: 8080, //端口号
         hot: true, //热更新
     },
     //不需要生产环境的 source map  (资源映射)
     productionSourceMap: false,
+
+    //配置svg图标
     chainWebpack(config) {
         // config.plugins.delete('preload') // TODO: need test
         // config.plugins.delete('prefetch') // TODO: need test
