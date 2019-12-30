@@ -259,13 +259,18 @@ $bgColor: #e5017d;
 .person-top{
     position: relative;
 }
-  .flag-perple{
+   .flag-perple{
         text-align: center;
         position: absolute;
         top:-3rem;
-        z-index:999;
+        left:35%;
+        z-index:99;
+        width: 30%;
+        display: block;
         img{
+            width: 100%;
+            height: 100%;
             border-radius:50%;
         }
-    }   
+    }  
 </style>

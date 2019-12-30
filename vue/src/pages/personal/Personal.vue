@@ -128,10 +128,11 @@ export default {
     login () {
       this.$router.push('/login');
     },
-    //退出登录，然后登录界面
+    //退出登录
     handleLogout() {
       this.logout();
-      this.$router.push({ name: "login" });
+       this.$router.go(0)  //刷新当前页面
+      // this.$router.push({ name: "login" });
     },
     getInfo() {
         console.log(this.userInfo)

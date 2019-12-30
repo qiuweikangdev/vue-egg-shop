@@ -1,7 +1,7 @@
 <template>
   <div id='categoryGoods'>
       <!-- 分类目录通过id来获取某分类商品 -->
-        <div>
+        <div  class="right-area">
             <ul class='right-wrapper'>
                 <li 
                     class='item'
@@ -47,6 +47,9 @@ export default {
      props:{
          categoriesDetailData:Array
      },
+     mounted(){
+         this._initBScroll()
+     },
      methods:{
           ...mapMutations({
              ADD_TO_CART:'user/ADD_TO_CART'
@@ -65,7 +68,24 @@ export default {
                     origin_price: produce.origin_price,
                 }
             })
-      },
+         },
+      _initBScroll(){
+            // 1.1.初始化滚动视图
+            this.$nextTick(() => {
+              if (!this.leftScroll) {
+                this.leftScroll = new BScroll('#categoryGoods', {
+                  probeType: 3,
+                  click: true,
+                  scrollY: true,
+                  tap: true,  
+                  mouseWheel: true //鼠标齿轮滚动
+                });
+              } else {
+                   this.leftScroll.refresh();
+              }
+            });
+     },
+        
          addToCart(item){
              this.ADD_TO_CART(item) 
          }
@@ -75,7 +95,7 @@ export default {
 
 <style scoped lang='scss'>
 #categoryGoods{
- .right-wrapper{
+ .right-wrapper{ 
      .item-area{
          height: 100%;
          display: flex;

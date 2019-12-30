@@ -7,10 +7,10 @@
             left-text="返回"
             left-arrow
             right-text="用户登录"
-            @click-left="goBack"
+             @click-left="onClickLeft()"
          />
           <div class='flag-perple'>
-             <img :src="imgUrl" alt="" width="25%">
+             <img :src="imgUrl" alt="" >
        </div>
         </div>
          <div class="person-panel">
@@ -78,12 +78,12 @@
         },
        methods: {
            ...mapActions(['login','captcha','syncUserInfo']),
-           goBack() {
-               this.$router.go(-1)
-           },
             loginAction(){
                 this.checkForm() && this.loginUser()
             },
+              onClickLeft() {
+               this.$router.go(-1)
+           },
           loginUser(){
              this.openLoading=true;
             this.login(this.userInfo)
@@ -102,7 +102,6 @@
                 }
                 
                 else if(res.message === '验证码错误'){
-                    console.log('error',res)
                        this.openLoading=false;
                        this.userInfo.authCode='';
                        console.log(this.userInfo.authCode,'xxx')
@@ -206,8 +205,13 @@ $bgColor: #e5017d;
         text-align: center;
         position: absolute;
         top:-3rem;
-        z-index:999;
+        left:35%;
+        z-index:99;
+        width: 30%;
+        display: block;
         img{
+            width: 100%;
+            height: 100%;
             border-radius:50%;
         }
     }   

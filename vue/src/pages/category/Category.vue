@@ -114,7 +114,7 @@ export default {
   overflow: hidden;
   .category-content{
         display: flex;
-       position: absolute;
+       position:absolute;
        top: 2.75rem;
        bottom: 3rem;  //距离顶部多少距离，目的就是限制左边的高度
        overflow: hidden;  //一定要设置溢出隐藏，否则滚动的时候，会超出内容 

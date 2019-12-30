@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 
- * @version: 
- * @Author: sueRimn
- * @Date: 2019-09-18 09:38:17
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-08 20:54:10
- */
 (function(doc, win) {
     var docEl = doc.documentElement,
         resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',

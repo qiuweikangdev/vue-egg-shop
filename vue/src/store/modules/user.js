@@ -62,7 +62,6 @@ const mutations = {
         let initUsershippingAddress = getLocalStore('shippingAddress');
         if (initUsershippingAddress) {
             state.shippingAddress = JSON.parse(initUsershippingAddress);
-            console.log(state.shippingAddress, 'xx')
         } else {
             state.shippingAddress = [];
         }
@@ -337,17 +336,6 @@ const actions = {
             })
         })
     },
-    //上传头像
-    // upload({ commit }, file) {
-    //     return new Promise((resolve, reject) => {
-    //         upload(file).then(res => {
-    //             console.log(res.data)
-    //             resolve(res.data)
-    //         }).catch(err => {
-    //             reject(err)
-    //         })
-    //     })
-    // },
 
     // 4、验证码
     captcha() {
@@ -384,16 +372,6 @@ const actions = {
                 .catch(err => {
                     reject(err)
                 })
-                // getUserInfo().then(res=>{
-                //     const { data } = res
-                //     console.log(data)
-                //     // if(!data){
-                //     //     reject('验证失败,重新登录')
-                //     // }
-                //     // const { name,avatar} = data
-                //     // commit(SET_Name,name)
-                //     // commit(SET_AVATAR,avatar)
-                // })
         })
     },
 
@@ -401,6 +379,9 @@ const actions = {
     logout({ commit }, state) {
         removeToken()
         commit('SET_TOKEN', '')
+        removeLocalStore('userInfo'); //清除用户信息
+        removeLocalStore('shopCart'); //清除购物车数据
+        removeLocalStore('shippingAddress'); //清除收获地址
     }
 
     //8.
