@@ -1,12 +1,4 @@
 /*
- * @Descripttion: 
- * @version: 
- * @Author: sueRimn
- * @Date: 2019-10-05 22:50:30
- * @LastEditors  : sueRimn
- * @LastEditTime : 2019-12-20 14:48:10
- */
-/*
  * @Descripttion: mutations的事件变量
  */
 
@@ -56,7 +48,3 @@ export const ALL_SELECT_GOODS = 'ALL_SELECT_GOODS'
 
 //商品分类目录
 export const CATEGORY_SUB = 'CATEGORY_SUB'
-
-
-
-

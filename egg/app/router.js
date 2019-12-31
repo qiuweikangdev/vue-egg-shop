@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors  : sueRimn
- * @LastEditTime : 2019-12-28 14:39:41
+ * @LastEditTime : 2019-12-30 16:36:58
  */
 'use strict';
 /**
@@ -28,5 +28,6 @@ module.exports = app => {
     router.get('/insertAllGoods', controller.goods.insertAllGoods); // 插入商品数据到数据库
     router.get('/insertCategorySub', controller.goods.insertCategorySub); // 插入分类目录到数据库
     router.get('/goods/getCategorySub', controller.goods.getCategorySub); // 读取分类目录
-    router.post('/goods/getGoodsByCategoryID', controller.goods.getGoodsByCategoryID); // 根据分类id读取某分类商品数据
+    router.get('/goods/getGoodsByCategoryID', controller.goods.getGoodsByCategoryID); // 根据分类id读取某分类商品数据
+    router.get('/goods/searchGoods', controller.goods.searchGoods); // 根据分类id读取某分类商品数据
 };

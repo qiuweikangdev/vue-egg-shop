@@ -4,13 +4,17 @@
  * @Author: sueRimn
  * @Date: 2019-12-08 20:56:04
  * @LastEditors  : sueRimn
- * @LastEditTime : 2019-12-20 09:57:05
+ * @LastEditTime : 2019-12-31 16:39:22
  -->
 <template>
   <div id='home'> 
       <!-- 1、头部搜索栏 -->
-      <Header></Header>
-      <!-- 2.轮播图 -->
+      <div class="Header" >
+         <Search :isShow.sync='flag'></Search>
+      </div>
+     
+      <div v-show='flag'>
+            <!-- 2.轮播图 -->
       <Carousel :homecarousel='homecarousel'></Carousel>
       <!-- 3.中间区域导航滚动 -->
       <Nav :homenav='homenav'></Nav>
@@ -26,6 +30,8 @@
           <van-divider >我是有底线的</van-divider>
       <!-- 8.回到顶部 -->
        <v-top />
+      </div>
+  
       <!-- <router-view></router-view> -->
   </div>
 </template>
@@ -46,11 +52,18 @@ files.keys().forEach(key => {
 export default {
     components:modules,
     data(){
-        return {}
+        return {
+          flag:true
+        }
     },
     computed:{
         //获取轮播图、导航滚动图、限时抢购数据
          ...mapState(['homecarousel','homenav','homeflash']),
+    },
+    watch:{
+      // flag(val){
+      //     console.log(val)
+      // } 
     },
     created(){
          this.$store.dispatch('shop/reqHomeCarousel') //首页轮播图

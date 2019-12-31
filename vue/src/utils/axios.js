@@ -1,3 +1,6 @@
+/*
+ * @Descripttion: 封装axios实例
+ */
 import axios from 'axios'
 import { baseURL } from '@/config/baseURL'
 import store from '@/store'
@@ -25,14 +28,7 @@ class HttpRequest {
         //在发送请求之前做些什么
         //可让每个请求携带令牌token
         instance.interceptors.request.use(config => {
-                //添加全局的loading.. 
-                //Spin.show  （方法）
                 //config : 请求的所有配置 
-                // console.log('request',config)
-                // if(!Object.keys(this.queue).length){
-                //如果没有queue队列里没有请求即没有url
-                //则调用Spin.show() 这个方法
-                // }
 
 
                 // 每次发送请求之前判断vuex中是否存在token        
@@ -43,7 +39,6 @@ class HttpRequest {
                 if (store.getters.token) {
                     config.headers['authorization'] = 'Bearer ' + getToken()
                 }
-                // this.queue[url] = true
                 return config
             }, error => {
                 return Promise.reject(error)
@@ -63,10 +58,8 @@ class HttpRequest {
                     message: '登录过期,请重新登录'
                 });
             }
-            // return data
             return res
         }, error => {
-            // delete this.queue[url]  
             return Promise.reject(error)
         })
     }

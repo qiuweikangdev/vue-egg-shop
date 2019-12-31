@@ -1,16 +1,14 @@
 <!--
  * @Descripttion: 一级路由主界面
- * @version: 
- * @Author: sueRimn
- * @Date: 2019-12-20 10:02:48
- * @LastEditors  : sueRimn
- * @LastEditTime : 2019-12-25 16:15:12
+ * @Author: qqqiu
  -->
 <template>
     <div>
          <!-- 底部导航栏为主界面-->
-          <tab-bar v-if='flag'></tab-bar>
+         <!-- showBottomTabBar表示是否展示底部标签栏 -->
+          <tab-bar v-show="$route.meta.showBottomTabBar"></tab-bar>
           <!-- 二级路由 -->
+          
         <router-view @showTab='getFlag'></router-view>
     </div>
 </template>

@@ -1,10 +1,5 @@
 <!--
- * @Descripttion:  分类搜索模块
- * @version: 
- * @Author: sueRimn
- * @Date: 2019-12-25 10:12:51
- * @LastEditors  : sueRimn
- * @LastEditTime : 2019-12-31 16:29:05
+ * @Descripttion:  搜索模块组件
  -->
 <template>
    <div id='search-main'>
@@ -17,7 +12,9 @@
        </div>
        <!-- 更多搜索 -->
        <div class="search-content" v-else > 
-            <van-search
+             <div class="search-header">
+            <svg-icon iconClass="back" style='width:2rem;height:2rem' class="back"  @click="handleBack"></svg-icon>
+                <van-search
                     v-model="searchConent"
                     placeholder="请输入搜索关键词"
                     show-action
@@ -26,8 +23,10 @@
                     @cancel="onCancel"
                     @click='onClick'
                 >
+                
                   <div slot="action" @click="onSearch">搜索</div>
                 </van-search>
+                   </div>
                    <!-- 更多搜索方式 -->
                 <div class='more-search'>
                     <div style='padding:1rem'>
@@ -57,7 +56,8 @@
                      
                  
                 </div>
-       </div>
+     
+      </div>
    </div>
 </template>
 
@@ -65,7 +65,6 @@
 import {
     Toast
 } from 'vant'
-import { searchGoods } from '@/api/shop';
 export default {
     data(){
         return {
@@ -107,12 +106,14 @@ export default {
            
         },
         handleBack(){
-            // console.log(this.$route.name)
-            if(this.$route.name === 'search'){
-                this.$router.push('category')
-            }else{
-                this.$router.push('/home')
-            }
+             this.$router.back()
+            // if(this.$route.name === 'search'){
+            //     this.$router.back()
+            // }else{
+            //     this.$router.push('/home')
+            //       this.searchFlag = true    
+            //      this.$emit('update:isShow',true)  //true标志表示要显示首页内容
+            // }
         },
         //一点击就输入框就聚焦
         onClick(){
@@ -134,20 +135,6 @@ export default {
                 }})
             }
             
-        //    let result =  await searchGoods(this.searchConent)
-        //    console.log(result.data.message,'aaa')
-        //    if(result.data.status === '1'){
-        //        this.$router.push({
-        //            path:'/search/'+this.searchConent,
-        //            query:{
-        //            goodsInfo:result.data.message
-        //        }})
-        //    }else{  
-        //              Toast({
-        //             message: '暂无相关商品',
-        //             duration: 800
-        //         })
-        //    } 
         },
         onCancel(){
              this.searchFlag = true
@@ -160,14 +147,19 @@ export default {
 
 <style scoped lang='scss'>
 #search-main{
+      background: #fff;
     .search-header{
         display: flex;
         align-items: center;
-        .back{
-            padding-right:1rem;
+        background: #D4237A;
+        width:100%;
+        justify-content: center;
+        .van-search{
+            flex:0 0 85%;
         }
+         
     }
-    background: #fff;
+  
     .van-search--show-action{
         background: #D4237A !important;
     }
@@ -182,10 +174,9 @@ export default {
            .van-search{
                background:transparent !important;
                padding:0.2rem 0 !important;
+               justify-content: center;
            }
-           .van-search .van-cell{
-               padding:5px 88px 5px 0;
-           }
+         
           
     }
     // 更多搜索

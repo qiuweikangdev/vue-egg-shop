@@ -13,7 +13,9 @@ export default [{
                 path: 'home',
                 name: 'home',
                 meta: {
-                    login_require: false
+                    login_require: false, //是否需要登录
+                    showBottomTabBar: true, //是否显示底部标签栏
+                    keepAlive: true // 是否数据缓存
                 },
                 component: () =>
                     import ('@/pages/home/Home.vue')
@@ -21,6 +23,11 @@ export default [{
             {
                 path: '/category',
                 name: 'category',
+                meta: {
+                    login_require: false,
+                    showBottomTabBar: true,
+                    keepAlive: true
+                },
                 component: () =>
                     import ('@/pages/category/Category.vue')
 
@@ -29,7 +36,8 @@ export default [{
                 path: 'personal',
                 name: 'personal',
                 meta: {
-                    login_require: false
+                    login_require: false,
+                    showBottomTabBar: true
                 },
                 component: () =>
                     import ('@/pages/personal/Personal.vue')
@@ -38,10 +46,36 @@ export default [{
                 path: '/cart',
                 name: 'cart',
                 meta: {
-                    login_require: false
+                    login_require: false,
+                    showBottomTabBar: true,
+                    keepAlive: true
                 },
                 component: () =>
                     import ('@/pages/cart/Cart.vue')
+            },
+            {
+                // 搜索
+                path: '/search',
+                name: 'search',
+                meta: {
+                    login_require: false,
+                    showBottomTabBar: false,
+                    keepAlive: true
+                },
+                component: () =>
+                    import ('@/pages/search/Search.vue')
+            },
+            {
+                // 搜索
+                path: '/goodsDetail',
+                name: 'goodsdetail',
+                meta: {
+                    login_require: false,
+                    showBottomTabBar: false,
+                    keepAlive: true
+                },
+                component: () =>
+                    import ('@/pages/goodsDetail/goodsDetail.vue')
             },
         ]
     },
@@ -111,14 +145,6 @@ export default [{
         component: () =>
             import ('@/components/countdown/index.vue')
     },
-    //购物车
-    // {
-    //     path: '/cart',
-    //     name: 'cart',
-    //     component: () =>
-    //         import ('@/pages/cart/Cart.vue')
-
-    // },
     //加载订单相关的组件
     {
         // 订单
@@ -171,12 +197,4 @@ export default [{
     //         import ('@/pages/order/children/MyAddress.vue')
 
     // },
-    //瀑布流
-    {
-        path: '/goodsDetail',
-        name: 'goodsDetail',
-        component: () =>
-            import ('@/pages/goodsDetail/goodsDetail.vue')
-
-    }
 ]

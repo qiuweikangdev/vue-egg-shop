@@ -34,7 +34,7 @@ export default {
          border-radius:30px 10px 30px 10px;
     }
     .carousel-img{
-        max-height: 140px;
+        height: 140px;
     }
 }
 </style>

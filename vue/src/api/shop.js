@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-09-18 12:59:37
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-13 15:09:04
+ * @LastEditors  : sueRimn
+ * @LastEditTime : 2019-12-31 13:12:45
  */
 import axios from './index'
 
@@ -81,10 +81,22 @@ export const getCategorySub = () => {
 export const getGoodsByCategoryID = (subID) => {
     return axios.request({
         url: 'goods/getGoodsByCategoryID',
-        method: 'post',
+        method: 'get',
         baseURL: 'http://127.0.0.1:3000',
-        data:{
+        params: {
             subID
+        }
+    })
+}
+
+// 6.根据商品名称搜索商品
+export const searchGoods = (name) => {
+    return axios.request({
+        url: 'goods/searchGoods?time=' + new Date(),
+        method: 'get',
+        baseURL: 'http://127.0.0.1:3000',
+        params: {
+            name
         }
     })
 }

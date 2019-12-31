@@ -1,10 +1,8 @@
 <!--
  * @Descripttion:  svg组件
  * @version: 
- * @Author: sueRimn
+ * @Author: qqqiu
  * @Date: 2019-12-14 15:01:04
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-14 19:04:11
  -->
 <template>
   <svg :class="svgClass"
