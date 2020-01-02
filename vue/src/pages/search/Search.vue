@@ -6,7 +6,7 @@
  -->
 <template>
   <div id='searchConent'>
-       <Search :isShow.sync='flag' ></Search>
+       <Search :isShow.sync='flag' :isSearch='isSearch' ></Search>
        <!-- 搜索到的商品 -->
        <div class='food-wrapper' v-show='flag'>
            <ul class="food-content">
@@ -37,17 +37,19 @@
             <p>搜索不到有关数据...</p>
         </div>
        </div>
+         <Loading :show="isShowLoading" />
   </div>
 </template>
 
 <script>
 import Search from '@/pages/home/components/header/Search'
 import { searchGoods } from '@/api/shop';
+import Loading from '@/components/loading/Loading'
 import {
     Toast
 } from 'vant'
 export default {
-       components:{ Search },
+       components:{ Search ,Loading },
       data(){
           return {
               goodsInfo:[],
@@ -55,41 +57,56 @@ export default {
                errorImg:'this.src="'+require('@/assets/images/errorImg.png') +'"',  //图片失效的替补图片
                 flag:true,
                 emptyGoods:false, //空商品
-                emptyIcon:require('@/assets/images/empty.png')
+                emptyIcon:require('@/assets/images/empty.png'),
+                isShowLoading:true,  //是否显示加载图标
           }
       },
       created(){
           this.getGoodsInfo()
       },
+    
       watch:{
           flag(val){
               this.flag = val
           },
           $route(to,from){
-               this.getGoodsInfo(to.query.name)
-               this.$router.go(0)  //刷新当前页面
-          },
-           emptyGoods(val){
-            //    console.log(val)
-           }
+              this.$nextTick(()=>{
+                   this.getGoodsInfo(to.query.name)
+                    this.$router.go(0)
+                    //   window.location.reload()
+              })
+          }
+          
       },
-      methods:{
+      computed:{
+          //判断是否正在搜索
+            isSearch(){
+                return  this.isShowLoading
+            }
+      },
+      methods:{ 
            async getGoodsInfo(name){
+                this.isShowLoading= true
              let result =await searchGoods(this.name || name)
-          if(result.data.status === '1'){
-            //   this.flag = true
+             setTimeout(()=>{
+                    if(result.data.status === '1'){
             this.emptyGoods = false
               this.goodsInfo = result.data.message
-               
+                  this.isShowLoading= false
            }else{  
-            //    this.flag = false
             this.emptyGoods = true
+             this.isShowLoading= false
                 Toast({
                     message: '暂无相关商品',
                     duration: 800
                 })
-             
           }
+             },800)
+       
+      },
+      getName(name){
+          console.log(name)
+          this.getGoodsInfo(name)
       }
       }
 
@@ -99,10 +116,10 @@ export default {
 <style scoped lang='scss'>
 #searchConent{
     background: #F5F5F5;
+    padding-top:2rem;
      .food-content{
             display: flex;
             align-items: center;
-            padding-left:0.2rem;
             flex-wrap: wrap;
             justify-content: space-around;
         .food-item{
@@ -138,10 +155,12 @@ export default {
          text-align:center;
          font-size:0.9rem;
          height:100%;
-         top:40px;
+         width:100%;
          position:absolute;
+         padding-top:100px;
          background: #F5F5F5;
          overflow: hidden;
+        
          .empty-icon{
              width:50%;
              margin:0 auto;

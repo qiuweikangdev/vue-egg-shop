@@ -5,7 +5,7 @@
   <div class="hot-nav">
     <!--滚动区域-->
     <div class="hot-nav-content" v-if="homenav.length > 0">
-      <div class="nav-content-inner">
+      <div class="nav-content-inner" >
         <a class="inner-item" v-for="(nav, index) in homenav" :key="index" >
           <img :src="nav.iconurl" alt />
           <span>{{nav.icontitle}}</span>
@@ -52,6 +52,9 @@ export default {
         left: `${this.barMoveWidth}px`
       };
     },
+  },
+  created(){
+    this.isIpad()
   },
   mounted() {
     this.getBottomBarWidth();
@@ -110,6 +113,21 @@ export default {
     handleTouchEnd() {
     //   console.log('结束触摸');
       this.endFlag = this.barMoveWidth;
+    },
+    //判断是否ipad和ipad pro
+    isIpad(){
+       let width =   window.innerWidth ||
+         document.documentElement.clientWidth ||
+         document.body.clientWidth
+          //768为ipad.1024为ipad pro
+         if(width === 768){
+           this.scrollContentW = width*2  //滚动内容的宽度
+           this.bgBarW = 192//滚动背景宽度
+
+         }else if(width === 1024){
+            this.scrollContentW = width*2  //滚动内容的宽度
+              this.bgBarW = 256//滚动背景宽度
+         }
     }
   }
 };
@@ -157,7 +175,7 @@ export default {
     position: absolute;
     left: 50%;
     margin-left: -50px;
-    bottom: 8px;
+    bottom:8px;
   }
   .hot-nav-bottom-inner {
     position: absolute;
@@ -167,4 +185,30 @@ export default {
     width: 0;
   }
 }
+
+// 适配ipad
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px){
+    .hot-nav{
+      height: 10rem;
+       .nav-content-inner {
+          width: 40rem;
+          height:10rem;
+        }
+        .inner-item {
+          width: 5rem;
+          height:5rem;
+        }
+          .hot-nav-bottom {
+            width:5rem;
+            height: 2px;
+            position: absolute;
+            left: 50%;
+            margin-left: -2.5rem;
+            bottom:0.5rem;
+          }
+    }
+}
+
 </style>

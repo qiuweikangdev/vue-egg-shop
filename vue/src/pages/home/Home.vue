@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-12-08 20:56:04
  * @LastEditors  : sueRimn
- * @LastEditTime : 2019-12-31 16:39:22
+ * @LastEditTime : 2020-01-01 17:50:17
  -->
 <template>
   <div id='home'> 
@@ -59,11 +59,6 @@ export default {
     computed:{
         //获取轮播图、导航滚动图、限时抢购数据
          ...mapState(['homecarousel','homenav','homeflash']),
-    },
-    watch:{
-      // flag(val){
-      //     console.log(val)
-      // } 
     },
     created(){
          this.$store.dispatch('shop/reqHomeCarousel') //首页轮播图

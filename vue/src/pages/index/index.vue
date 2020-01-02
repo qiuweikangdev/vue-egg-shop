@@ -9,7 +9,7 @@
           <tab-bar v-show="$route.meta.showBottomTabBar"></tab-bar>
           <!-- 二级路由 -->
           
-        <router-view @showTab='getFlag'></router-view>
+        <router-view ></router-view>
     </div>
 </template>
 

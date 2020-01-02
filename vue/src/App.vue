@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-09-16 19:13:01
  * @LastEditors  : sueRimn
- * @LastEditTime : 2019-12-25 11:37:13
+ * @LastEditTime : 2020-01-01 16:06:38
  -->
 <template>
  <div id="app">
@@ -20,6 +20,7 @@ export default {
   //  components:{
   //    TabBar
   //  }
+    
 }
 </script>
 <style>

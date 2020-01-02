@@ -3,7 +3,7 @@
        :class="show?'active':''">
     <div class="spinner">
       <div class="double-bounce1"></div>
-      <div class="double-bounce2">loading...</div>
+      <div class="double-bounce2" style='font-size:1rem'>玩命加载中....</div>
       <div class="double-bounce3"></div>
     </div>
   </div>
@@ -66,7 +66,7 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: #45c763;
+  background-color: #D4237A;
   opacity: 0.6;
   position: absolute;
   top: 0;

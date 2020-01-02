@@ -45,7 +45,7 @@ export default {
          //左边分类目录数据
          categoriesData:[],
          //右边分类数据
-         categoriesDetailData:[]
+         categoriesDetailData:[],
       }
     },
     created(){

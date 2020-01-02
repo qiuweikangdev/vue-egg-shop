@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: qqqiu
+ * @Date: 2019-12-16 17:34:14
+ * @LastEditors  : qqqiu
+ * @LastEditTime : 2020-01-02 12:54:52
+ -->
 
 <!--
  * @Descripttion: 轮播图
@@ -25,7 +33,7 @@ export default {
 
 <style scoped lang='scss'>
 #carousel{
-    padding:1rem;
+    padding:3rem 1rem 1rem;
     background-image: url('~@/assets/images/flash/backImage.png');
     .swiper-area{
        

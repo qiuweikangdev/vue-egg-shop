@@ -55,7 +55,7 @@ export default [{
             },
             {
                 // 搜索
-                path: '/search',
+                path: '/search/:name',
                 name: 'search',
                 meta: {
                     login_require: false,

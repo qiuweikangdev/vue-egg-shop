@@ -70,6 +70,7 @@ export default {
         return {
             searchFlag:true,  //搜索标志
             searchConent:'',
+            // searching:false, //判断是否正在搜索中
             value:'',
             // 热门搜索
             searchHot:[
@@ -82,6 +83,7 @@ export default {
     },
     props:{
         isShow:Boolean,
+        isSearch:Boolean//判断是否搜索中
     },
     computed:{
         isIcon(){
@@ -101,19 +103,33 @@ export default {
     },
     methods:{
         handleClick(){
-            this.searchFlag = false
-            this.$emit('update:isShow',false)
+               //如果当前正在搜索,才能点击
+              let isOk = false
+           if(!this.isSearch){
+                this.searchFlag = false
+              this.$emit('update:isShow',false)
+              isOk = true
+           }else{
+                 isOk = false
+             }
+            return isOk
            
         },
-        handleBack(){
-             this.$router.back()
-            // if(this.$route.name === 'search'){
-            //     this.$router.back()
-            // }else{
-            //     this.$router.push('/home')
-            //       this.searchFlag = true    
-            //      this.$emit('update:isShow',true)  //true标志表示要显示首页内容
-            // }
+        handleBack(){ 
+             let isOk = false
+            //如果当前正在搜索,才能返回
+            if(!this.isSearch){
+                const num = sessionStorage.count
+                this.$router.go(-num)
+                //当返回时,把次数初始化
+                sessionStorage.count=0;
+                isOk = true
+             }else{
+                 isOk = false
+             }
+            return isOk
+  
+           
         },
         //一点击就输入框就聚焦
         onClick(){
@@ -126,13 +142,24 @@ export default {
                     message: '不能为空~',
                     duration: 800
                 })
-            }else{
-                let searchKey = this.searchConent.toLowerCase()
-                this.$router.push({
-                    path:'/search',
+            }else{ 
+                   this.searching = true
+                   //记录每次搜索刷新路由时的历史记录次数
+                if(sessionStorage.count){
+                    sessionStorage.count=Number(sessionStorage.count)+1;
+                }else{
+                    sessionStorage.count=1;
+                }
+                //由于web存储是异步,需要等待存储完成之后,才进行跳转路由刷新
+                setTimeout(()=>{
+                    let searchKey = this.searchConent.toLowerCase()
+                   this.$router.push({
+                    path:'/search/'+new Date().getTime(),
                     query:{
-                    name:this.searchConent
+                    name:searchKey
                 }})
+                },500)
+             
             }
             
         },
@@ -148,6 +175,10 @@ export default {
 <style scoped lang='scss'>
 #search-main{
       background: #fff;
+      width:100%;
+      top:0;
+      position: fixed;
+      z-index:999;
     .search-header{
         display: flex;
         align-items: center;

@@ -4,7 +4,7 @@
         recalc = function() {
             let htmlWidth = doc.documentElement.clientWidth || doc.body.clientWidth;
             if (!htmlWidth) return;
-            if (htmlWidth >= 750) { htmlWidth = 750 }
+            // if (htmlWidth >= 750) { htmlWidth = 750 }
             docEl.style.fontSize = htmlWidth / 20 + 'px'
         };
     if (!doc.addEventListener) return;
