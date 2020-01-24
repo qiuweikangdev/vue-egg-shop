@@ -21,7 +21,6 @@ export default {
   right: 0;
   bottom: 0;
   background: white;
-
   transition: all 0.6s;
   opacity: 0;
   -webkit-opacity: 0;
@@ -29,7 +28,6 @@ export default {
   -ms-opacity: 0;
   -moz-opacity: 0;
   visibility: hidden;
-
   filter: alpha(opacity=0);
 }
 .loader-layer.active {

@@ -9,7 +9,15 @@
           <tab-bar v-show="$route.meta.showBottomTabBar"></tab-bar>
           <!-- 二级路由 -->
           
-        <router-view ></router-view>
+         <keep-alive>
+                <router-view v-if="$route.meta.keepAlive">
+                    <!--这里是会被缓存的路由-->
+                </router-view>
+        </keep-alive>
+        <router-view v-if="!$route.meta.keepAlive">
+            <!--因为用的是v-if 所以下面还要创建一个未缓存的路由视图出口-->
+        </router-view>
+
     </div>
 </template>
 
@@ -19,40 +27,6 @@ import TabBar from '@/pages/tabBar/tabBar'
          components:{
      TabBar
    },
-   data(){
-       return {
-           flag:true
-       }
-   },
-   created(){
-         this.flag = true
-    //    if(this.$route.name.includes("category")){
-    //        this.flag = false
-    //    }else{
-    //          this.flag = true
-    //    }
-   },
-   watch:{
-       flag(val){
-           if(val){
-            //    this.flag = false
-           }
-        //    if(val){
-        //         this.flag = true
-        //    }else{
-        //        console.log(this.flag)
-        //         this.flag = false
-        //    }
-       },
-       $route(to){
-            this.flag = true
-       }
-   },
-   methods:{
-       getFlag(msg){
-         this.flag = msg
-       }
-   }
     }
 </script>
 

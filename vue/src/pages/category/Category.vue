@@ -5,7 +5,7 @@
 <template>
   <div id='category'>
       <!-- 搜索 -->
-      <Search :isShow.sync='isCategory'></Search>
+      <Search :isShow.sync='isCategory' :isSearching='isSearching'></Search>
       <!-- 分类内容 -->
       <div class="category-content" v-show='isCategory'> 
         <!-- 左边区域 -->
@@ -15,7 +15,7 @@
                       v-for="(item, index) in CategorySub"
                       :key="index"
                       :class='[{selected:currentIndex === index},{categoryItem:true}]'
-                      @click="clickLeft(item,index)"
+                      @click="clickLeft(item.id,index)"
                   >
                      <span class="text-item">{{item.mall_sub_name}}</span>
                   </li>
@@ -25,6 +25,9 @@
           <!-- 右边区域 -->
            <Category-Goods :categoriesDetailData='categoriesDetailData'></Category-Goods>
       </div>
+      <!-- 正在加载组件 -->
+       <Loading-Bounce :show="isShowLoading" />
+       <!-- <Loading-Dot :show="isShowLoading" /> -->
   </div>
 </template>
 
@@ -35,8 +38,10 @@ import BScroll from 'better-scroll'
 import { createNamespacedHelpers} from "vuex";
 const { mapActions ,mapState,mapMutations } = createNamespacedHelpers("shop");
 import { getGoodsByCategoryID } from '@/api/shop'
+import LoadingBounce from '@/components/loading/LoadingBounce'
+import LoadingDot from '@/components/loading/LoadingDot'
 export default {
-   components:{ Search ,CategoryGoods},
+   components:{ Search ,CategoryGoods,LoadingBounce,LoadingDot},
     data(){
       return {
         //是否显示分类内容
@@ -46,6 +51,8 @@ export default {
          categoriesData:[],
          //右边分类数据
          categoriesDetailData:[],
+         currenCategorytId:'', // 当前分类目录的id,用于缓存数据时请求最新数据
+          isShowLoading:true,  //是否显示加载组件
       }
     },
     created(){
@@ -56,9 +63,11 @@ export default {
     },
     computed:{
       //获取商品分类
-      ...mapState(['homenav','CategorySub'])
-    },
-    updated(){
+      ...mapState(['homenav','CategorySub']),
+      //判断是否正在搜索
+            isSearching(){
+                return  this.isShowLoading
+          }
     },
     mounted(){
       if(this.isCategory){
@@ -67,6 +76,16 @@ export default {
         })
          
       }
+    },
+    //keep-alive 组件激活时调用。 （即页面缓存了数据时进入页面就触发）
+    activated(){
+       if(this.currenCategorytId){
+           this.$nextTick(()=>{
+          //根据当前分类的id,请求最新的数据
+              this.clickLeft(this.currenCategorytId,this.currentIndex)
+        })
+       }
+      
     },
     methods:{
       // 1、初始化滚动事件
@@ -88,22 +107,25 @@ export default {
      },
      //初始化分类商品数据
      async initCategoriesData(){
-        let initID = '2c9f6c946016ea9b016016f79c8e0000'  //分类目录商品第一个ID
-        let result = await getGoodsByCategoryID(initID)
+           let initID = '2c9f6c946016ea9b016016f79c8e0000'  //分类目录商品第一个ID
+          let result = await getGoodsByCategoryID(initID)
           if(result.data.success){
           this.categoriesDetailData = result.data.success
-        }
+            this.isShowLoading= false
+       }
+       
+      
       },
-     async  clickLeft(item,index){
+     async  clickLeft(id,index){
         //改变当前索引值
          this.currentIndex = index;
          // 根据分类id读取某分类商品数据
-        let result = await getGoodsByCategoryID(item.id)
+        let result = await getGoodsByCategoryID(id)
+        this.currenCategorytId = id  //记录当前分类目录的id
         if(result.data.success){
           this.categoriesDetailData = result.data.success
-          console.log(this.categoriesDetailData)
         }
-      },
+      }
      
     }
 }
@@ -115,7 +137,7 @@ export default {
   .category-content{
         display: flex;
        position:absolute;
-       top: 3.75rem;
+       top: 2rem;
        bottom: 3rem;  //距离顶部多少距离，目的就是限制左边的高度
        overflow: hidden;  //一定要设置溢出隐藏，否则滚动的时候，会超出内容 
   }

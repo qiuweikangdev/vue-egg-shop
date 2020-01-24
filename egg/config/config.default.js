@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-03 19:29:34
+ * @LastEditors  : qqqiu
+ * @LastEditTime : 2020-01-21 19:18:58
  */
 'use strict';
 
@@ -56,15 +56,23 @@ module.exports = appInfo => {
             enable: false,
             ignoreJSON: true
         },
-        domainWhiteList: ['http://127.0.0.1:8080']
+        // domainWhiteList: ['http://127.0.0.1:8080']
     };
     config.cors = {
         allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
         credentials: true, //获得前端的cookie
-        origin: () => 'http://127.0.0.1:8080' //这边不能为*号，需要指定明确的、与请求网页一致的域名
+        // origin: () => 'http://127.0.0.1:8080' //这边不能为*号，需要指定明确的、与请求网页一致的域名
+        origin: () => 'http://127.0.0.1:3000' //这边不能为*号，需要指定明确的、与请求网页一致的域名
 
     };
-
+    config.cluster = {
+        listen: {
+        path: '',
+        port: 3001,
+        hostname: '127.0.0.1'
+        // hostname: '0.0.0.0'
+        },
+    };
     //静态资源
     config.static = {
         prefix: '/public/', //前缀

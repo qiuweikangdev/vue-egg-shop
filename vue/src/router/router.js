@@ -37,7 +37,8 @@ export default [{
                 name: 'personal',
                 meta: {
                     login_require: false,
-                    showBottomTabBar: true
+                    showBottomTabBar: true,
+                    keepAlive: true
                 },
                 component: () =>
                     import ('@/pages/personal/Personal.vue')

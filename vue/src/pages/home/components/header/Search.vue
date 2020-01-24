@@ -37,7 +37,7 @@
                     <!-- 搜索店铺 -->
                     <div  class='search-store'>
                           <svg-icon iconClass="store"/>
-                          <span>搜索店铺</span>
+                          <span @click='storeItem'>搜索店铺</span>
                     </div>
                      
                  
@@ -51,7 +51,7 @@
                     </div>
                     
                     <div  class='hot-item'>
-                          <span v-for='(item,index) in searchHot' :key='index'>{{item.name}}</span>
+                          <span v-for='(item,index) in searchHot' :key='index' @click='hotItem(item)'>{{item.name}}</span>
                     </div>
                      
                  
@@ -74,16 +74,16 @@ export default {
             value:'',
             // 热门搜索
             searchHot:[
-                {name:'鱼'},
+                {name:'水果'},
                 {name:'牛奶'},
-                {name:'鸡蛋'},
-                {name:'鸡肉'},
+                {name:'茶饮'},
+                {name:'巧克力'},
             ]
         }
     },
     props:{
-        isShow:Boolean,
-        isSearch:Boolean//判断是否搜索中
+        isShow:Boolean, //true表示显示搜索
+        isSearching:Boolean//判断是否正在搜索中, true为正在搜索
     },
     computed:{
         isIcon(){
@@ -103,9 +103,9 @@ export default {
     },
     methods:{
         handleClick(){
-               //如果当前正在搜索,才能点击
+               //如果当前正在搜索,则不能点击
               let isOk = false
-           if(!this.isSearch){
+           if(!this.isSearching){
                 this.searchFlag = false
               this.$emit('update:isShow',false)
               isOk = true
@@ -116,20 +116,10 @@ export default {
            
         },
         handleBack(){ 
-             let isOk = false
-            //如果当前正在搜索,才能返回
-            if(!this.isSearch){
                 const num = sessionStorage.count
                 this.$router.go(-num)
                 //当返回时,把次数初始化
                 sessionStorage.count=0;
-                isOk = true
-             }else{
-                 isOk = false
-             }
-            return isOk
-  
-           
         },
         //一点击就输入框就聚焦
         onClick(){
@@ -162,6 +152,16 @@ export default {
              
             }
             
+        },
+        hotItem(item){
+           this.searchConent =  item.name
+           this.onSearch()
+        },
+        storeItem(){
+              Toast({
+                    message: '暂无相关店铺哦',
+                    duration: 800
+            })
         },
         onCancel(){
              this.searchFlag = true

@@ -6,7 +6,7 @@
  -->
 <template>
   <div id='searchConent'>
-       <Search :isShow.sync='flag' :isSearch='isSearch' ></Search>
+       <Search :isShow.sync='flag' :isSearching='isSearching' ></Search>
        <!-- 搜索到的商品 -->
        <div class='food-wrapper' v-show='flag'>
            <ul class="food-content">
@@ -14,15 +14,17 @@
                v-for='(produce,index) in goodsInfo'
                :key='index'
                class="food-item"
+               @click='goToGoodsDetail(produce)'
                >
                    <div class='food-img'>
                        <img :src="produce.small_image" alt="" :onerror='errorImg' >
                    </div>
                    <div class='content-bottom'>
                        <span>{{produce.name}}</span>
+                       <span class="spec">{{produce.spec}}</span>
                        <div class='price'>
-                           <span>{{produce.origin_price}}</span>
-                           <span>{{produce.present_price}}</span>
+                                <span class="now-price">{{produce.origin_price | moneyFormat}}</span>
+                              <span class="orign-price">{{produce.present_price | moneyFormat}}</span>
                        </div>
                        
                    </div>
@@ -37,19 +39,22 @@
             <p>搜索不到有关数据...</p>
         </div>
        </div>
-         <Loading :show="isShowLoading" />
+         <!-- 正在加载组件 -->
+         <Loading-Bounce :show="isShowLoading" />
+         <!-- <Loading-Dot :show="isShowLoading" /> -->
   </div>
 </template>
 
 <script>
 import Search from '@/pages/home/components/header/Search'
 import { searchGoods } from '@/api/shop';
-import Loading from '@/components/loading/Loading'
+import LoadingBounce from '@/components/loading/LoadingBounce'
+import LoadingDot from '@/components/loading/LoadingDot'
 import {
     Toast
 } from 'vant'
 export default {
-       components:{ Search ,Loading },
+       components:{ Search ,LoadingBounce,LoadingDot },
       data(){
           return {
               goodsInfo:[],
@@ -58,13 +63,12 @@ export default {
                 flag:true,
                 emptyGoods:false, //空商品
                 emptyIcon:require('@/assets/images/empty.png'),
-                isShowLoading:true,  //是否显示加载图标
+                isShowLoading:true,  //是否显示加载组件
           }
       },
       created(){
           this.getGoodsInfo()
       },
-    
       watch:{
           flag(val){
               this.flag = val
@@ -80,7 +84,7 @@ export default {
       },
       computed:{
           //判断是否正在搜索
-            isSearch(){
+            isSearching(){
                 return  this.isShowLoading
             }
       },
@@ -101,12 +105,22 @@ export default {
                     duration: 800
                 })
           }
-             },800)
+             },1000)
        
       },
-      getName(name){
-          console.log(name)
-          this.getGoodsInfo(name)
+      goToGoodsDetail(produce){
+            this.$router.push({
+                path:'/goodsDetail',
+                query:{
+                    id: produce.id,
+                    name: produce.name,
+                    small_image: produce.small_image,
+                    present_price:produce.present_price,
+                    spec: produce.spec,
+                    total_sales:produce.total_sales,
+                    origin_price: produce.origin_price,
+                }
+            })
       }
       }
 
@@ -137,14 +151,31 @@ export default {
            
           }
          .content-bottom{
+             display: flex;
+             flex-direction: column;
+             justify-content: center;
+             align-items: center;
              font-size:0.6rem;
              padding:0.5rem 0;
+             .spec{
+                 padding:0.2rem 0;
+                 color:#B4B7BB;
+             }
               .price{
                   display: flex;
+                  justify-content: center;
+                  align-items: center;
                   span{
-                      padding:0 0.5rem;
-                      font-size: 0.8rem;
+                      font-size: 0.7rem;
                   }
+                   .now-price{
+                        color:#FF3434;
+                    }
+                    .orign-price{
+                        padding-left:0.5rem;
+                        text-decoration: line-through;
+                        color:#555;
+                    }
               } 
          }
         
@@ -160,7 +191,6 @@ export default {
          padding-top:100px;
          background: #F5F5F5;
          overflow: hidden;
-        
          .empty-icon{
              width:50%;
              margin:0 auto;

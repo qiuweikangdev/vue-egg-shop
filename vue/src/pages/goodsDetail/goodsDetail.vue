@@ -10,7 +10,7 @@
     <div class='detail-wrapper'>
          <!-- 商品图 -->
          <div class='goods-image'>
-                <img :src="goodsInfo.small_image" alt="">
+                <img :src="goodsInfo.small_image" alt="" :onerror='errorImg'>
          </div>
          <div class='goods-info'>
             <div class="title">{{goodsInfo.name}}</div>
@@ -49,6 +49,7 @@ export default {
             goodsInfo:this.$route.query, //接受传过来路由参数
             likeDefault:require('@/assets/images/easyLike/like_default.png'), //没点赞图标
             likeSelected:require('@/assets/images/easyLike/like_selected.png'), //已点赞图标
+             errorImg:'this.src="'+require('@/assets/images/errorImg.png') +'"',  //图片失效的替补图片
             flagLike:false, //点赞标志
             likeNum:30 //点赞数
         }
@@ -130,6 +131,9 @@ export default {
             position: relative;
             div{
                   padding-bottom: 0.3rem;
+            }
+            .title{
+                width:60%;
             }
             .sub-title{
                 font-size: 12px;

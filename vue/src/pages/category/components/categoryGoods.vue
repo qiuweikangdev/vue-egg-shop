@@ -107,8 +107,6 @@ export default {
          border-bottom: 1px solid #ccc;
      }
      .img-left{
-        //  flex:0 0 25%;
-        //  width:25%;
          border-radius: 50%;
          img{
              display: block;
@@ -137,7 +135,6 @@ export default {
                font-size: 0.6rem;
             .now-price{
                 color:#FF3434;
-              
             }
             .orign-price{
                 padding-left:0.5rem;

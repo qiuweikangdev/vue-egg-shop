@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-03 20:16:24
+ * @LastEditors  : qqqiu
+ * @LastEditTime : 2020-01-21 15:19:42
  */
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
@@ -50,4 +50,5 @@ module.exports = {
         const base64Str = buffer.toString('base64') //根据base64编码转换为base64字符串
         return base64Str
     }
+    
 }

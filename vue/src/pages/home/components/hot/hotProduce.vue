@@ -12,7 +12,7 @@
             <div>
             </div>
             <div class="price">
-                <p class="now-price">{{product.price | moneyFormat}}</p>
+                <p class="now-price">{{product.present_price | moneyFormat}}</p>
                  <p class="original-price">{{product.origin_price | moneyFormat}}</p>
                   <div class="buyCar"
                  @click.stop="addToCart(product,index)">
@@ -191,7 +191,6 @@ export default {
         img{
             width: 100%;
             height: 100%;
-            // display: block;
         }
         .item{
             width:48%;
@@ -211,11 +210,15 @@ export default {
         .price{
             display: flex;
              font-size:12px;
-             padding-left:1rem;
+             padding-right:0.5rem;
              position: relative;
+             justify-content: center;
              .original-price{
                  padding-left:0.5rem;
                  text-decoration: line-through;
+             }
+             .now-price{
+                color:#FF3434;
              }
              .buyCar {
                 position: absolute;
