@@ -3,8 +3,8 @@
  * @version: 
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
- * @LastEditors  : qqqiu
- * @LastEditTime : 2020-01-21 15:50:44
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-03-01 16:17:20
  */
 "use strict";
 
@@ -49,7 +49,7 @@ class UserService extends Service {
         let secret = app.config.jwt.secret
         let sqlStr = 'SELECT * FROM users WHERE username = "' + username + '"'
         let result
-        let result1 = await app.mysql.query.query(sqlStr)
+        let result1 = await app.mysql.query(sqlStr)
           //result如果没有匹配到结果，返回的是空数组
            if (authCode !== ctx.session.code) {
             result = {
@@ -61,7 +61,7 @@ class UserService extends Service {
             await ctx.helper.comparePassword(password, result1[0].password)
                 .then((isMatch) => {
                     if (isMatch) {
-                        const token = ctx.helper.getToken({ id: result[0].id, name: result[0].username }, secret);
+                        const token = ctx.helper.getToken({ id: result1[0].id, name: result1[0].username }, secret);
                         //用户信息
                         const userInfo = {
                             id: result1[0].id,
@@ -142,6 +142,138 @@ class UserService extends Service {
         })
     return result
 }
+ //添加商品到购物车
+  async addToCart(params){
+     const { ctx, app } = this;
+     const { id:product_id,product_name,present_price,small_image}   = params
+    const { id:user_id } =ctx.state.user
+    let product_amount = 1;
+    let  sqlStr = 'SELECT * FROM cart where product_id = "'+product_id +'" LIMIT 1'
+    let result
+    await app.mysql.query(sqlStr).then(async res=>{
+         if(res){
+           let  result1 = JSON.parse(JSON.stringify(res))
+            if(result1[0]){
+                //商品已存在，则商品数量+1
+                let product_amount = result1[0].product_amount +1
+                let sqlStr = 'UPDATE cart SET product_amount = "'+product_amount +'" WHERE  product_id = "'+product_id+'"'
+                await app.mysql.query(sqlStr).then(res=>{
+                    if(res){
+                        result = {
+                            code:200,
+                            message:'添加购物车成功'
+                        }
+                    }
+                }).catch(error=>{
+                    console.log(error)
+                    result = {
+                        code:0,
+                        message:'添加购物车失败'
+                    }
+                })
+            }else{
+                //如果商品不存在，则插入商品到数据库
+            let add_str = 'INSERT INTO cart(user_id,product_id,product_name,price,product_amount,product_image) VALUES(?,?,?,?,?,?)'
+            let sql_params = [user_id,product_id,product_name,present_price,product_amount,small_image]
+              await app.mysql.query(add_str,sql_params).then(res=>{
+                  if(res){
+                    result=  {
+                        code:200,
+                        message:'添加购物车成功'
+                    }
+                  }
+              }).catch(error=>{
+                  console.log(error)
+                  result = {
+                        code:0,
+                        message:'添加失败'
+                    }
+              })
+            }
+         }
+    }).catch(err=>{
+        console.log(err)
+        result=  {
+            code:500,
+            message:'服务器内部错误'
+        }
+    })
+    return result
+  }
+
+  //请求购物车数据
+  async getShopCartData(params){
+      const { ctx,app } = this
+      const { id:user_id } = ctx.state.user
+      let sqlStr = 'SELECT * FROM cart where user_id ="'+user_id+'"'
+      let result
+      try{
+        let data =  await app.mysql.query(sqlStr)
+        result = {
+            code:200,
+            data
+        }
+
+      }catch(error){
+          console.log(error)
+      }
+    return result
+     
+  }
+  
+  //减少商品
+  async reduceGoods(params){
+    const { product_id,product_amount}   = params
+    try{ 
+        if(parseInt(product_amount)>1){
+            let amount = parseInt(product_amount) -1
+            let sql_update = 'UPDATE cart SET product_amount = "'+amount+'"  WHERE  product_id = "'+product_id+'"'
+            let res =   await this.app.mysql.query(sql_update)
+            if(res){
+                return {
+                    code:200,
+                    message:'减少商品成功'
+                }
+            }
+        }else if(parseInt(product_amount) === 1){
+            let sql_delete = 'DELETE FROM cart  WHERE  product_id = "' +product_id+'"'
+            let res = await this.app.mysql.query(sql_delete)
+            if(res){
+                return {
+                    code:200,
+                    message:'删除商品成功'
+                }
+            }
+        }
+    }catch(e){
+        return {
+            code:500,
+            message:'减少失败'
+        }
+    }
+  }
+  //增加商品
+  async addGoods(params){
+    const { ctx, app } = this;
+    const { product_id,product_amount}   = params
+    try{
+        let amount = parseInt(product_amount) +1
+        let sql_update = 'UPDATE cart SET product_amount = "'+amount+'"  WHERE  product_id = "'+product_id+'"'
+        let res =   await app.mysql.query(sql_update)
+        if(res){
+            return {
+                code:200,
+                message:'添加成功'
+            }
+        }
+    }catch(e){
+        return {
+            code:500,
+            message:'添加失败'
+        }
+    }
+  }
+    
 }
 
 module.exports = UserService

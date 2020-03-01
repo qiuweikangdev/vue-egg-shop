@@ -20,7 +20,6 @@
          <img
               ref="captcha"
               class="get-verification"
-              src="http://localhost:3000/captcha"
               alt="captcha"
               @click.prevent="getCaptcha()"
                 >
@@ -63,7 +62,7 @@ export default {
       methods:{
         ...mapActions(['captcha']),
          getCaptcha(){
-            this.$refs.captcha.src = 'http://127.0.0.1:3000/captcha?time=' + new Date();
+            this.$refs.captcha.src = 'http://127.0.0.1:5000/captcha?time=' + new Date();
             this.$emit('getCaptcha',this.getCaptcha)
           // this.captcha().then(res=>{
             //     this.captchaUrl =res.data.captcha

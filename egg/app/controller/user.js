@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
- * @LastEditors  : qqqiu
- * @LastEditTime : 2020-01-21 16:35:58
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-03-01 15:50:32
  */
 
 // 'use strict';
@@ -193,6 +193,18 @@ class UserController extends Controller{
     }
     async captcha(){
         this.ctx.body =await this.ctx.service.user.captcha(this.ctx.params)
+    }
+    async addToCart(){
+        this.ctx.body =await this.ctx.service.user.addToCart(this.ctx.params)
+    }
+    async getShopCartData(){
+        this.ctx.body =await this.ctx.service.user.getShopCartData(this.ctx.params)
+    }
+    async addGoods(){
+        this.ctx.body =await this.ctx.service.user.addGoods(this.ctx.params)
+    }
+    async reduceGoods(){
+        this.ctx.body =await this.ctx.service.user.reduceGoods(this.ctx.params)
     }
 }
 module.exports = UserController;

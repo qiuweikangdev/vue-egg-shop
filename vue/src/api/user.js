@@ -1,13 +1,22 @@
 /*
+ * @Descripttion: 
+ * @version: 
+ * @Author: qqqiu
+ * @Date: 2019-12-16 17:34:13
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-03-01 15:44:51
+ */
+/*
  * @Descripttion: 用户个人中心相关接口
  * @Author: qqqiu
  */
 import axios from './index'
+
+//1.注册
 export const register = (username, password, avatar, fileName, authCode) => {
     return axios.request({
         url: 'user/register',
         method: 'post',
-        baseURL: "http://127.0.0.1:3000/",
         data: {
             username,
             password,
@@ -18,12 +27,11 @@ export const register = (username, password, avatar, fileName, authCode) => {
     })
 }
 
-//登录
+//2、登录
 export const login = (username, password, authCode) => {
     return axios.request({
         url: 'user/login',
         method: 'post',
-        baseURL: "http://127.0.0.1:3000/",
         data: {
             username,
             password,
@@ -33,55 +41,84 @@ export const login = (username, password, authCode) => {
     })
 }
 
-//判断token是否有效
+//3、判断token是否有效
 //后端判断请求头有无 token，没有或者 token 过期，返回401；
 export const authorization = () => {
     return axios.request({
         url: '/user/authorization',
-        baseURL: 'http://127.0.0.1:3000',
         method: 'get',
     })
 }
 
-//上传头像
-export const upload = (files) => {
-    return axios.request({
-        url: '/user/upload',
-        baseURL: 'http://127.0.0.1:3000',
-        method: 'post',
-        // headers: {'Content-Type': 'multipart/form-data'},
-        data: {
-            files
-        }
-    })
-}
+// //上传头像
+// export const upload = (files) => {
+//     return axios.request({
+//         url: '/user/upload',
+//         method: 'post',
+//         // headers: {'Content-Type': 'multipart/form-data'},
+//         data: {
+//             files
+//         }
+//     })
+// }
 
 
-//获取用户相关信息 
+//4、获取用户相关信息 
 export const getUserInfo = () => {
     return axios.request({
         url: '/user/getUserInfo',
-        baseURL: 'http://127.0.0.1:3000',
         method: 'get',
     })
 }
 
-//验证码
-export const captcha = () => {
-        return axios.request({
-            url: '/captcha',
-            method: 'get',
-            baseURL: 'http://127.0.0.1:3000',
-        })
-    }
+// //5、验证码
+// export const captcha = () => {
+//         return axios.request({
+//             url: '/captcha',
+//             method: 'get',
+//         })
+//     }
     //验证验证码
-export const verifyCode = (code) => {
+// export const verifyCode = (code) => {
+//     return axios.request({
+//         url: '/verify-code',
+//         method: 'post',
+//         data: {
+//             code
+//         }
+//     })
+// }
+
+// 5、添加商品到购物车
+export const addToCart = (goods) => {
     return axios.request({
-        url: '/verify-code',
+        url: 'user/addToCart',
         method: 'post',
-        baseURL: 'http://127.0.0.1:3000',
-        data: {
-            code
-        }
+        params:goods
+           
+    })
+}
+
+//6 请求购物车数据
+export const getShopCartData = ()=>{
+    return axios.request({
+        url: 'user/getShopCartData',
+        method: 'get',
+    })
+}
+//7 增加商品
+export const addGoods = (goods)=>{
+    return axios.request({
+        url: 'user/addGoods',
+        method: 'post',
+        params:goods
+    })
+}
+//8 减少商品
+export const reduceGoods = (goods)=>{
+    return axios.request({
+        url: 'user/reduceGoods',
+        method: 'post',
+        params:goods
     })
 }

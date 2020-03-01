@@ -5,28 +5,29 @@
             <ul class='right-wrapper'>
                 <li 
                     class='item'
-                    v-for='(item,index) in categoriesDetailData'
+                    v-for='(product,index) in categoriesDetailData'
                     :key='index'
-                     @click="goToGoodsDetail(item)"
+                     @click="goToGoodsDetail(product)"
                 >
                     <div class='item-area'>
                          <div class='img-left'>
-                            <img :src="item.small_image"  :onerror='errorImg' alt="">
+                            <img :src="product.small_image"  :onerror='errorImg' alt="">
                          </div>
                           <div class='content-right'>
-                              <span class='name'>{{item.name}}</span>
-                              <span class="spec">{{item.spec}}</span>
+                              <span class='name'>{{product.product_name}}</span>
+                              <span class="spec">{{product.spec}}</span>
                               <div class='price'>
-                                 <span class='now-price'>{{item.present_price | moneyFormat}}</span>
-                                  <span class='orign-price'>{{item.origin_price | moneyFormat}}</span>
+                                 <span class='now-price'>{{product.present_price | moneyFormat}}</span>
+                                  <span class='orign-price'>{{product.origin_price | moneyFormat}}</span>
                               </div>
                               <!-- 添加购物车 -->
-                                <div class="buyCar"
+                                     <div class="buyCar"><shop-cart :index='index' :product='product'></shop-cart></div>
+                                <!-- <div class="buyCar"
                                     @click.stop="addToCart(item,index)">
-                                    <!-- 购物车图标 -->
                                         <svg-icon iconClass="car"
                                             style="width:1.3rem;height:1.3rem"></svg-icon>
-                                </div>
+                                </div> -->
+
                           </div>
                     </div>
                 </li>
@@ -38,7 +39,11 @@
 <script>
 import BScroll from 'better-scroll'
 import { mapMutations,mapState } from 'vuex'
+import ShopCart from '@/components/shopCart'
 export default {
+    components:{
+       ShopCart
+  },
      data(){
          return {
              errorImg:'this.src="'+require('@/assets/images/errorImg.png') +'"'  //图片失效的替补图片

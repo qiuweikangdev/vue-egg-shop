@@ -14,12 +14,8 @@
             <div class="price">
                 <p class="now-price">{{product.present_price | moneyFormat}}</p>
                  <p class="original-price">{{product.origin_price | moneyFormat}}</p>
-                  <div class="buyCar"
-                 @click.stop="addToCart(product,index)">
-                 <!-- 购物车图标 -->
-                    <svg-icon iconClass="car"
-                        style="width:1.3rem;height:1.3rem"></svg-icon>
-               </div>
+                     <!-- 购物车 -->
+                  <div class="buyCar"><shop-cart :index='index' :product='product'></shop-cart></div>
              </div>
             <div>
             </div>
@@ -35,7 +31,9 @@
 //1.引入vuex模块
 import { createNamespacedHelpers} from "vuex";
 const { mapActions ,mapState,mapMutations } = createNamespacedHelpers("user");
+import ShopCart from '@/components/shopCart'
 export default {
+  components:{ ShopCart },
   data() {
     return {
       product_list: [

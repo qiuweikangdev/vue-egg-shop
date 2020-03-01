@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
- * @LastEditors  : qqqiu
- * @LastEditTime : 2020-01-21 15:19:42
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-02-20 22:21:37
  */
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
@@ -12,7 +12,7 @@ const saltRounds = 10; //加盐的强度
 module.exports = {
     //生成Token 
     getToken(payload = {}, secret) {
-        return jwt.sign(payload, secret, { expiresIn: '1h' });
+        return jwt.sign(payload, secret, { expiresIn: '24h' });
     },
     //密码加密处理方法
     saltPassword(password) {

@@ -1,4 +1,12 @@
 /*
+ * @Descripttion: 
+ * @version: 
+ * @Author: qqqiu
+ * @Date: 2019-12-16 17:34:14
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-02-20 18:05:48
+ */
+/*
  * @Descripttion: 商品类数据存储
  * @Author: qqqiu
  */

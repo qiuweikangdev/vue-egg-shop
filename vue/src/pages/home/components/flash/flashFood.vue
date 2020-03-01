@@ -10,24 +10,25 @@
       <ul class="food-content" ref='foodContent'>
         <li 
         class="food-item"
-        v-for='(produce,index) in FlashFood'
+        v-for='(product,index) in FlashFood'
         :key='index'
         ref='foodItem'
-        @click='goToGoodsDetail(produce)'
+        @click='goToGoodsDetail(product)'
         >  
           <div class='item-image'>
-            <img src="" alt=""  v-lazy="produce.small_image" class='food-img'>
-             <span class="title">{{produce.name}}</span>
+            <img src="" alt=""  v-lazy="product.small_image" class='food-img'>
+             <span class="title">{{product.product_name}}</span>
            </div>  
              <div class="price">
-            <p class="now-price">{{produce.present_price | moneyFormat}}</p>
-            <p class="original-price">{{produce.origin_price | moneyFormat}}</p>
-            <div class="buyCar"
-                 @click.stop="addToCart(produce,index)">
-                 <!-- 购物车图标 -->
+            <p class="now-price">{{product.present_price | moneyFormat}}</p>
+            <p class="original-price">{{product.origin_price | moneyFormat}}</p>
+            <div class="buyCar"><shop-cart :index='index' :product='product'></shop-cart></div>
+            <!-- <div class="buyCar"
+                 @click.stop="addToCart(product,index)">
                     <svg-icon iconClass="car"
                         style="width:1.3rem;height:1.3rem"></svg-icon>
-            </div>
+            </div> -->
+            
           </div>
         </li>
       </ul>
@@ -39,7 +40,11 @@
 // import { toMoney } from '@/filter/moneyFilter'
 import { mapMutations,mapState } from 'vuex'
 import BScroll from 'better-scroll'
+import ShopCart from '@/components/shopCart'
 export default {
+  components:{
+    ShopCart
+  },
   data() {
     return {
     };
@@ -91,18 +96,18 @@ export default {
           eventPassthrough:'vertical'  //保留原生滚动
         });
     },
-    goToGoodsDetail(produce){
-             console.log(produce)
+    goToGoodsDetail(product){
+             console.log(product)
             this.$router.push({
                 path:'/goodsDetail',
                 query:{
-                    id: produce.id,
-                    name: produce.name,
-                    small_image: produce.small_image,
-                    present_price:produce.present_price,
-                    spec: produce.spec,
-                    total_sales:produce.total_sales,
-                    origin_price: produce.origin_price,
+                    id: product.id,
+                    name: product.name,
+                    small_image: product.small_image,
+                    present_price:product.present_price,
+                    spec: product.spec,
+                    total_sales:product.total_sales,
+                    origin_price: product.origin_price,
                 }
             })
       }

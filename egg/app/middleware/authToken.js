@@ -1,5 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: qqqiu
+ * @Date: 2019-12-17 10:03:19
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-02-18 19:58:12
+ */
 const jwt = require('jsonwebtoken') //引入jsonwebtoken
-
 module.exports = (options, app) => {
     return async function auth(ctx, next) {
         let authorization = ctx.header.authorization // 获取header里的authorization
@@ -9,17 +16,21 @@ module.exports = (options, app) => {
 
         const token = authorization.split(' ')[1]; //请求头里面携带了bearer认证,需要把这个去掉
         const secret = app.config.secret
-
-        await verifyToken(token, secret).then(async res => {
-                console.log(res)
-                ctx.session.userInfo = res
-                await next()
-            })
-            .catch(async err => {
-                ctx.body = { code: 401, msg: '登录状态已过期' }
-            })
-
-
+  
+        try{
+           let res =  await verifyToken(token, secret)
+           ctx.state.user = res  //把token信息存储在上下文，便于访问
+           console.log('token信息',res)
+            await next()
+        }catch(err){
+            console.log(err)
+            ctx.status = 401
+            ctx.state.user = null;
+            return  ctx.body = { 
+                code: 401, 
+                msg: '登录状态已过期' 
+            }
+        }
 
     }
 }

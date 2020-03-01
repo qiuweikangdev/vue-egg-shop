@@ -34,22 +34,25 @@
               <van-checkbox
                 v-model="goods.checked"
                 checked-color="#D4237A"
-                @click="oneSelect(goods.id)"
+                @click="oneSelect(goods.product_id)"
               ></van-checkbox>
             </div>
             <div class="center">
-              <img :src="goods.smallImage" />
+              <img :src="goods.product_image" />
             </div>
             <div class="right">
-              <p class="top-content">{{goods.name}}</p>
+              <p class="top-content">{{goods.product_name}}</p>
               <div class="bottom-content">
                 <p class="goodsPrice">{{goods.price | moneyFormat}}</p>
                 <div class="goodsDeal">
-                  <span @click="reduceGoods(goods.id,goods.num)">-</span>
-                  <input type="number" disabled v-model="goods.num" />
-                  <span
+                  <span @click="reduceGoodsData(goods.product_id,goods.product_amount)">-</span>
+                  <input type="number"  disabled v-model.number="goods.product_amount" />
+                  <!-- <span
                     @click="addGoods(goods.id,goods.name,
                     goods.smallImage,goods.price)"
+                  >+</span> -->
+                   <span
+                    @click="addGoodsData(goods.product_id,goods.product_amount)"
                   >+</span>
                 </div>
               </div>
@@ -95,7 +98,7 @@ export default {
   },
   computed: {
     //1.vuex中的用户商品数据
-    ...mapState(["shopCart", "userInfo"]),
+    ...mapState(["shopCart", "userInfo",'token']),
     //2.价格总价
     totalPrice() {
       return this.$store.getters.totalPrice;
@@ -116,25 +119,35 @@ export default {
     //3.选中商品数量
     selectedGoodNum() {
       let num = 0;
-      Object.values(this.shopCart).forEach(goods => {
-        if (goods.checked) {
-          num++;
-        }
-      });
+      // Object.values(this.shopCart).forEach(goods => {
+      //   if (goods.checked) {
+      //     num++;
+      //   }
+      // });
+      this.shopCart.forEach(goods => {
+          if (goods.checked) {
+            num++;
+          }
+        });
       return num;
     },
-    //3.
-    totalCount() {},
     //4.商品数量
     goodsCount() {
-      return Object.keys(this.shopCart).length;
+      // return Object.keys(this.shopCart).length;
+      return this.shopCart.length;
     },
     //5 是否全部选中
     isCheckedAll: {
       //由于我们给商品添加了checked属性，商品存储在vuex中,要修改state的值,需要通过mutations
       get() {
         let flag = true;  
-        Object.values(this.shopCart).forEach(goods => {
+        // Object.values(this.shopCart).forEach(goods => {
+        //   //如果商品有一个没有选中，则返回false
+        //   if (!goods.checked) {
+        //      flag = false;
+        //   }
+        // });
+        this.shopCart.forEach(goods => {
           //如果商品有一个没有选中，则返回false
           if (!goods.checked) {
              flag = false;
@@ -150,7 +163,12 @@ export default {
     //6.计算shopCart中一共选中商品的数量
     selectedGoodsCount() {
       let selectedGoodsCount = 0;
-      Object.values(this.shopCart).forEach(goods => {
+      // Object.values(this.shopCart).forEach(goods => {
+      //   if (goods.checked) {
+      //     selectedGoodsCount++;
+      //   }
+      // });
+    this.shopCart.forEach(goods => {
         if (goods.checked) {
           selectedGoodsCount++;
         }
@@ -160,7 +178,13 @@ export default {
   },
   created() {
     //初始化购物车数据
-    this.INIT_SHOP_CART();
+    // this.INIT_SHOP_CART();
+    if(this.token){
+        this.getShopCartData()  //请求购物车数据
+    }else{
+       this.$router.push('login')
+    }
+   
   },
   methods: {
     // mutaions方法
@@ -172,6 +196,7 @@ export default {
       "DELETE_SELECT_GOODS",
       "ALL_SELECT_GOODS"
     ]),
+    ...mapActions(['getShopCartData','addGoods','reduceGoods']),
     onClickLeft() {
       // 4。 返回上一个界面
       this.$router.back();
@@ -198,34 +223,44 @@ export default {
     oneSelect(goodsID) {
       this.SINGLE_SELECT_GOODS({ goodsID });
     },
-    // isCheckedAll(){}
       //减少商品
-  reduceGoods(goodsID, goodsNum){
-    if(goodsNum > 1){
-      // 3.1 通过goodsID减少商品
-        this.REDUCE_GOODS({
-          goodsID
+  reduceGoodsData(product_id, product_amount){
+    if(product_amount > 1){
+        // this.REDUCE_GOODS({
+        //   goodsID
+        // });
+        this.reduceGoods({
+          product_id,
+          product_amount
         });
-    }else if(goodsNum === 1){
+    }else if(product_amount === 1){
         Dialog.confirm({
           title: '温馨提示',
           message: '确定删除选中商品吗?'
         }).then(() => {
           // on confirm 确认删除
-          this.REDUCE_GOODS({goodsID});
+          // this.REDUCE_GOODS({goodsID});
+            this.reduceGoods({
+              product_id,
+              product_amount
+          });
         }).catch(() => {
           // on cancel
         });
     }
   },
   //添加商品
-  addGoods(goodsID, goodsName, goodsSmallImage, goodsPrice){
-      this.ADD_GOODS({
-        goodsID,
-        goodsName,
-        goodsSmallImage,
-        goodsPrice
-      });
+  // addGoods(goodsID, goodsName, goodsSmallImage, goodsPrice){
+      // this.ADD_GOODS({
+      //   goodsID,
+      //   goodsName,
+      //   goodsSmallImage,
+      //   goodsPrice
+      // });
+  // }
+  //添加商品
+  addGoodsData(product_id,product_amount){
+      this.addGoods({product_id,product_amount})
   }
   }
 

@@ -18,12 +18,10 @@ module.exports = (options, app) => {
                 err.message;
             if (status === 422) {
                 //422:请求格式正确，但是由于含有语义错误
-                ctx.body.detail = err.errors;
-            } else {
                 // 从 error 对象上读出各个属性，设置到响应中 
-                ctx.body = { code: status, error };
-            }
-
+                ctx.body.detail = err.errors;
+            } 
+             ctx.status =status
 
         }
 

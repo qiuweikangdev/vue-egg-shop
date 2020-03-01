@@ -1,4 +1,12 @@
-import { login, register, authorization, getUserInfo, upload, captcha, verifyCode } from '@/api/user'
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: qqqiu
+ * @Date: 2019-12-16 17:34:14
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-03-01 18:52:29
+ */
+import { login, register, authorization, getUserInfo, captcha,addToCart ,getShopCartData,addGoods,reduceGoods} from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import {
     USER_INFO,
@@ -14,7 +22,8 @@ import {
     REDUCE_GOODS,
     DELETE_SELECT_GOODS,
     SINGLE_SELECT_GOODS,
-    ALL_SELECT_GOODS
+    ALL_SELECT_GOODS,
+    UPDATE_SHOP_CART
 } from './mutation-types'
 // 引入本地存储
 import {
@@ -31,7 +40,8 @@ const state = {
     token: getToken(),
     userInfo: {}, // 用户信息
     shippingAddress: [], //配送地址
-    shopCart: {}, //用户购物车商品
+    // shopCart: {}, //用户购物车商品
+    shopCart:[], //用户购物车商品
     // goodsNum:'' //购物车商品数量
 
 }
@@ -113,46 +123,42 @@ const mutations = {
         setLocalStore('shippingAddress', state.shippingAddress);
     },
     //8 添加商品
-    [ADD_GOODS](state, {
-        goodsID,
-        goodsName,
-        smallImage,
-        goodsPrice
-    }) {
-        let shopCart = state.shopCart;
-        // 8.1 根据ID判断商品是否存在
-        if (shopCart[goodsID]) {
-            // console.log(shopCart)
-            //让数量goodsID里面的num +1
-            shopCart[goodsID]['num']++;
-        } else {
-            // 8.2 不存在则设置shopCart购物车商品默认值
-            shopCart[goodsID] = {
-                    'num': 1, //商品数量
-                    'id': goodsID, //商品ID
-                    'name': goodsName, //商品名称
-                    'price': goodsPrice, //商品价格
-                    'smallImage': smallImage, //商品图片
-                    'checked': true //是否选中
-                }
-                // 8.3 给shopCart产生新对象
-        }
-        state.shopCart = {
-            ...shopCart
-        };
-        // 8.4 将商品数据存储到本地
-        setLocalStore('shopCart', state.shopCart);
+    // [ADD_GOODS](state, {
+    //     goodsID,
+    //     goodsName,
+    //     smallImage,
+    //     goodsPrice
+    // }) {
+    //     let shopCart = state.shopCart;
+    //     // 8.1 根据ID判断商品是否存在
+    //     if (shopCart[goodsID]) {
+    //         // console.log(shopCart)
+    //         //让数量goodsID里面的num +1
+    //         shopCart[goodsID]['num']++;
+    //     } else {
+    //         // 8.2 不存在则设置shopCart购物车商品默认值
+    //         shopCart[goodsID] = {
+    //                 'num': 1, //商品数量
+    //                 'id': goodsID, //商品ID
+    //                 'name': goodsName, //商品名称
+    //                 'price': goodsPrice, //商品价格
+    //                 'smallImage': smallImage, //商品图片
+    //                 'checked': true //是否选中
+    //             }
+    //             // 8.3 给shopCart产生新对象
+    //     }
+    //     state.shopCart = {
+    //         ...shopCart
+    //     };
+    //     // 8.4 将商品数据存储到本地
+    //     setLocalStore('shopCart', state.shopCart);
 
-    },
+    // },
     //9.添加商品到购物车
     [ADD_TO_CART](state, goods) {
         if (state.token) {
             //9.1 如何没有登录跳转到登录界面
             //调用ADD_GOODS方法添加商品
-            let shopCart = state.shopCart
-            if (shopCart[goods.id]) {
-                shopCart[goods.id]['num']++;
-            }
             //注意在模块下mutations提交是 '模块名/函数名'，否则会报错
             setTimeout(() => {
                 this.commit("user/ADD_GOODS", {
@@ -171,38 +177,42 @@ const mutations = {
             router.push('/login')
         }
     },
-    //10.页面初始化,获取本地购物车的数据
-    [INIT_SHOP_CART](state) {
+    //10.页面初始化,获取购物车的数据
+    [INIT_SHOP_CART](state,shopCart) {
+        if(shopCart){
+            state.shopCart = shopCart
+''       }
         // 10.1 先存本地取购物车数据
-        let initShopCart = getLocalStore('shopCart');
-        if (initShopCart) {
-            // 10.2 如何购物车有数据那么就把它通过对象的方式赋值给store
-            state.shopCart = JSON.parse(initShopCart);
-        }
+        // let initShopCart = getLocalStore('shopCart');
+        // if (initShopCart) {
+        //     // 10.2 如何购物车有数据那么就把它通过对象的方式赋值给store
+        //     state.shopCart = JSON.parse(initShopCart);
+        //     console.log(state.shopCart)
+        // }
     },
     //11.减少商品
-    [REDUCE_GOODS](state, { goodsID }) {
-        //11.1取出state中的商品数据
-        let shopCart = state.shopCart;
-        //12.1通过商品ID来找到这个商品
-        let goods = shopCart[goodsID];
+    // [REDUCE_GOODS](state, { goodsID }) {
+    //     //11.1取出state中的商品数据
+    //     let shopCart = state.shopCart;
+    //     //12.1通过商品ID来找到这个商品
+    //     let goods = shopCart[goodsID];
 
-        if (goods['num'] > 0) {
-            // 12.2 减少商品数量
-            goods['num']--;
-            //12.3等于0的时候就删除商品
-            if (goods['num'] === 0) {
-                delete shopCart[goodsID];
-            }
-        }
-        // delete shopCart[goodsID];
-        //12.4 更新state中的商品数据
-        state.shopCart = {
-                ...shopCart
-            }
-            //12.5 更新本地中的商品数据
-        setLocalStore('shopCart', state.shopCart);
-    },
+    //     if (goods['num'] > 0) {
+    //         // 12.2 减少商品数量
+    //         goods['num']--;
+    //         //12.3等于0的时候就删除商品
+    //         if (goods['num'] === 0) {
+    //             delete shopCart[goodsID];
+    //         }
+    //     }
+    //     // delete shopCart[goodsID];
+    //     //12.4 更新state中的商品数据
+    //     state.shopCart = {
+    //             ...shopCart
+    //         }
+    //         //12.5 更新本地中的商品数据
+    //     setLocalStore('shopCart', state.shopCart);
+    // },
     //12.删除选中商品
     [DELETE_SELECT_GOODS](state) {
         // 12.1 取出state中的商品数据
@@ -226,22 +236,33 @@ const mutations = {
         // 12.1 取出state中的商品数据
         let shopCart = state.shopCart;
         // 12.2 根据商品id取到goods
-        let goods = shopCart[goodsID];
-        // 12.3 判断商品是否存在
-        if (goods) {
-            //12.4 判断checked是否存在
-            if (goods.checked) {
-                goods.checked = !goods.checked;
-            } else {
-                //12.5如果不存在，则设置checked属性
-                Vue.set(goods, 'checked')
+        // let goods = shopCart[goodsID];
+        // // 12.3 判断商品是否存在
+        // if (goods) {
+        //     //12.4 判断checked是否存在
+        //     if (goods.checked) {
+        //         goods.checked = !goods.checked;
+        //     } else {
+        //         //12.5如果不存在，则设置checked属性
+        //         Vue.set(goods, 'checked')
 
+        //     }
+        // }
+        shopCart.map((goods,index)=>{
+            if(goods.product_id === goodsID){
+                if(goods.checked){
+                    goods.checked = !goods.checked;
+                }
+            }else{
+                Vue.set(shopCart[index],'check',false)
             }
-        }
+        })
+        
         // 12.6 更新state数据
-        state.shopCart = {
-                ...shopCart
-            }
+        state.shopCart = [...shopCart]
+        // state.shopCart = {
+        //         ...shopCart
+        //     }
             // 12.7 将数据更新到本地
         setLocalStore('shopCart', state.shopCart);
     },
@@ -265,6 +286,24 @@ const mutations = {
             ...shopCart
         };
         // 13.3 将数据更新到本地
+        setLocalStore('shopCart', state.shopCart);
+    },
+    [UPDATE_SHOP_CART](state,newShopCart){
+        let shopCart = state.shopCart;
+        //如果本地没有数据,则直接赋值
+        if(!shopCart.length){
+            state.shopCart =newShopCart
+        }
+        else{
+            //如果本地有数据,则更新其中数据
+            for(let i=0;i<newShopCart.length;++i){
+                if(newShopCart[i].product_amount == shopCart[i].product_amount) continue;
+                else{
+                    shopCart[i].product_amount = newShopCart[i].product_amount
+                }
+            }
+            state.shopCart =shopCart
+        }
         setLocalStore('shopCart', state.shopCart);
     }
 }
@@ -320,6 +359,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             //调用后台接口授权，来获取token
             authorization().then(res => {
+                console.log(res,'aaaaaaaaa')
                 if (parseInt(res.data.code) === 401) {
                     //token过期
                     reject(new Error('token error'))
@@ -376,15 +416,49 @@ const actions = {
     },
 
     //  7、退出登录
-    logout({ commit }, state) {
+    logout({ commit }) {
         removeToken()
         commit('SET_TOKEN', '')
         removeLocalStore('userInfo'); //清除用户信息
         removeLocalStore('shopCart'); //清除购物车数据
         removeLocalStore('shippingAddress'); //清除收获地址
-    }
+    },
 
-    //8.
+    //8. 添加商品到购物车
+   async addToCart({commit},goods){
+       console.log(goods,'goods')
+       let result =  await addToCart(goods) 
+       console.log(result,'result')
+       if(result.data.code === 200)
+            Toast({
+                message: '成功加入购物车',
+                duration: 800
+            })
+    // console.log(goods)
+
+   },
+   //9. 请求购物车数据
+   async getShopCartData({commit}){
+    let result =  await getShopCartData() 
+    if(result.data.code === 200){
+        commit('UPDATE_SHOP_CART', result.data.data)  
+      }
+    },
+    //10、增加商品
+    async addGoods({commit,dispatch},goods){
+      let result = await addGoods(goods)
+      if(result.data.code === 200){
+            dispatch("getShopCartData") //更新购物车数据
+      }
+    },
+     //11、减少商品
+     async reduceGoods({commit,dispatch},goods){
+      let result = await reduceGoods(goods)
+      if(result.data.code === 200){
+            dispatch("getShopCartData") //更新购物车数据
+      }
+    },
+    
 }
 
 

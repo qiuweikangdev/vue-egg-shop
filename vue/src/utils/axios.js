@@ -1,11 +1,21 @@
 /*
+ * @Descripttion: 
+ * @version: 
+ * @Author: qqqiu
+ * @Date: 2019-12-16 17:34:14
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-02-22 09:59:09
+ */
+/*
  * @Descripttion: 封装axios实例
  */
 import axios from 'axios'
 import { baseURL } from '@/config/baseURL'
 import store from '@/store'
-import { getToken } from './auth'
+import { getToken,removeToken } from './auth'
 import { Toast } from 'vant';
+import router from '@/router'
+import {  removeLocalStore } from '@/config/global'
 axios.defaults.withCredentials = true; //允许请求头携带cookie
 class HttpRequest {
     //baseURL请求的基础路径
@@ -30,7 +40,6 @@ class HttpRequest {
         instance.interceptors.request.use(config => {
                 //config : 请求的所有配置 
 
-
                 // 每次发送请求之前判断vuex中是否存在token        
                 // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况
                 // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断 
@@ -45,22 +54,30 @@ class HttpRequest {
             })
             //响应拦截
             //成功请求
-        instance.interceptors.response.use(res => {
-            //res ：响应的信息
+        instance.interceptors.response.use(response => {
+            //response ：响应的信息
             //对响应的结果进行处理
-            //    delete this.queue[url] 
-            //拿到响应结果的data数据和status状态码
-            const { data, status } = res
-            if (data.code === 401) {
+            if(response.status === 200){
+                return Promise.resolve(response);  
+            }else{
+                return Promise.reject(response)
+            }
+        }, error => {
+            //状态码不是200的情况    
+            //错误处理
+            if(error.response.status ===401){  
                 Toast({
                     type: 'fail',
                     duration: '1000',
                     message: '登录过期,请重新登录'
                 });
+                removeToken()
+                removeLocalStore('userInfo'); //清除用户信息
+                removeLocalStore('shopCart'); //清除购物车数据
+                removeLocalStore('shippingAddress'); //清除收获地址
+                router.push('/login')
             }
-            return res
-        }, error => {
-            return Promise.reject(error)
+            return Promise.reject(error.response)
         })
     }
     request(options) {

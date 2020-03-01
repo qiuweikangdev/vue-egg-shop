@@ -135,7 +135,7 @@ export default {
       // this.$router.push({ name: "login" });
     },
     getInfo() {
-        console.log(this.userInfo)
+        // console.log(this.userInfo)
         // const { username , avatar } = this.userInfo
         // this.userInfo.avatar = "data:image/jpeg;base64," + avatar;
       // this.getUserInfo().then(res => {

@@ -95,7 +95,8 @@
        methods: {
            ...mapActions(['register','upload']),
            goBack() {
-               this.$router.go(-1)
+            //    this.$router.go(-1)
+             this.$router.push('/')
            },
             registerAction(){
                 //表单验证 和 提交表单数据结果

@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
- * @LastEditors  : qqqiu
- * @LastEditTime : 2020-01-21 19:18:58
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-02-20 22:01:28
  */
 'use strict';
 
@@ -26,7 +26,7 @@ module.exports = appInfo => {
 
     config.jwt = {
         secret: 'secret', //密钥
-        ignore: [/^\/user\/login/, /^\/user\/register/], // 哪些请求不需要认证
+        ignore: [/^\/user\/login/, /^\/user\/register/] // 哪些请求不需要认证
     }
     config.middleware = ['params', 'errorHandle'];
 
@@ -62,13 +62,13 @@ module.exports = appInfo => {
         allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
         credentials: true, //获得前端的cookie
         // origin: () => 'http://127.0.0.1:8080' //这边不能为*号，需要指定明确的、与请求网页一致的域名
-        origin: () => 'http://127.0.0.1:3000' //这边不能为*号，需要指定明确的、与请求网页一致的域名
+        origin: () => 'http://127.0.0.1:8080' //这边不能为*号，需要指定明确的、与请求网页一致的域名
 
     };
     config.cluster = {
         listen: {
         path: '',
-        port: 3001,
+        port: 5000,
         hostname: '127.0.0.1'
         // hostname: '0.0.0.0'
         },
@@ -100,13 +100,13 @@ module.exports = appInfo => {
         ...userConfig,
     };
 };
-exports.io = {
-    namespace: {
-        '/': {
-            // connectionMiddleware是在client保持连接的时候调用的中间件
-            connectionMiddleware: ['auth'],
-            // packetMiddleware是在server发送包给client之后调用的中间件
-            packetMiddleware: ['filter']
-        },
-    },
-};
+// exports.io = {
+//     namespace: {
+//         '/': {
+//             // connectionMiddleware是在client保持连接的时候调用的中间件
+//             connectionMiddleware: ['auth'],
+//             // packetMiddleware是在server发送包给client之后调用的中间件
+//             packetMiddleware: ['filter']
+//         },
+//     },
+// };

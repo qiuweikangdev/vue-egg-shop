@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 17:32:16
  * @LastEditors  : qqqiu
- * @LastEditTime : 2020-01-21 17:55:05
+ * @LastEditTime : 2020-02-06 20:32:23
  */
 "use strict"
 const Service = require('egg').Service
@@ -43,7 +43,7 @@ class CategoryService extends Service {
     async getCategorySub() {
         let sqlStr = 'SELECT * FROM category_sub'
         let result 
-        await ctx.service.tools.query(sqlStr)
+        await this.app.mysql.query(sqlStr)
             .then((res) => {
                 result = { code: 200, success: res }
             })
@@ -53,8 +53,8 @@ class CategoryService extends Service {
         return result 
     }
     //根据分类id读取某分类商品数据
-    async getGoodsByCategoryID() {
-        const { subID } = ctx.params
+    async getGoodsByCategoryID(params) {
+        const { subID } = params
         let sqlStr = 'SELECT * FROM goods WHERE SUB_ID ="' + subID + '"'
         let result
         await this.app.mysql.query(sqlStr)
@@ -66,6 +66,6 @@ class CategoryService extends Service {
             })
         return result
     }
-    //
 
 }
+module.exports = CategoryService

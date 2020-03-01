@@ -82,7 +82,8 @@
                 this.checkForm() && this.loginUser()
             },
               onClickLeft() {
-               this.$router.go(-1)
+            //    this.$router.go(-1)
+               this.$router.push('/')
            },
           loginUser(){
              this.openLoading=true;
@@ -104,7 +105,6 @@
                 else if(res.message === '验证码错误'){
                        this.openLoading=false;
                        this.userInfo.authCode='';
-                       console.log(this.userInfo.authCode,'xxx')
                        this.triggerCode.push('true')  //触发请求验证码
                         Toast({
                         message: '验证码错误',
