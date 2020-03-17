@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-01 18:52:29
+ * @LastEditTime: 2020-03-17 21:55:02
  */
 import { login, register, authorization, getUserInfo, captcha,addToCart ,getShopCartData,addGoods,reduceGoods} from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
@@ -178,17 +178,14 @@ const mutations = {
         }
     },
     //10.页面初始化,获取购物车的数据
-    [INIT_SHOP_CART](state,shopCart) {
-        if(shopCart){
-            state.shopCart = shopCart
-''       }
-        // 10.1 先存本地取购物车数据
-        // let initShopCart = getLocalStore('shopCart');
-        // if (initShopCart) {
-        //     // 10.2 如何购物车有数据那么就把它通过对象的方式赋值给store
-        //     state.shopCart = JSON.parse(initShopCart);
-        //     console.log(state.shopCart)
-        // }
+    [INIT_SHOP_CART](state) {
+        //10.1 先存本地取购物车数据
+        let initShopCart = getLocalStore('shopCart');
+        if (initShopCart) {
+            // 10.2 如何购物车有数据那么就把它通过对象的方式赋值给store
+            state.shopCart = JSON.parse(initShopCart);
+        }
+      
     },
     //11.减少商品
     // [REDUCE_GOODS](state, { goodsID }) {
@@ -233,38 +230,31 @@ const mutations = {
     },
     //13.单个商品复选框事件
     [SINGLE_SELECT_GOODS](state, { goodsID }) {
-        // 12.1 取出state中的商品数据
+        // 13.1 取出state中的商品数据
         let shopCart = state.shopCart;
-        // 12.2 根据商品id取到goods
-        // let goods = shopCart[goodsID];
-        // // 12.3 判断商品是否存在
-        // if (goods) {
-        //     //12.4 判断checked是否存在
-        //     if (goods.checked) {
-        //         goods.checked = !goods.checked;
-        //     } else {
-        //         //12.5如果不存在，则设置checked属性
-        //         Vue.set(goods, 'checked')
-
-        //     }
-        // }
-        shopCart.map((goods,index)=>{
-            if(goods.product_id === goodsID){
-                if(goods.checked){
-                    goods.checked = !goods.checked;
-                }
-            }else{
-                Vue.set(shopCart[index],'check',false)
+        //13.2 设置商品的选中
+        // shopCart.map((goods,index)=>{
+        //     if(goods.product_id === goodsID){
+        //          console.log(goods,'goods')
+        //         if(goods.checked){
+        //             goods.checked = !goods.checked;
+        //         }
+        //     } else{
+        //         // Vue.set(shopCart[index],'checked',)
+        //      }
+        // })
+        for(let i=0;i<shopCart.length;++i){
+            if(shopCart[i].product_id === goodsID && shopCart[i].hasOwnProperty('checked')){
+                shopCart[i].checked = !shopCart[i].checked;
+                    break;
             }
-        })
-        
-        // 12.6 更新state数据
+        }
+
+        //13.4 将数据更新到本地
         state.shopCart = [...shopCart]
-        // state.shopCart = {
-        //         ...shopCart
-        //     }
-            // 12.7 将数据更新到本地
-        setLocalStore('shopCart', state.shopCart);
+         // 13.3 更新state数据
+        setLocalStore('shopCart',state.shopCart); 
+        
     },
     //14. 全选商品事件
     [ALL_SELECT_GOODS](state, { isCheckedAll }) {
@@ -289,20 +279,25 @@ const mutations = {
         setLocalStore('shopCart', state.shopCart);
     },
     [UPDATE_SHOP_CART](state,newShopCart){
+        // console.log(state,'state')
         let shopCart = state.shopCart;
-        //如果本地没有数据,则直接赋值
+        //如果本地数据为空，则直接赋值
         if(!shopCart.length){
             state.shopCart =newShopCart
-        }
-        else{
-            //如果本地有数据,则更新其中数据
+        }else if(newShopCart && !newShopCart.length){
+            //如果购物车为空，则更新state数据也为空
+            state.shopCart =newShopCart
+        }else{
+            //为了如果商品当前选中,还是保持选中的状态
             for(let i=0;i<newShopCart.length;++i){
-                if(newShopCart[i].product_amount == shopCart[i].product_amount) continue;
-                else{
-                    shopCart[i].product_amount = newShopCart[i].product_amount
+                if(!shopCart[i]) continue  //shopCart[i] 如果为underfind 则当前操作为添加购物车,shopCart.length <newShopCart.length 
+                else if(shopCart[i].hasOwnProperty('checked') && shopCart[i].checked){
+                    newShopCart[i].checked =true
+                }else{
+                    newShopCart[i].checked =false
                 }
             }
-            state.shopCart =shopCart
+            state.shopCart =newShopCart
         }
         setLocalStore('shopCart', state.shopCart);
     }
@@ -359,18 +354,21 @@ const actions = {
         return new Promise((resolve, reject) => {
             //调用后台接口授权，来获取token
             authorization().then(res => {
-                console.log(res,'aaaaaaaaa')
-                if (parseInt(res.data.code) === 401) {
-                    //token过期
-                    reject(new Error('token error'))
-                } else {
-                    //当用户一直在操作，进行跳转路由
-                    //我们希望延迟token的过期时间
-                    //再设置token时间来延迟token的过期时间
                     setToken(res.data.token)
-                        // console.log(res)
+                    // console.log(res)
                     resolve()
-                }
+                // if (parseInt(res.data.code) === 401) {
+                //     //token过期
+                //     reject(new Error('token error'))
+                // } else {
+                //     //当用户一直在操作，进行跳转路由
+                //     //我们希望延迟token的过期时间
+                //     //再设置token时间来延迟token的过期时间
+                //     setToken(res.data.token)
+                //         // console.log(res)
+                //     resolve()
+                // }
+
             }).catch((err) => {
                 reject(err)
             })
@@ -425,21 +423,25 @@ const actions = {
     },
 
     //8. 添加商品到购物车
-   async addToCart({commit},goods){
-       console.log(goods,'goods')
+   async addToCart({commit,dispatch},goods){
        let result =  await addToCart(goods) 
-       console.log(result,'result')
-       if(result.data.code === 200)
+       if(result.data.code === 200){
             Toast({
                 message: '成功加入购物车',
                 duration: 800
             })
-    // console.log(goods)
-
-   },
+         dispatch("getShopCartData") //更新购物车数据
+       }else{
+            Toast({
+                message: '成功失败',
+                duration: 800
+            })
+       }
+        
+    },
    //9. 请求购物车数据
    async getShopCartData({commit}){
-    let result =  await getShopCartData() 
+    let result =  await getShopCartData()
     if(result.data.code === 200){
         commit('UPDATE_SHOP_CART', result.data.data)  
       }

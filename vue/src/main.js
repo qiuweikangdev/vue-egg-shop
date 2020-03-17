@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-09-16 19:13:01
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-01 10:38:03
+ * @LastEditTime: 2020-03-17 16:30:58
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -18,9 +18,9 @@ import '@/icons'
 import '@/config/fillter' //全局引入过滤器
 import FastClick from 'fastclick'
 //推荐局部引入组件库中的组件
-import { Cell, CellGroup, Tabbar, TabbarItem, Stepper, Tab, Tabs, Button, Row, Col, Swipe, SwipeItem, Lazyload, Field, NavBar, Skeleton, Divider, Uploader, SwitchCell, Grid, GridItem, AddressList, AddressEdit, Area, Search, CountDown, SubmitBar, Checkbox, List, PullRefresh, GoodsAction, GoodsActionIcon, GoodsActionButton } from 'vant'
+import { Cell, CellGroup, Tabbar, TabbarItem, Stepper, Tab, Tabs, Button, Row, Col, Swipe, SwipeItem, Lazyload, Field, NavBar, Skeleton, Divider, Uploader, SwitchCell, Grid, GridItem, AddressList, AddressEdit, Area, Search, CountDown, SubmitBar, Checkbox, List, PullRefresh, GoodsAction, GoodsActionIcon, GoodsActionButton,ContactCard, ContactList, ContactEdit,Icon} from 'vant'
 Vue.use(uploader)
-Vue.use(Cell).use(CellGroup).use(Tabbar).use(TabbarItem).use(Stepper).use(Tab).use(Tabs).use(Field).use(NavBar).use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(Skeleton).use(Divider).use(Uploader).use(SwitchCell).use(Grid).use(GridItem).use(AddressList).use(AddressEdit).use(Area).use(Search).use(CountDown).use(SubmitBar).use(Checkbox).use(List).use(PullRefresh).use(GoodsAction).use(GoodsActionIcon).use(GoodsActionButton);
+Vue.use(Cell).use(CellGroup).use(Tabbar).use(TabbarItem).use(Stepper).use(Tab).use(Tabs).use(Field).use(NavBar).use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(Skeleton).use(Divider).use(Uploader).use(SwitchCell).use(Grid).use(GridItem).use(AddressList).use(AddressEdit).use(Area).use(Search).use(CountDown).use(SubmitBar).use(Checkbox).use(List).use(PullRefresh).use(GoodsAction).use(GoodsActionIcon).use(GoodsActionButton).use(ContactCard).use(ContactList).use(Icon);
 
 Vue.component('v-top', VTop)
 

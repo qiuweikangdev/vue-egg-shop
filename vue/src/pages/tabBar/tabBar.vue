@@ -67,8 +67,8 @@ export default {
       goodsNum(){
         // return this.$store.getters.goodsNum
           let num = 0
-          Object.values(this.shopCart).forEach((goods)=>{
-            num += goods.num
+         this.shopCart.forEach((goods)=>{
+            num += goods.product_amount
           })
           if(num>0){
               return num            
@@ -77,13 +77,13 @@ export default {
   },
   created(){
     //初始化购物车商品数据
-    this.INIT_SHOP_CART()
+    // this.INIT_SHOP_CART()
+    if(this.token){
+      this.getShopCartData()
+    } 
     // this.tabbarSelected()
     //保证每次页面加载前Tabbar选中正常
     this.tabbarSelected(this.$route.name)
-  },
-  mounted(){
-      // console.log('aaaaa')
   },
   watch:{
       // 监听路由变化,保证路由跳转Tabbar选中正常
@@ -93,7 +93,8 @@ export default {
   },
   methods:{
     //获取mutaions里的方法，初始化购物车数据
-     ...mapMutations(['INIT_SHOP_CART']),
+    //  ...mapMutations(['INIT_SHOP_CART']),
+    ...mapActions(['getShopCartData']),
      handleTab(index,name){
         this.$router.push({name:name})
         // const token = getToken()
@@ -106,9 +107,8 @@ export default {
      },
      tabbarSelected(name){
        //findIndex方法是返回第一个匹配到的数组成员的位置
-      var  index=  this.tabbar.findIndex((item,index)=>{
+      var  index= this.tabbar.findIndex((item,index)=>{
              return name.includes(item.name)
-         
        })
         this.active = index
      }

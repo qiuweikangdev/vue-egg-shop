@@ -41,7 +41,18 @@ export default [{
                     keepAlive: true
                 },
                 component: () =>
-                    import ('@/pages/personal/Personal.vue')
+                     import ('@/pages/personal/Personal.vue'),  
+                children:[{
+                //我的订单
+                path:'myOrder',
+                name:'myOrder',
+                component:()=>
+                import('@/pages/personal/components/myOrder/index'),
+                meta:{
+                    login_require:true
+                }
+                }
+              ],
             }, {
                 // 购物车
                 path: '/cart',
@@ -88,7 +99,7 @@ export default [{
             login_require: false
         },
         component: () =>
-            import ('@/pages/personal/components/Register')
+            import ('@/pages/personal/components/register')
     },
     //登录
     {
@@ -98,7 +109,7 @@ export default [{
             login_require: false
         },
         component: () =>
-            import ('@/pages/personal/components/Login')
+            import ('@/pages/personal/components/login')
     },
     //建议反馈
     {
@@ -129,16 +140,6 @@ export default [{
         path: '/upload',
         component: () =>
             import ('@/pages/personal/components/upload.vue')
-    },
-    {
-        path: '/switch-theme',
-        component: () =>
-            import ('@/pages/personal/components/SwitchTheme.vue')
-    },
-    {
-        path: '/tabbar-demo',
-        component: () =>
-            import ('@/pages/tabBar/tabBar.vue')
     },
     //倒计时
     {
@@ -187,7 +188,8 @@ export default [{
                 }
             ]
         }]
-    },
+    }
+  
     // {
     //     path: '/myAddress',
     //     name: 'myAddress',

@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-12-03 09:47:49
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-08 23:18:46
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-03-17 22:03:21
  -->
 <template>
   <div id="myAddress">
@@ -54,10 +54,6 @@ export default {
   created() {
     this.INIT_USER_SHIPPING_ADDRESS();  //初始化收货地址信息
   },
-  mounted() {
-    console.log(this.shippingAddress,'xxxxxx')
-    
-  }, 
   methods: {
     //1.用户地址
     ...mapMutations(["INIT_USER_SHIPPING_ADDRESS"]),
@@ -74,7 +70,7 @@ export default {
        this.$router.push({ name: "editAddress",params:{content:item}});
     },
     onBackAddress(item){
-       console.log(item)
+       this.$router.replace({name:'order',params:item});
     }
     //5. 切换选中的地址时触发
   //  onBackAddress (item, index) {

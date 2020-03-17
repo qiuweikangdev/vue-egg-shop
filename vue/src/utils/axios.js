@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-02-22 09:59:09
+ * @LastEditTime: 2020-03-17 10:21:11
  */
 /*
  * @Descripttion: 封装axios实例
@@ -65,7 +65,7 @@ class HttpRequest {
         }, error => {
             //状态码不是200的情况    
             //错误处理
-            if(error.response.status ===401){  
+            if(error.response && error.response.status ===401){  
                 Toast({
                     type: 'fail',
                     duration: '1000',
@@ -75,7 +75,7 @@ class HttpRequest {
                 removeLocalStore('userInfo'); //清除用户信息
                 removeLocalStore('shopCart'); //清除购物车数据
                 removeLocalStore('shippingAddress'); //清除收获地址
-                router.push('/login')
+                // router.push('/login')
             }
             return Promise.reject(error.response)
         })

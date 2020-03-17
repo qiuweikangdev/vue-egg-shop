@@ -7,7 +7,13 @@ $bgColor: #e5017d;  //背景颜色
     // color: $fonColor;
     border-radius:10px;
   }
-
+  .van-tab--active{
+    color:#E5017D;
+  }
+  .van-tabs__line{
+    background-color: #E5017D !important;
+  }
+  
 // 图标
 .van-nav-bar__arrow+.van-nav-bar__text,.van-nav-bar .van-icon{
     // color: $fonColor;

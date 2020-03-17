@@ -88,13 +88,13 @@ export default {
             sumWidth += item.clientWidth
         })
         this.$refs.foodContent.style.width =sumWidth  + 'px'
-        this.scroll = new BScroll(this.$refs.wrapper, {
-          probeType: 3,
-          startX: 0,
-          click: true,
-          scrollX: true,  //开启横向滚动
-          eventPassthrough:'vertical'  //保留原生滚动
-        });
+          this.scroll = new BScroll(this.$refs.wrapper, {
+            probeType: 3,
+            startX: 0,
+            click: true,
+            scrollX: true,  //开启横向滚动
+            eventPassthrough:'vertical'  //保留原生滚动
+          });
     },
     goToGoodsDetail(product){
              console.log(product)

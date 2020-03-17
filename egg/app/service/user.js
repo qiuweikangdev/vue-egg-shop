@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-01 16:17:20
+ * @LastEditTime: 2020-03-17 16:32:23
  */
 "use strict";
 
@@ -105,9 +105,9 @@ class UserService extends Service {
     //token授权
     async auth(params){
         const { ctx, app } = this;
-        const { username } = ctx.state.user
+        const { id,name } = ctx.state.user
         const secret = app.config.jwt.secret
-        const token = ctx.helper.getToken({ username }, secret);
+        const token = ctx.helper.getToken({ id,name }, secret);
         return {
             code: 200,
             token
@@ -148,7 +148,8 @@ class UserService extends Service {
      const { id:product_id,product_name,present_price,small_image}   = params
     const { id:user_id } =ctx.state.user
     let product_amount = 1;
-    let  sqlStr = 'SELECT * FROM cart where product_id = "'+product_id +'" LIMIT 1'
+    // let  sqlStr = 'SELECT * FROM cart where product_id  = "'+product_id +'" LIMIT 1'
+    let  sqlStr = 'SELECT * FROM cart where product_id  = "'+product_id +'"' + ' and user_id ="'+user_id +'"LIMIT 1'
     let result
     await app.mysql.query(sqlStr).then(async res=>{
          if(res){
@@ -185,7 +186,7 @@ class UserService extends Service {
               }).catch(error=>{
                   console.log(error)
                   result = {
-                        code:0,
+                        code:500,
                         message:'添加失败'
                     }
               })

@@ -58,7 +58,7 @@
   import { getToken,setToken } from '@/utils/auth'
    import { createNamespacedHelpers } from 'vuex'   //导入命名空间辅助函数
    const { mapActions } = createNamespacedHelpers('user')
-   import Captcha from './Captcha'
+   import Captcha from './captcha'
    export default {
        components:{Captcha},
         data() {

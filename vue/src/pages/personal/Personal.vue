@@ -82,6 +82,10 @@
         <van-button size="large" @click="handleLogout">退出登录</van-button>
       </van-col>
     </van-row>
+    <transition name="router-slider"
+                mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -155,24 +159,17 @@ export default {
       // })
     },
     //订单
-    goToOrder(){
-         
+    goToOrder(index){
+          console.log(index,'index')
+          this.$router.push({name:'myOrder',params:{active:index}})
     },
     //收获地址
     goToMyAddredd(){
-         // 判断是否登录
-      if (this.token) {
-        this.$router.push({ name: 'myAddress' }); } else {
-           this.login();
-      }
+       this.$router.push({ name: 'myAddress' })
     },
     //意见反馈
     goToSuggest(){
-      if (this.token) {
-        this.$router.push({ name: 'suggest' }); } else {
-           this.login();
-      }
-    }
+        this.$router.push({ name: 'suggest' }); } 
   }
 };
 </script>
@@ -207,6 +204,17 @@ $bgColor: #e5017d;
   //退出登录
   .exit{
      margin-top: 1rem
+  }
+    /*转场动画*/
+  .router-slider-enter-active,
+  .router-slider-leave-active {
+    transition: all 0.3s;
+  }
+
+  .router-slider-enter,
+  .router-slider-leave-to {
+    transform: translate3d(2rem, 0, 0);
+    opacity: 0;
   }
 }
 </style>

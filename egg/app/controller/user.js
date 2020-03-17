@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-01 15:50:32
+ * @LastEditTime: 2020-03-04 17:09:55
  */
 
 // 'use strict';
@@ -98,25 +98,7 @@
 
 
 
-//         }
-//         //token授权
-//     async auth() {
-//             const { ctx, app } = this;
-//             const { username } = ctx.state.user
-//             const secret = app.config.jwt.secret
-//             const token = ctx.helper.getToken({ username }, secret);
-//             ctx.body = {
-//                 code: 200,
-//                 token
-//             }
-//         }
-//         //验证码
-//     async captcha() {
-//         const { ctx } = this;
-//         const captcha = await ctx.service.tools.captcha()
-//         ctx.response.type = 'image/svg+xml'; // 返回的类型
-//         ctx.body = captcha.data
-//     }
+
 
 
 

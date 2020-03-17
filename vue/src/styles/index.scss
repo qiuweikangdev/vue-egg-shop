@@ -12,15 +12,4 @@
 //     nightFont:$textColor-night
 // }
 
-@import './mixin.scss';
 @import './vant.scss';
-
-  [data-theme="theme1"] {
-    background-color:$background-color-theme1;
-  }
-  [data-theme="theme2"] {
-    background-color:$background-color-theme2;
-  }
-  [data-theme="theme3"]  {
-      background-color:$background-color-theme3;
-}

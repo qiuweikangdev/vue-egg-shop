@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: qqqiu
+ * @Date: 2019-12-16 17:34:13
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-03-09 02:22:30
+ -->
 <template>
     <div>
         <!-- <count-down1 ></count-down1> -->

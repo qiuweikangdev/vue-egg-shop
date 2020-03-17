@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-02-20 20:18:37
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-02-20 21:18:36
+ * @LastEditTime: 2020-03-17 19:01:55
  -->
 <template>
       <div id='shop-cart' :class='className'
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapMutations,mapActions} from 'vuex'
+import { mapMutations,mapActions,mapState} from 'vuex'
     export default {
        props:{
            className:{
@@ -25,6 +25,9 @@ import { mapMutations,mapActions} from 'vuex'
            },
            index:Number,
            product:Object
+       },
+       computed:{
+           ...mapState({token:state=>state.user.token})
        },
        methods:{
            //添加购物车方法
@@ -35,7 +38,12 @@ import { mapMutations,mapActions} from 'vuex'
                  ADD_TO_CART:'user/addToCart'
             }),    
            addToCart(product,index){
-                this.ADD_TO_CART(product)
+               if(this.token){
+                    this.ADD_TO_CART(product)
+               }else{
+                   this.$router.push('/login')
+               }
+               
            }
        }
     }

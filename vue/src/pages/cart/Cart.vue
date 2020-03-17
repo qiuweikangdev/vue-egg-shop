@@ -93,8 +93,10 @@ export default {
   data() {
     return {
       emptyCartIcon: require("@/assets/images/cart/empty.png"), //购物车为空的显示的图片
-      checked: ""
     };
+  },
+  mounted(){
+    console.log(this.shopCart,'cart')
   },
   computed: {
     //1.vuex中的用户商品数据
@@ -133,7 +135,6 @@ export default {
     },
     //4.商品数量
     goodsCount() {
-      // return Object.keys(this.shopCart).length;
       return this.shopCart.length;
     },
     //5 是否全部选中
@@ -176,16 +177,6 @@ export default {
       return selectedGoodsCount;
     }
   },
-  created() {
-    //初始化购物车数据
-    // this.INIT_SHOP_CART();
-    if(this.token){
-        this.getShopCartData()  //请求购物车数据
-    }else{
-       this.$router.push('login')
-    }
-   
-  },
   methods: {
     // mutaions方法
     ...mapMutations([
@@ -218,6 +209,16 @@ export default {
     },
     onSubmit() {
       // 6.提交订单
+      if (this.selectedGoodNum > 0) {
+        // 跳转到订单界面
+        this.$router.push('/order');
+        // this.$router.push('/demo');
+      } else {
+        Toast({
+          message: '请选择需要结算的商品',
+          duration: 1000
+        });
+      }
     },
     //单个选中商品复选框事件
     oneSelect(goodsID) {

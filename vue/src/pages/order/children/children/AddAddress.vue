@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: qqqiu
+ * @Date: 2019-12-16 17:34:14
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-03-17 21:52:46
+ -->
 <template>
 <!-- 添加地址 -->
   <div id='addAddress'>
@@ -36,7 +44,7 @@ export default {
            ...mapMutations(['ADD_USER_SHIPPING_ADDRESS']),
              // 1.返回上级界面
             onClickLeft () {
-            this.$router.go(-1);
+             this.$router.go(-1);
             },
              // 2. 保存地址
              onSave(content){
@@ -51,11 +59,11 @@ export default {
                   this.$router.back(); // 保存完之后回退上一步
              },
              //3.生成不重复ID，保证每个地址的ID都不一样
-            //  addressId(){
-            //    //UUID 是 通用唯一识别码（Universally Unique Identifier）
-            //     var lastUuid = 0;  
-            //     return (new Date().getTime() / 1000 + (lastUuid++));  
-            //  }
+             addressId(){
+               //UUID 是 通用唯一识别码（Universally Unique Identifier）
+                var lastUuid = 0;  
+                return (new Date().getTime() / 1000 + (lastUuid++));  
+             }
      }
 }
 </script>

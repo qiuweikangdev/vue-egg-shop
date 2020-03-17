@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-01 19:07:54
+ * @LastEditTime: 2020-03-17 21:09:16
  */
 const getters = {
     token: state => state.user.token,
@@ -27,6 +27,39 @@ const getters = {
         })
         return num
 
+    },
+    //选中商品
+    selectGoods(state){
+        let goodsData = []
+        let shopCart = state.user.shopCart;
+        shopCart.map((item)=>{
+            if(item.checked){
+                goodsData.push(item)
+            }
+        })
+        return goodsData
+    },
+      //选中商品金额
+      selectGoodsPrice(state){
+        let totalPrice = 0;
+        state.user.shopCart.map((item)=>{
+            if(item.checked){
+                totalPrice +=(item.price *item.product_amount * 100)
+            }
+        })
+        return totalPrice;
+    },
+    //选中商品的数量
+    selectedCount(state){
+        let count = 0;
+        state.user.shopCart.map((item)=>{
+            if(item.checked){
+                count++
+            }
+        })
+        return count;
     }
+
+
 }
 export default getters

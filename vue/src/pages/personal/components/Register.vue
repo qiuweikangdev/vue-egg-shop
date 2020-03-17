@@ -53,7 +53,7 @@
                </van-col>
               </van-row>
               <!-- 验证码 -->
-                  <Captcha  :authCodeErrorMsg='authCodeErrorMsg' @authCode='getAuthCode'   @keyup.enter.native='loginAction'></Captcha>
+                  <Captcha  :authCodeErrorMsg='authCodeErrorMsg' @authCode='getAuthCode'   @keyup.enter.native='registerAction'></Captcha>
              <div class='go-into' @click="$router.push({name:'login'})"><span>已有账号? 去登录</span></div> 
             <div class="register-button">
                 <van-button  @click="registerAction" size="large" :loading="openLoading">马上注册</van-button>
@@ -70,7 +70,7 @@
     // import url from '@/serviceAPI.config.js'
    import { createNamespacedHelpers } from 'vuex'
    const { mapActions } = createNamespacedHelpers('user')
-       import Captcha from './Captcha'
+       import Captcha from './captcha'
     import { Toast } from 'vant'
     export default {
          components:{ Captcha },
