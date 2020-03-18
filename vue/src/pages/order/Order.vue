@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-12-03 09:48:02
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-17 22:24:14
+ * @LastEditTime: 2020-03-18 22:33:08
  -->
 <template>
   <div id='order'>
@@ -48,11 +48,11 @@
         <div class="money">{{(selectGoodsPrice/100) | moneyFormat }}</div>
       </van-cell>
       <van-cell title="配送费">
-        <div class="money">{{shippingFee.toFixed(2)}}</div>
+        <div class="money">{{shipping_fee.toFixed(2)}}</div>
       </van-cell>
     </van-cell-group>
       <!-- 提交订单 -->
-    <van-submit-bar :price="actualPrice"
+    <van-submit-bar :price="paymentAmount"
                     label="实付"
                     button-text="
                     提交订单"
@@ -78,20 +78,22 @@ export default {
       address_id: null,              // 收货人地址ID
       deliveryTime: '请选择送达时间',
       showDateTimePopView: false,
-      shippingFee:3.00 //配送费
+      shipping_fee:3.00 //配送费
     };
   },
     computed:{
        ...mapGetters({goods:'selectGoods',token:'token',selectGoodsPrice: 'selectGoodsPrice',selectedCount:"selectedCount"}),
-        actualPrice () {
-           return (parseInt(this.selectGoodsPrice) + parseInt(this.shippingFee)*100)
+        paymentAmount () {
+           return (parseInt(this.selectGoodsPrice) + parseInt(this.shipping_fee)*100)
       },
     },
     created(){
-      //获取购物车数据
-         this.INIT_SHOP_CART()
+      if(!this.goods.length){
+          this.$router.back();
+      }
     },
     mounted(){
+      console.log(this.goods,'this. goods')
       if (this.goods.length > 0) {
         this.$nextTick(() => {
           this._initScroll();
@@ -104,8 +106,8 @@ export default {
       }
     },
     methods:{
-      //  ...mapActions({"getShopCartData":'user/getShopCartData'}),
-       ...mapMutations({"INIT_SHOP_CART":'user/INIT_SHOP_CART'}),
+       ...mapMutations({"INIT_SHOP_CART":'user/INIT_SHOP_CART','unpaid':'user/ORDER_UNPAID'}),
+       ...mapActions({"generateOrder":'user/generateOrder'}),
         onClickLeft(){
             this.$router.back()
         },
@@ -117,10 +119,29 @@ export default {
           duration: 800
         });
       }  else {
-        Toast({
-          message: '提交订单成功',
-          duration: 800
+        //提交订单
+          let orderInfo = {
+            addressId:this.$route.params.id,
+            selectGoodsPrice:this.selectGoodsPrice,
+            shipping_fee:this.shipping_fee,
+            goods:this.goods,
+            payment_amount:this.paymentAmount,
+            order_status:0,
+        }
+        Dialog.confirm({
+          title: '温馨提示',
+          message: '确定付款吗?'
+        }).then(() => {
+          // on confirm 确认删除
+          orderInfo.order_status = 1
+          this.generateOrder(orderInfo)
+        }).catch(() => {
+          // on cancel
+          //待付款
+          orderInfo.order_status = 0
+          this.generateOrder(orderInfo)
         });
+      
       }
       },
       // 选择地址

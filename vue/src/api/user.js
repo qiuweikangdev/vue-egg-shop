@@ -1,15 +1,12 @@
 /*
- * @Descripttion: 
+ * @Descripttion: 用户个人中心相关接口
  * @version: 
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:13
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-17 11:01:52
+ * @LastEditTime: 2020-03-18 23:10:24
  */
-/*
- * @Descripttion: 用户个人中心相关接口
- * @Author: qqqiu
- */
+
 import axios from './index'
 
 //1.注册
@@ -50,17 +47,6 @@ export const authorization = () => {
     })
 }
 
-// //上传头像
-// export const upload = (files) => {
-//     return axios.request({
-//         url: '/user/upload',
-//         method: 'post',
-//         // headers: {'Content-Type': 'multipart/form-data'},
-//         data: {
-//             files
-//         }
-//     })
-// }
 
 
 //4、获取用户相关信息 
@@ -71,30 +57,14 @@ export const getUserInfo = () => {
     })
 }
 
-// //5、验证码
-// export const captcha = () => {
-//         return axios.request({
-//             url: '/captcha',
-//             method: 'get',
-//         })
-//     }
-    //验证验证码
-// export const verifyCode = (code) => {
-//     return axios.request({
-//         url: '/verify-code',
-//         method: 'post',
-//         data: {
-//             code
-//         }
-//     })
-// }
+
 
 // 5、添加商品到购物车
 export const addToCart = (goods) => {
     return axios.request({
         url: 'user/addToCart',
         method: 'post',
-        params:goods
+        data:goods
            
     })
 }
@@ -111,7 +81,7 @@ export const addGoods = (goods)=>{
     return axios.request({
         url: 'user/addGoods',
         method: 'post',
-        params:goods
+        data:goods
     })
 }
 //8 减少商品
@@ -119,6 +89,29 @@ export const reduceGoods = (goods)=>{
     return axios.request({
         url: 'user/reduceGoods',
         method: 'post',
-        params:goods
+        data:goods
+    })
+}
+//9 生成订单ID
+export const generateOrderID = ()=>{
+    return axios.request({
+        url:'user/generateOrderId',
+        method:'get'
+    })
+}
+
+//10、生成订单信息
+export const generateOrder = (data)=>{
+    return axios.request({
+        url:'user/generateOrder',
+        method:'post',
+        data
+    })
+}
+//11、获取订单信息
+export const getOrderInfo = ()=>{
+    return axios.request({
+        url:'user/getOrderInfo',
+        method:'get'
     })
 }

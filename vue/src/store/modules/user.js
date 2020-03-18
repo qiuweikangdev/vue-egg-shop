@@ -4,9 +4,9 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-17 21:55:02
+ * @LastEditTime: 2020-03-18 23:11:38
  */
-import { login, register, authorization, getUserInfo, captcha,addToCart ,getShopCartData,addGoods,reduceGoods} from '@/api/user'
+import { login, register, authorization, getUserInfo, captcha,addToCart ,getShopCartData,addGoods,reduceGoods,generateOrderID,generateOrder,getOrderInfo} from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import {
     USER_INFO,
@@ -23,7 +23,10 @@ import {
     DELETE_SELECT_GOODS,
     SINGLE_SELECT_GOODS,
     ALL_SELECT_GOODS,
-    UPDATE_SHOP_CART
+    UPDATE_SHOP_CART,
+    ORDER_INFO,
+    ORDER_UNPAID,
+    UPDATE_ORDER
 } from './mutation-types'
 // 引入本地存储
 import {
@@ -40,10 +43,9 @@ const state = {
     token: getToken(),
     userInfo: {}, // 用户信息
     shippingAddress: [], //配送地址
-    // shopCart: {}, //用户购物车商品
     shopCart:[], //用户购物车商品
-    // goodsNum:'' //购物车商品数量
-
+    orderInfo:[], //用户的订单信息
+    unpaid:[]  //待支付的订单
 }
 
 const mutations = {
@@ -122,38 +124,6 @@ const mutations = {
         // 7.4更新本地数据
         setLocalStore('shippingAddress', state.shippingAddress);
     },
-    //8 添加商品
-    // [ADD_GOODS](state, {
-    //     goodsID,
-    //     goodsName,
-    //     smallImage,
-    //     goodsPrice
-    // }) {
-    //     let shopCart = state.shopCart;
-    //     // 8.1 根据ID判断商品是否存在
-    //     if (shopCart[goodsID]) {
-    //         // console.log(shopCart)
-    //         //让数量goodsID里面的num +1
-    //         shopCart[goodsID]['num']++;
-    //     } else {
-    //         // 8.2 不存在则设置shopCart购物车商品默认值
-    //         shopCart[goodsID] = {
-    //                 'num': 1, //商品数量
-    //                 'id': goodsID, //商品ID
-    //                 'name': goodsName, //商品名称
-    //                 'price': goodsPrice, //商品价格
-    //                 'smallImage': smallImage, //商品图片
-    //                 'checked': true //是否选中
-    //             }
-    //             // 8.3 给shopCart产生新对象
-    //     }
-    //     state.shopCart = {
-    //         ...shopCart
-    //     };
-    //     // 8.4 将商品数据存储到本地
-    //     setLocalStore('shopCart', state.shopCart);
-
-    // },
     //9.添加商品到购物车
     [ADD_TO_CART](state, goods) {
         if (state.token) {
@@ -187,29 +157,6 @@ const mutations = {
         }
       
     },
-    //11.减少商品
-    // [REDUCE_GOODS](state, { goodsID }) {
-    //     //11.1取出state中的商品数据
-    //     let shopCart = state.shopCart;
-    //     //12.1通过商品ID来找到这个商品
-    //     let goods = shopCart[goodsID];
-
-    //     if (goods['num'] > 0) {
-    //         // 12.2 减少商品数量
-    //         goods['num']--;
-    //         //12.3等于0的时候就删除商品
-    //         if (goods['num'] === 0) {
-    //             delete shopCart[goodsID];
-    //         }
-    //     }
-    //     // delete shopCart[goodsID];
-    //     //12.4 更新state中的商品数据
-    //     state.shopCart = {
-    //             ...shopCart
-    //         }
-    //         //12.5 更新本地中的商品数据
-    //     setLocalStore('shopCart', state.shopCart);
-    // },
     //12.删除选中商品
     [DELETE_SELECT_GOODS](state) {
         // 12.1 取出state中的商品数据
@@ -232,17 +179,6 @@ const mutations = {
     [SINGLE_SELECT_GOODS](state, { goodsID }) {
         // 13.1 取出state中的商品数据
         let shopCart = state.shopCart;
-        //13.2 设置商品的选中
-        // shopCart.map((goods,index)=>{
-        //     if(goods.product_id === goodsID){
-        //          console.log(goods,'goods')
-        //         if(goods.checked){
-        //             goods.checked = !goods.checked;
-        //         }
-        //     } else{
-        //         // Vue.set(shopCart[index],'checked',)
-        //      }
-        // })
         for(let i=0;i<shopCart.length;++i){
             if(shopCart[i].product_id === goodsID && shopCart[i].hasOwnProperty('checked')){
                 shopCart[i].checked = !shopCart[i].checked;
@@ -260,24 +196,22 @@ const mutations = {
     [ALL_SELECT_GOODS](state, { isCheckedAll }) {
         // 13.1 取出state中的商品数据
         let shopCart = state.shopCart;
-        Object.values(shopCart).forEach((goods) => {
+        shopCart.forEach((goods) => {
                 if (goods.checked && !isCheckedAll) {
                     //当商品有选中且取消全选时
                     goods.checked = false;
                     //   goods.checked = !isCheckedAll;
                 } else {
                     //当没有商品选中且全选时
-                    goods.checked = true;
-                    // Vue.set(goods, 'checked', true);
+                    Vue.set(goods, 'checked', true);
                 }
             })
             // 13.2 更新state数据
-        state.shopCart = {
-            ...shopCart
-        };
+        state.shopCart = [...shopCart]
         // 13.3 将数据更新到本地
         setLocalStore('shopCart', state.shopCart);
     },
+    //更新购物车数据
     [UPDATE_SHOP_CART](state,newShopCart){
         // console.log(state,'state')
         let shopCart = state.shopCart;
@@ -300,6 +234,19 @@ const mutations = {
             state.shopCart =newShopCart
         }
         setLocalStore('shopCart', state.shopCart);
+    },
+    //生成订单
+    [ORDER_INFO](state,order){
+        state.orderInfo = order
+    },
+    //待支付订单
+    [ORDER_UNPAID](state,unpaid){
+        state.unpaid = [unpaid]
+        setLocalStore('unpaid',state.unpaid);
+    },
+    //更新订单
+    [UPDATE_ORDER](state,order){
+            
     }
 }
 
@@ -442,6 +389,7 @@ const actions = {
    //9. 请求购物车数据
    async getShopCartData({commit}){
     let result =  await getShopCartData()
+    
     if(result.data.code === 200){
         commit('UPDATE_SHOP_CART', result.data.data)  
       }
@@ -460,6 +408,58 @@ const actions = {
             dispatch("getShopCartData") //更新购物车数据
       }
     },
+    //12、生成订单信息
+    async generateOrder({commit,state},orderInfo){
+        try{
+      let result1 =   await generateOrderID()
+      let shippingAddress = state.shippingAddress
+     let orderAddress
+       shippingAddress.map((item)=>{
+            if(item.id === orderInfo.addressId){
+                return orderAddress=item;
+            }
+        })
+    // (order_num,shipping_user,province,city,county,order_amount,shipping_fee,payment_amount) 
+       let orderObj = {
+         order_num:result1.data,
+         shipping_user:orderAddress.name,
+         tel:orderAddress.tel,
+         province:orderAddress.province,
+         city:orderAddress.city,
+         province:orderAddress.province,
+         county:orderAddress.county,
+         order_amount:orderInfo.selectGoodsPrice,
+         shipping_fee:orderInfo.shipping_fee,
+         payment_amount:orderInfo.payment_amount,
+         goods:orderInfo.goods,
+         order_status:orderInfo.order_status
+       }    
+      let result2 =  await generateOrder(orderObj)
+      if(orderInfo.order_status && result2.data.message == '提交订单成功'){
+                Toast({
+                    message: '提交订单成功',
+                    duration: 800
+                }); 
+            commit(ORDER_INFO,orderObj)
+      }else if(!orderInfo.order_status && result2.data.message == '待付款订单'){
+            //待付款订单
+            commit(ORDER_UNPAID,orderObj)
+      }
+       
+    }catch(e){
+        console.log(e)
+        Toast({
+            message: '提交订单失败',
+            duration: 800
+          });   
+    }
+    },
+
+    //13、获取用户订单
+    async getOrderInfo(){
+       let result = await getOrderInfo()
+       console.log(result)
+    }
     
 }
 

@@ -4,38 +4,9 @@
  * @Author: sueRimn
  * @Date: 2019-09-18 12:59:37
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-02-20 18:06:31
+ * @LastEditTime: 2020-03-18 10:27:02
  */
 import axios from './index'
-
-// export const getGoodsInfo = (id) => {
-//     return axios.request({
-//         url: 'goods/getGoodsInfo',
-//         method: 'post',
-//         data: {
-//             id
-//         }
-//     })
-
-// }
-
-
-// export const getGoods = () => {
-//     return axios.request({
-//         url: 'goods/getGoods',
-//         method: 'get',
-//     })
-// }
-
-// export const getDetailGoodsInfo = (goodsId) => {
-//     return axios.request({
-//         url: 'goods/getDetailGoodsInfo',
-//         method: 'post',
-//         data: {
-//             goodsId
-//         }
-//     })
-// }
 
 // 1.请求首页轮播
 export const getHomeCarousel = () => {
@@ -54,10 +25,10 @@ export const getHomeNav = () => {
     })
 }
 
-// 3.请求首页限时抢购
+// 3.请求首页限时抢购商品
 export const getHomeFlash = () => {
     return axios.request({
-        url: 'home/homeflash',
+        url: 'home/getFlashSale',
         method: 'get'
     })
 }

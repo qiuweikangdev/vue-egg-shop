@@ -4,11 +4,12 @@
  * @Author: qqqiu
  * @Date: 2020-03-16 20:38:35
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-16 21:40:06
+ * @LastEditTime: 2020-03-18 21:35:28
  -->
 <template>
   <div id="orderType">
     <div v-if="orderTypeDataArray.length>0">
+         
     </div>
     <div v-else
          class="noDataPlaceHold">

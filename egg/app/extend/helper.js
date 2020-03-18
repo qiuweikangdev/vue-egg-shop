@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-02-20 22:21:37
+ * @LastEditTime: 2020-03-18 20:07:46
  */
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
@@ -49,6 +49,23 @@ module.exports = {
         const buffer = Buffer.from(str, 'utf8') //转换为buffer对象
         const base64Str = buffer.toString('base64') //根据base64编码转换为base64字符串
         return base64Str
+    },
+    //生成订单号
+    getOrderID(){
+        let currDate = new Date();
+        let year = currDate.getFullYear();
+        let month = currDate.getMonth() + 1 < 10 ? "0" + (currDate.getMonth() + 1): currDate.getMonth() + 1;
+        let day = currDate.getDate()<10 ? "0"+currDate.getDate() : currDate.getDate();
+        let hour = currDate.getHours()<10 ? "0"+currDate.getDate() : currDate.getHours();
+        let minute = currDate.getMinutes()<10 ? "0"+currDate.getMinutes() : currDate.getMinutes();
+        let second = currDate.getSeconds()<10 ? "0"+currDate.getSeconds() : currDate.getSeconds();
+        //获取年月日
+        let date = year + month + day +hour + minute + second; 
+        //获取当时时间戳
+        let timestamp = Number(Date.parse(currDate).toString().substr(-1,2));
+        //生成订单id
+        let orderId = date + timestamp;
+        return orderId 
     }
     
 }

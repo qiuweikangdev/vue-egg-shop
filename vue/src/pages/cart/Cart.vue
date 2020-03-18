@@ -95,9 +95,6 @@ export default {
       emptyCartIcon: require("@/assets/images/cart/empty.png"), //购物车为空的显示的图片
     };
   },
-  mounted(){
-    console.log(this.shopCart,'cart')
-  },
   computed: {
     //1.vuex中的用户商品数据
     ...mapState(["shopCart", "userInfo",'token']),
@@ -116,7 +113,7 @@ export default {
     //2.提交订单文本
     submitBarText() {
       const count = this.selectedGoodNum;
-      return "提交订单" + (count ? `(${count})` : "");
+      return "结算" + (count ? `(${count})` : "");
     },
     //3.选中商品数量
     selectedGoodNum() {
@@ -192,7 +189,7 @@ export default {
       // 4。 返回上一个界面
       this.$router.back();
     },
-    //删除选中商品
+    //5、删除选中商品
     clearGoods() {
       if(this.selectedGoodNum >0){
         Dialog.confirm({
@@ -208,11 +205,10 @@ export default {
       
     },
     onSubmit() {
-      // 6.提交订单
+      // 6.结算
       if (this.selectedGoodNum > 0) {
         // 跳转到订单界面
         this.$router.push('/order');
-        // this.$router.push('/demo');
       } else {
         Toast({
           message: '请选择需要结算的商品',
@@ -220,16 +216,13 @@ export default {
         });
       }
     },
-    //单个选中商品复选框事件
+    //7、单个选中商品复选框事件
     oneSelect(goodsID) {
       this.SINGLE_SELECT_GOODS({ goodsID });
     },
-      //减少商品
+      //8、减少商品
   reduceGoodsData(product_id, product_amount){
     if(product_amount > 1){
-        // this.REDUCE_GOODS({
-        //   goodsID
-        // });
         this.reduceGoods({
           product_id,
           product_amount
@@ -240,7 +233,6 @@ export default {
           message: '确定删除选中商品吗?'
         }).then(() => {
           // on confirm 确认删除
-          // this.REDUCE_GOODS({goodsID});
             this.reduceGoods({
               product_id,
               product_amount
@@ -250,16 +242,8 @@ export default {
         });
     }
   },
-  //添加商品
-  // addGoods(goodsID, goodsName, goodsSmallImage, goodsPrice){
-      // this.ADD_GOODS({
-      //   goodsID,
-      //   goodsName,
-      //   goodsSmallImage,
-      //   goodsPrice
-      // });
-  // }
-  //添加商品
+ 
+  //9、添加商品
   addGoodsData(product_id,product_amount){
       this.addGoods({product_id,product_amount})
   }

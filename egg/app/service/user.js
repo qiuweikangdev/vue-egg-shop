@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-17 16:32:23
+ * @LastEditTime: 2020-03-19 00:40:01
  */
 "use strict";
 
@@ -225,10 +225,11 @@ class UserService extends Service {
   //减少商品
   async reduceGoods(params){
     const { product_id,product_amount}   = params
+    const { id:user_id } = this.ctx.state.user
     try{ 
         if(parseInt(product_amount)>1){
             let amount = parseInt(product_amount) -1
-            let sql_update = 'UPDATE cart SET product_amount = "'+amount+'"  WHERE  product_id = "'+product_id+'"'
+            let sql_update = 'UPDATE cart SET product_amount = "'+amount+'"  WHERE  product_id = "'+product_id+'"' +' and user_id = "'+ user_id +'"'
             let res =   await this.app.mysql.query(sql_update)
             if(res){
                 return {
@@ -257,9 +258,10 @@ class UserService extends Service {
   async addGoods(params){
     const { ctx, app } = this;
     const { product_id,product_amount}   = params
+    const { id:user_id } = this.ctx.state.user
     try{
         let amount = parseInt(product_amount) +1
-        let sql_update = 'UPDATE cart SET product_amount = "'+amount+'"  WHERE  product_id = "'+product_id+'"'
+        let sql_update = 'UPDATE cart SET product_amount = "'+amount+'"  WHERE  product_id = "'+product_id+'"' +' and user_id ="' + user_id +'"'
         let res =   await app.mysql.query(sql_update)
         if(res){
             return {
@@ -274,7 +276,99 @@ class UserService extends Service {
         }
     }
   }
+  //生成订单ID
+  async generateOrderID(){
+    return this.ctx.helper.getOrderID()
+  }
+  //生成订单
+  async generateOrder(params){
+      //订单编号、收获人名字、收货人电话、省、市、区、商品金额、运费金额、支付金额
+    const { order_num,shipping_user,tel,province,city,county,order_amount,shipping_fee,payment_amount,goods,order_status}   = params
+    const { id:user_id }  = this.ctx.state.user
+    let value1 = {
+        order_num,
+        user_id,
+        shipping_user,
+        tel,
+        province,
+        city,
+        county,
+        order_amount,
+        shipping_fee,
+        payment_amount,
+        order_status
+    }
+    try{
+      let result1 =  await this.app.mysql.insert('order',value1)
+       if(result1){
+           let value2={}
+           let result2 =  await this.app.mysql.select('order',{
+               where:{ order_num},
+               columns:['order_id'],
+               limit:1
+           })
+           goods.map(async item=>{
+               value2.order_id =result2[0].order_id
+               value2.product_id = item.product_id,
+               value2.product_name=item.product_name,
+               value2.product_amount=item.product_amount
+               value2.product_image = item.product_image
+               value2.product_price = item.price
+               await this.app.mysql.insert('order_detail',value2)
+           })
+       }
+       if(order_status){
+        return {
+            code:200,
+            message:'提交订单成功'
+        }
+       }else{
+            return {
+                code:200,
+                message:'待付款订单'
+            }
+       }
+      
+    }catch(err){
+        console.log(err)
+         return {
+           code:500,
+           message:'提交订单失败'
+       }
+    }
     
+  }
+  //获取订单数据
+  async getOrderInfo(){
+      //这里查询语句可以进行优化 (可使用多表查询)
+    const { id:user_id }  = this.ctx.state.user
+    //查询订单号
+    try{
+        //一个用户可能有多个订单号
+        let result1 =  await this.app.mysql.select('order',{
+            where:{ user_id },
+            columns:['order_id','order_status'],
+        })
+        //根据订单号id获取商品 数据
+        let order_id=[]
+        result1.map((item)=>order_id.push(item.order_id))
+        let result2 =  await this.app.mysql.select('order_detail',{
+            where:{ order_id },
+        })
+        console.log(result2,'result2')
+        return {
+            code:200,
+            data:result2
+        }
+    }catch(error){
+        console.log(error)
+        return {
+            code:500,
+            data:'获取订单数据失败'
+        }
+    }
+    
+  }
 }
 
 module.exports = UserService

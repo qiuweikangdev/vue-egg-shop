@@ -8,10 +8,13 @@ $bgColor: #e5017d;  //背景颜色
     border-radius:10px;
   }
   .van-tab--active{
-    color:#E5017D;
+    color:#E5017D !important;
   }
   .van-tabs__line{
     background-color: #E5017D !important;
+  }
+  .van-tabs--line .van-tabs__wrap{
+      height:42px;
   }
   
 // 图标

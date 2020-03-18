@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-17 21:09:16
+ * @LastEditTime: 2020-03-18 22:18:57
  */
 const getters = {
     token: state => state.user.token,
@@ -32,6 +32,7 @@ const getters = {
     selectGoods(state){
         let goodsData = []
         let shopCart = state.user.shopCart;
+        console.log(shopCart,'shopcart')
         shopCart.map((item)=>{
             if(item.checked){
                 goodsData.push(item)

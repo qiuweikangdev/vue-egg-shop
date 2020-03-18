@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-03-16 19:47:53
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-16 22:27:40
+ * @LastEditTime: 2020-03-18 23:16:00
  -->
 <template>
   <div id="myOrder">
@@ -37,7 +37,7 @@
         <div slot="title">
           <span>{{itemsTitle[1]}}</span>
         </div>
-        <OrderType :orderTypeDataArray="typeArray" />
+        <OrderType :orderTypeDataArray="unpaid" />
       </van-tab>
       <!-- 待收货 -->
       <van-tab>
@@ -58,6 +58,8 @@
 </template>
 <script >
 import OrderType from './components/orderType'
+import { createNamespacedHelpers } from "vuex";
+const { mapActions, mapState, mapMutations } = createNamespacedHelpers("user");
 export default {
   data () {
     return {
@@ -67,10 +69,21 @@ export default {
       itemsTitle: ['全部', '待支付', '待收货', '待评价'],
     }
   },
+  computed:{
+     ...mapState({unpaid:state=>state.unpaid}),
+
+  },
   components: {
     OrderType
   },
+  mounted(){
+    this.getOrderInfo()
+  },
+  updated(){
+      console.log(this.unpaid,'unpaid')
+  },
   methods: {
+    ...mapActions(['getOrderInfo']),
     onClickLeft () {
       this.$router.back();
     }
@@ -90,8 +103,6 @@ export default {
   .van-icon {
     color: #dedede;
   }
-  /deep/ .van-tab--active{
-    color:#E5017D !important;
-  }
+  
 }
 </style>
