@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-18 23:11:38
+ * @LastEditTime: 2020-03-19 13:26:06
  */
 import { login, register, authorization, getUserInfo, captcha,addToCart ,getShopCartData,addGoods,reduceGoods,generateOrderID,generateOrder,getOrderInfo} from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
@@ -25,8 +25,7 @@ import {
     ALL_SELECT_GOODS,
     UPDATE_SHOP_CART,
     ORDER_INFO,
-    ORDER_UNPAID,
-    UPDATE_ORDER
+    ORDER_STATUS_INFO
 } from './mutation-types'
 // 引入本地存储
 import {
@@ -45,7 +44,7 @@ const state = {
     shippingAddress: [], //配送地址
     shopCart:[], //用户购物车商品
     orderInfo:[], //用户的订单信息
-    unpaid:[]  //待支付的订单
+    orderStatusInfo:[]  //订单状态的信息
 }
 
 const mutations = {
@@ -239,14 +238,9 @@ const mutations = {
     [ORDER_INFO](state,order){
         state.orderInfo = order
     },
-    //待支付订单
-    [ORDER_UNPAID](state,unpaid){
-        state.unpaid = [unpaid]
-        setLocalStore('unpaid',state.unpaid);
-    },
-    //更新订单
-    [UPDATE_ORDER](state,order){
-            
+    //订单状态信息
+    [ORDER_STATUS_INFO](state,order){
+        state.orderStatusInfo = order
     }
 }
 
@@ -440,12 +434,8 @@ const actions = {
                     message: '提交订单成功',
                     duration: 800
                 }); 
-            commit(ORDER_INFO,orderObj)
-      }else if(!orderInfo.order_status && result2.data.message == '待付款订单'){
-            //待付款订单
-            commit(ORDER_UNPAID,orderObj)
       }
-       
+      commit(ORDER_INFO,orderObj)
     }catch(e){
         console.log(e)
         Toast({
@@ -456,9 +446,10 @@ const actions = {
     },
 
     //13、获取用户订单
-    async getOrderInfo(){
-       let result = await getOrderInfo()
-       console.log(result)
+    async getOrderInfo({commit},order_status){
+       let result = await getOrderInfo({order_status})
+    //    console.log(result)
+       commit(ORDER_STATUS_INFO,result.data.data)
     }
     
 }

@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:13
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-18 23:10:24
+ * @LastEditTime: 2020-03-19 09:11:06
  */
 
 import axios from './index'
@@ -109,9 +109,10 @@ export const generateOrder = (data)=>{
     })
 }
 //11、获取订单信息
-export const getOrderInfo = ()=>{
+export const getOrderInfo = (data)=>{
     return axios.request({
         url:'user/getOrderInfo',
-        method:'get'
+        method:'post',
+        data
     })
 }

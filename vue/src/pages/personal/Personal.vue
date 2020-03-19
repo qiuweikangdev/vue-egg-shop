@@ -94,6 +94,7 @@ import { getToken } from "@/utils/auth";
 import setColor from "./components/setColor";
 import { createNamespacedHelpers} from "vuex";
 const { mapActions ,mapState,mapMutations } = createNamespacedHelpers("user");
+import { Toast } from 'vant'
 export default {
   data() {
     return {
@@ -160,8 +161,15 @@ export default {
     },
     //订单
     goToOrder(index){
-          console.log(index,'index')
-          this.$router.push({name:'myOrder',params:{active:index}})
+          if(index==3){
+               Toast({
+                message: '尚未开通!',
+                duration: 800
+            })
+          }else{
+             this.$router.push({name:'myOrder',params:{active:index+1}})
+          }
+          
     },
     //收获地址
     goToMyAddredd(){

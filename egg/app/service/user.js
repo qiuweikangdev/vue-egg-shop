@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-19 00:40:01
+ * @LastEditTime: 2020-03-19 21:23:38
  */
 "use strict";
 
@@ -339,26 +339,49 @@ class UserService extends Service {
     
   }
   //获取订单数据
-  async getOrderInfo(){
+  async getOrderInfo(params){
       //这里查询语句可以进行优化 (可使用多表查询)
+    const { order_status } = params //根据订单类型来查询数据
+    // order_type 为 0 时 查询未支付的订单,为1时查询订单,[0,1]查询全部
     const { id:user_id }  = this.ctx.state.user
     //查询订单号
     try{
         //一个用户可能有多个订单号
         let result1 =  await this.app.mysql.select('order',{
-            where:{ user_id },
+            where:{ user_id,order_status},
             columns:['order_id','order_status'],
         })
         //根据订单号id获取商品 数据
         let order_id=[]
-        result1.map((item)=>order_id.push(item.order_id))
+        let orderInfo = []
+        result1.map((item)=>{
+            let obj = {}
+            obj.order_status =item.order_status
+            obj.order_id =item.order_id
+            order_id.push(item.order_id)
+            orderInfo.push(obj)
+        })
         let result2 =  await this.app.mysql.select('order_detail',{
             where:{ order_id },
         })
-        console.log(result2,'result2')
+        let newResult=[]
+        for(let i =0;i<orderInfo.length;++i){
+            let arr = []
+            result2.map((item,index)=>{
+                if(orderInfo[i].order_id ===item.order_id){
+                    item.order_status=orderInfo[i].order_status
+                    arr.push(item)
+                }
+            })
+            if(arr.length>0){
+                newResult.push(arr)
+             }
+         
+        }
+
         return {
             code:200,
-            data:result2
+            data:newResult
         }
     }catch(error){
         console.log(error)

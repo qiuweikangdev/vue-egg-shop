@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-18 23:26:33
+ * @LastEditTime: 2020-03-19 09:10:39
  */
 'use strict';
 /**
@@ -27,7 +27,7 @@ module.exports = app => {
     //订单
     router.get('/user/generateOrderId',controller.user.generateOrderID); // 生成订单id
     router.post('/user/generateOrder',app.jwt,controller.user.generateOrder); // 生成订单信息
-    router.get('/user/getOrderInfo',app.jwt,controller.user.getOrderInfo); // 生成订单信息
+    router.post('/user/getOrderInfo',app.jwt,controller.user.getOrderInfo); // 生成订单信息
 
 
     //首页

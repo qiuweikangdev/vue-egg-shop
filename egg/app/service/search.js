@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 17:32:16
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-17 18:50:09
+ * @LastEditTime: 2020-03-19 20:33:18
  */
 "use strict"
 const Service = require('egg').Service
@@ -13,11 +13,9 @@ class SearchService extends Service {
        async searchGoods(params) {
         const { name } = params
         let sqlStr = 'SELECT * FROM goods WHERE product_name LIKE "' + `%${name}%` + '"'
-        console.log(sqlStr,'sql')
         let result 
         await this.app.mysql.query(sqlStr)
             .then((res) => {
-                console.log(res,'resresres')
                 if (res.length > 0) {
                     result = { code: 200, message: res, status: '1' }
                 } else {

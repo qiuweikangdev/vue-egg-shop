@@ -42,28 +42,28 @@ export default [{
                 },
                 component: () =>
                      import ('@/pages/personal/Personal.vue'),  
-                children:[{
-                //我的订单
-                path:'myOrder',
-                name:'myOrder',
-                component:()=>
-                import('@/pages/personal/components/myOrder/index'),
-                meta:{
-                    login_require:true
-                }
-                }
-              ],
             }, {
                 // 购物车
                 path: '/cart',
                 name: 'cart',
                 meta: {
-                    login_require: false,
+                    login_require: true,
+                    keepAlive: true,
                     showBottomTabBar: true,
-                    keepAlive: true
                 },
                 component: () =>
                     import ('@/pages/cart/Cart.vue')
+            },
+            {
+                // 订单
+                path: '/myOrder',
+                name: 'myOrder',
+                meta: {
+                    login_require: true,
+                    keepAlive: true
+                },
+                component:()=>
+                    import('@/pages/personal/components/myOrder/index'),
             },
             {
                 // 搜索
@@ -121,16 +121,6 @@ export default [{
         component: () =>
             import ('@/pages/personal/components/Suggest.vue')
     },
-    //个人中心
-    // {
-    //     path: '/personal',
-    //     name: 'personal',
-    //     meta: {
-    //         login_require: false
-    //     },
-    //     component: () =>
-    //         import ('@/pages/personal/Personal.vue')
-    // },
     {
         path: '/upload-demo',
         component: () =>
@@ -190,14 +180,4 @@ export default [{
         }]
     }
   
-    // {
-    //     path: '/myAddress',
-    //     name: 'myAddress',
-    //     meta: {
-    //         login_require: true
-    //     },
-    //     component: () =>
-    //         import ('@/pages/order/children/MyAddress.vue')
-
-    // },
 ]

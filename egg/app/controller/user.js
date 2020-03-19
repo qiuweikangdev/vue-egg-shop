@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-18 22:50:50
+ * @LastEditTime: 2020-03-19 09:10:31
  */
 
 
@@ -57,7 +57,7 @@ class UserController extends Controller{
     }
     //获取订单
     async getOrderInfo(){
-        this.ctx.body =await this.ctx.service.user.getOrderInfo()
+        this.ctx.body =await this.ctx.service.user.getOrderInfo(this.ctx.params)
     }
 
 }

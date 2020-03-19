@@ -70,7 +70,6 @@
           <van-checkbox v-model="isCheckedAll" checked-color="#D4237A">全选</van-checkbox>
         </van-submit-bar> 
          <!-- 猜你喜欢 -->
-       <!-- 猜你喜欢 -->
       <van-divider :style="{ color: 'black', borderColor: 'grey' }">
         猜你喜欢
       </van-divider>

@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-18 21:21:19
+ * @LastEditTime: 2020-03-19 10:02:48
  */
 /*
  * @Descripttion: mutations的事件变量
@@ -61,9 +61,6 @@ export const CATEGORY_SUB = 'CATEGORY_SUB'
 //订单信息
 export const ORDER_INFO = 'ORDER_INFO'
 
-//待支付的订单
-export const ORDER_UNPAID = 'ORDER_UNPAID'
 
-//更新订单信息
-export const UPDATE_ORDER = 'UPDATE_ORDER'
-
+//订单状态信息
+export const ORDER_STATUS_INFO = 'ORDER_STATUS_INFO'
