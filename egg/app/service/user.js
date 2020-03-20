@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-19 21:23:38
+ * @LastEditTime: 2020-03-20 17:26:15
  */
 "use strict";
 
@@ -89,6 +89,53 @@ class UserService extends Service {
         } else {
             result = {
                 code: 200,
+                message: '用户名不存在'
+
+            }
+        }
+        return result
+    }
+    //后台登录( 不用验证码)
+    async loginAdmin(params){
+        const { ctx ,app} = this;
+        let { username, password  } = params;
+        let secret = app.config.jwt.secret
+        let sqlStr = 'SELECT * FROM users WHERE username = "' + username + '"'
+        let result
+        let result1 = await app.mysql.query(sqlStr)
+        if(result1.length>0){
+             //比较加密后密码
+            await ctx.helper.comparePassword(password, result1[0].password)
+                .then((isMatch) => {
+                    if (isMatch) {
+                        const token = ctx.helper.getToken({ id: result1[0].id, name: result1[0].username }, secret);
+                        //用户信息
+                        const userInfo = {
+                            id: result1[0].id,
+                            username: result1[0].username
+                        }
+                        result = {
+                            code: 200,
+                            message: '登录成功',
+                            token,
+                            userInfo: userInfo
+                        }
+                    } else {
+                        ctx.status = 401;
+                        result = {
+                            message: '密码错误',
+                        }
+                    }
+                }).catch(err => {
+                    ctx.status = 500;
+                    result = {
+                        message: err
+                    }
+                })
+        }
+         else {
+            ctx.status = 404;
+            result = {
                 message: '用户名不存在'
 
             }

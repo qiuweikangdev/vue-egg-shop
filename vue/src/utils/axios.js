@@ -1,20 +1,16 @@
 /*
- * @Descripttion: 
+ * @Descripttion: 封装axios实例
  * @version: 
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-17 10:21:11
- */
-/*
- * @Descripttion: 封装axios实例
+ * @LastEditTime: 2020-03-20 17:52:22
  */
 import axios from 'axios'
 import { baseURL } from '@/config/baseURL'
 import store from '@/store'
 import { getToken,removeToken } from './auth'
 import { Toast } from 'vant';
-import router from '@/router'
 import {  removeLocalStore } from '@/config/global'
 axios.defaults.withCredentials = true; //允许请求头携带cookie
 class HttpRequest {
@@ -28,7 +24,9 @@ class HttpRequest {
     getInsideConfig() {
             const config = {
                 baseURL: this.baseUrl,
-                headers: {},
+                headers: {
+                    'Access-Control-Allow-Origin':'*'
+                },
             }
             return config
         }
@@ -75,7 +73,6 @@ class HttpRequest {
                 removeLocalStore('userInfo'); //清除用户信息
                 removeLocalStore('shopCart'); //清除购物车数据
                 removeLocalStore('shippingAddress'); //清除收获地址
-                // router.push('/login')
             }
             return Promise.reject(error.response)
         })

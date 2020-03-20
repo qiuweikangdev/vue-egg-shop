@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-19 09:10:39
+ * @LastEditTime: 2020-03-20 17:26:52
  */
 'use strict';
 /**
@@ -41,5 +41,9 @@ module.exports = app => {
     router.get('/goods/getGoodsByCategoryID', controller.category.getGoodsByCategoryID); // 根据分类id读取某分类商品数据
     //搜索
     router.get('/goods/searchGoods', controller.search.searchGoods); // 根据商品名字来搜索某所有商品
+
+
+    //后台系统
+    router.post('/user/loginAdmin', controller.user.loginAdmin); //登录
 
 };

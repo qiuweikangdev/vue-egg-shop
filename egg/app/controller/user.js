@@ -4,13 +4,14 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-19 09:10:31
+ * @LastEditTime: 2020-03-20 17:30:17
  */
 
 
 "use strict"
 const Controller = require('egg').Controller;
 class UserController extends Controller{
+    //前台
     //注册
     async register(){
         this.ctx.body =await this.ctx.service.user.register(this.ctx.params)
@@ -59,6 +60,9 @@ class UserController extends Controller{
     async getOrderInfo(){
         this.ctx.body =await this.ctx.service.user.getOrderInfo(this.ctx.params)
     }
-
+    //后台系统
+    async loginAdmin(){
+        this.ctx.body =await this.ctx.service.user.loginAdmin(this.ctx.params)
+    }
 }
 module.exports = UserController;
