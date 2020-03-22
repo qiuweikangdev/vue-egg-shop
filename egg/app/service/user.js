@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-20 17:26:15
+ * @LastEditTime: 2020-03-22 11:41:52
  */
 "use strict";
 
@@ -48,6 +48,8 @@ class UserService extends Service {
         let { username, password, authCode } = params;
         let secret = app.config.jwt.secret
         let sqlStr = 'SELECT * FROM users WHERE username = "' + username + '"'
+        console.log(authCode,'client')
+        console.log(ctx.session.code,'session')
         let result
         let result1 = await app.mysql.query(sqlStr)
           //result如果没有匹配到结果，返回的是空数组
@@ -142,13 +144,22 @@ class UserService extends Service {
         }
         return result
     }
+    //获取所有用户
+    async getUserAll(){
+      const result =  await this.app.mysql.select('users')
+      return {
+          code:200,
+          data:result
+      }
+    }
+
     //验证码
     async captcha() {
         const { ctx } = this;
         const captcha = await ctx.service.tools.captcha()
         ctx.response.type = 'image/svg+xml'; // 返回的类型
         return captcha.data
-    }
+    } 
     //token授权
     async auth(params){
         const { ctx, app } = this;

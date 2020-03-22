@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-20 17:26:52
+ * @LastEditTime: 2020-03-22 11:55:26
  */
 'use strict';
 /**
@@ -45,5 +45,7 @@ module.exports = app => {
 
     //后台系统
     router.post('/user/loginAdmin', controller.user.loginAdmin); //登录
+    router.get('/user/getUserAll', controller.user.getUserAll); //获取所有用户
+    router.post('/searchUser', controller.search.searchUser); //搜索某用户
 
 };

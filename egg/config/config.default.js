@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-20 17:50:00
+ * @LastEditTime: 2020-03-21 20:22:33
  */
 'use strict';
 
@@ -56,7 +56,7 @@ module.exports = appInfo => {
             enable: false,
             ignoreJSON: true
         },
-        domainWhiteList: ['http://127.0.0.1:8080','http://127.0.0.1:3000']
+        domainWhiteList: ['http://127.0.0.1:8080','http://localhost:3000']
     };
     config.cors = {
         allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
@@ -69,8 +69,7 @@ module.exports = appInfo => {
         listen: {
         path: '',
         port: 5000,
-        hostname: '127.0.0.1'
-        // hostname: '0.0.0.0'
+        hostname: '0.0.0.0'
         },
     };
     //静态资源

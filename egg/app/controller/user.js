@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-20 17:30:17
+ * @LastEditTime: 2020-03-20 20:32:28
  */
 
 
@@ -63,6 +63,9 @@ class UserController extends Controller{
     //后台系统
     async loginAdmin(){
         this.ctx.body =await this.ctx.service.user.loginAdmin(this.ctx.params)
+    }
+    async getUserAll(){
+        this.ctx.body =await this.ctx.service.user.getUserAll()
     }
 }
 module.exports = UserController;

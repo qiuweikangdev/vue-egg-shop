@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 17:32:16
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-19 20:33:18
+ * @LastEditTime: 2020-03-22 16:45:45
  */
 "use strict"
 const Service = require('egg').Service
@@ -28,6 +28,27 @@ class SearchService extends Service {
                 result = { code: 500, error: error }
             })
           return result 
-    }
+      }
+
+      //根据用户名搜索用户
+      async searchUser(params){
+          const { username }  = params
+          let sqlStr = 'SELECT * FROM users WHERE username LIKE "' + `%${username}%` +'"'
+          let result = await this.app.mysql.query(sqlStr)
+          if(result.length>0){
+            return {
+                code:200,
+                ok:1,
+                data:result
+            }
+          }else{
+            return {
+                code:200,
+                ok:0,
+                message:'暂无数据'
+            } 
+          }
+         
+      }
 }
 module.exports = SearchService

@@ -126,6 +126,9 @@ export default {
       this.getInfo()  //如果存在token,则获取用户信息
      } 
   },
+  mounted(){
+    console.log(this.userInfo,'userInfo')
+  },
   methods: {
     ...mapActions(["logout", "getUserInfo"]),
     ...mapMutations(["INIT_USER_INFO"]),
