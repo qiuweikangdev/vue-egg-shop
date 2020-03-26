@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-19 13:26:06
+ * @LastEditTime: 2020-03-26 15:23:16
  */
 import { login, register, authorization, getUserInfo, captcha,addToCart ,getShopCartData,addGoods,reduceGoods,generateOrderID,generateOrder,getOrderInfo} from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'

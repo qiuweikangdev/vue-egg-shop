@@ -59,8 +59,7 @@ export default [{
                 path: '/myOrder',
                 name: 'myOrder',
                 meta: {
-                    login_require: true,
-                    keepAlive: true
+                    login_require: true
                 },
                 component:()=>
                     import('@/pages/personal/components/myOrder/index'),

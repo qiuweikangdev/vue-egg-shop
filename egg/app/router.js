@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-22 11:55:26
+ * @LastEditTime: 2020-03-26 20:37:34
  */
 'use strict';
 /**
@@ -47,5 +47,8 @@ module.exports = app => {
     router.post('/user/loginAdmin', controller.user.loginAdmin); //登录
     router.get('/user/getUserAll', controller.user.getUserAll); //获取所有用户
     router.post('/searchUser', controller.search.searchUser); //搜索某用户
+    router.get('/getGoodsSumType', controller.goods.getGoodsSumType); //获取商品类别
+    router.get('/getTypsData', controller.goods.getTypsData); //获取类别数据
+    router.get('/getGoodsData', controller.goods.getGoodsData); //获取商品数据
 
 };

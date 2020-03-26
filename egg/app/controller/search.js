@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-17 10:03:19
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-22 11:55:06
+ * @LastEditTime: 2020-03-26 20:36:59
  */
 'use strict';
 const Controller = require('egg').Controller
@@ -17,7 +17,6 @@ class SearchController extends Controller {
     async searchUser(){
       this.ctx.body = await this.ctx.service.search.searchUser(this.ctx.params)
     }
- 
 }
 
 module.exports = SearchController

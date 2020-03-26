@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-22 11:41:52
+ * @LastEditTime: 2020-03-26 16:08:16
  */
 "use strict";
 
@@ -63,10 +63,10 @@ class UserService extends Service {
             await ctx.helper.comparePassword(password, result1[0].password)
                 .then((isMatch) => {
                     if (isMatch) {
-                        const token = ctx.helper.getToken({ id: result1[0].id, name: result1[0].username }, secret);
+                        const token = ctx.helper.getToken({ id: result1[0].user_id, name: result1[0].username }, secret);
                         //用户信息
                         const userInfo = {
-                            id: result1[0].id,
+                            id: result1[0].user_id,
                             username: result1[0].username,
                             avatar: ctx.helper.getBase64(result1[0].avatar)
                         }
@@ -110,10 +110,10 @@ class UserService extends Service {
             await ctx.helper.comparePassword(password, result1[0].password)
                 .then((isMatch) => {
                     if (isMatch) {
-                        const token = ctx.helper.getToken({ id: result1[0].id, name: result1[0].username }, secret);
+                        const token = ctx.helper.getToken({ id: result1[0].user_id, name: result1[0].username }, secret);
                         //用户信息
                         const userInfo = {
-                            id: result1[0].id,
+                            id: result1[0].user_id,
                             username: result1[0].username
                         }
                         result = {
@@ -176,7 +176,7 @@ class UserService extends Service {
     const { ctx, app } = this;
     const { id } = ctx.state.user
     // console.log(ctx.state.user)
-    const sqlStr = 'SELECT * FROM users WHERE id = "' + id + '"'
+    const sqlStr = 'SELECT * FROM users WHERE user_id = "' + id + '"'
     let result 
     await app.mysql.query(sqlStr).then(res => {
             const str = res[0].avatar //获取头像的二进制流数据
@@ -357,10 +357,10 @@ class UserService extends Service {
         order_status
     }
     try{
-      let result1 =  await this.app.mysql.insert('order',value1)
+      let result1 =  await this.app.mysql.insert('orders',value1)
        if(result1){
            let value2={}
-           let result2 =  await this.app.mysql.select('order',{
+           let result2 =  await this.app.mysql.select('orders',{
                where:{ order_num},
                columns:['order_id'],
                limit:1
@@ -405,7 +405,7 @@ class UserService extends Service {
     //查询订单号
     try{
         //一个用户可能有多个订单号
-        let result1 =  await this.app.mysql.select('order',{
+        let result1 =  await this.app.mysql.select('orders',{
             where:{ user_id,order_status},
             columns:['order_id','order_status'],
         })

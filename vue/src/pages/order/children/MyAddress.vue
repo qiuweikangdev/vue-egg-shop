@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-12-03 09:47:49
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-17 22:03:21
+ * @LastEditTime: 2020-03-26 15:06:17
  -->
 <template>
   <div id="myAddress">
@@ -17,7 +17,7 @@
       <span class="desc">还没有添加过地址呢,添加一个吧😄</span>
     </div>
 
-    <!-- 新增地址 -->
+    <!-- 地址列表 -->
     <van-address-list
       v-model="chosenAddressId"
       :list="shippingAddress"
@@ -41,7 +41,6 @@ import { createNamespacedHelpers } from "vuex";
 const { mapState, mapMutations } = createNamespacedHelpers("user");
 // 引入发布订阅
 import { CHOOSE_USER_ADDRESS } from '@/config/pubsub-type.js'
-import PubSub from 'pubsub-js'
 export default {
   data() {
     return {
@@ -49,7 +48,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["shippingAddress"])  //收货地址列表
+    ...mapState(["shippingAddress"]),  //收货地址列表
   },
   created() {
     this.INIT_USER_SHIPPING_ADDRESS();  //初始化收货地址信息

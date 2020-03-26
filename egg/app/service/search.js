@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 17:32:16
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-22 16:45:45
+ * @LastEditTime: 2020-03-26 20:59:14
  */
 "use strict"
 const Service = require('egg').Service
@@ -17,9 +17,9 @@ class SearchService extends Service {
         await this.app.mysql.query(sqlStr)
             .then((res) => {
                 if (res.length > 0) {
-                    result = { code: 200, message: res, status: '1' }
+                    result = { code: 200, message: res, ok: 1 }
                 } else {
-                    result  = { code: 200, message: '暂无相关商品', status: '0' }
+                    result  = { code: 200, message: '暂无相关商品', ok: 0 }
                 }
 
             })
@@ -40,7 +40,7 @@ class SearchService extends Service {
                 code:200,
                 ok:1,
                 data:result
-            }
+            } 
           }else{
             return {
                 code:200,
@@ -50,5 +50,6 @@ class SearchService extends Service {
           }
          
       }
+      
 }
 module.exports = SearchService
