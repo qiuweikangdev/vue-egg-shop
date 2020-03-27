@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-26 20:37:34
+ * @LastEditTime: 2020-03-27 18:45:04
  */
 'use strict';
 /**
@@ -50,5 +50,8 @@ module.exports = app => {
     router.get('/getGoodsSumType', controller.goods.getGoodsSumType); //获取商品类别
     router.get('/getTypsData', controller.goods.getTypsData); //获取类别数据
     router.get('/getGoodsData', controller.goods.getGoodsData); //获取商品数据
+    router.get('/getOrderData', controller.goods.getOrderData); //获取订单数据
+    router.post('/deleteOrderID', controller.goods.deleteOrderID); //根据编号删除订单
+    router.post('/deleteGoodsID', controller.goods.deleteGoodsID); //根据编号删除商品
 
 };

@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:50:39
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-26 19:55:34
+ * @LastEditTime: 2020-03-27 18:53:15
  */
 const Service = require('egg').Service
 class GoodsService extends Service {
@@ -60,6 +60,64 @@ class GoodsService extends Service {
            data:result
        }
     }
+    //获取订单
+    async getOrdeData(){
+        let sqlStr ='SELECT * FROM orders'
+      let result =   await this.app.mysql.query(sqlStr)
+        return {
+            code:200,
+            data:result
+        }
+    }
+    
+    //删除订单编号
+    async deleteOrderID(params){
+    const { order_num } = params
+    console.log(params)
+      try{
+        let sqlStr = 'DELETE FROM orders WHERE order_num = +"' + order_num +'"'
+        let result = await this.app.mysql.query(sqlStr)
+        if(result.affectedRows>0){
+            return {
+                code:200,
+                ok:1,
+                data:result
+            }
+        }
+      
+      }catch(e){
+            return {
+                code:500,
+                ok:0,
+                message:'发生错误'
+            }
+      }
+       
+    }
+    //删除商品编号
+    async deleteGoodsID(params){
+        const { goods_serial_number } = params
+          try{
+            let sqlStr = 'DELETE FROM goods WHERE goods_serial_number = +"' + goods_serial_number +'"'
+            let result = await this.app.mysql.query(sqlStr)
+            if(result.affectedRows>0){
+                return {
+                    code:200,
+                    ok:1,
+                    data:result
+                }
+            }
+          
+          }catch(e){
+              console.log(e)
+                return {
+                    code:500,
+                    ok:0,
+                    message:'发生错误'
+                }
+          }
+           
+        }
 }
 
 module.exports = GoodsService

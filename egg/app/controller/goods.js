@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-26 19:58:18
+ * @LastEditTime: 2020-03-27 18:46:56
  */
 'use strict';
 const Controller = require('egg').Controller;
@@ -25,6 +25,19 @@ class GoodsController extends Controller {
  //获取商品数据
   async getGoodsData(){
     this.ctx.body = await this.ctx.service.goods.getGoodsData()
+  }
+  //获取订单数据
+  async getOrderData(){
+    this.ctx.body = await this.ctx.service.goods.getOrdeData()
+  }
+  //删除订单编号
+  async deleteOrderID(){
+    this.ctx.body = await this.ctx.service.goods.deleteOrderID(this.ctx.params)
+
+  }
+  //删除商品编号
+  async deleteGoodsID(){
+    this.ctx.body = await this.ctx.service.goods.deleteGoodsID(this.ctx.params)
 
   }
 }
