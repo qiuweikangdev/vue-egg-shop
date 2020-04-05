@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-27 18:45:04
+ * @LastEditTime: 2020-04-05 18:09:20
  */
 'use strict';
 /**
@@ -23,6 +23,11 @@ module.exports = app => {
     router.get('/user/getShopCartData', app.jwt,controller.user.getShopCartData); // 请求购物车数据
     router.post('/user/addGoods',app.jwt,controller.user.addGoods); // 增加购物车商品
     router.post('/user/reduceGoods',app.jwt, controller.user.reduceGoods); // 减少购物车商品
+
+    //商品
+    router.get('/goods/isLiked',app.jwt, controller.goods.isLiked);  //判断用户是否对商品已点赞
+    router.post('/goods/goodsLike',app.jwt, controller.goods.goodsLike);  //商品点赞
+
 
     //订单
     router.get('/user/generateOrderId',controller.user.generateOrderID); // 生成订单id

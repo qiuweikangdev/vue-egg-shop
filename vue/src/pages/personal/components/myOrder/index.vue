@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-03-16 19:47:53
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-19 22:02:38
+ * @LastEditTime: 2020-04-05 22:41:49
  -->
 <template>
   <div id="myOrder">
@@ -35,13 +35,13 @@
           <span>{{item}}</span>
         </div>
            <div class='order-type'> <OrderType :orderTypeDataArray="orderStatusInfo" :orderActive='active' /></div>
-           <!-- 猜你会喜欢 -->
-            <van-divider :style="{ color: 'black', borderColor: 'grey' }">
-               猜你喜欢
-         </van-divider>
-        <hot-produce></hot-produce>
         </van-tab>
     </van-tabs>
+        <van-divider :style="{ color: 'black', borderColor: 'grey' }">
+               猜你喜欢
+         </van-divider>
+            <!-- 猜你会喜欢 -->
+        <hot-produce></hot-produce>
   </div>
 </template>
 <script >

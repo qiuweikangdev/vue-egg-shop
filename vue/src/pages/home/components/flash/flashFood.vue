@@ -97,17 +97,17 @@ export default {
           });
     },
     goToGoodsDetail(product){
-             console.log(product)
             this.$router.push({
                 path:'/goodsDetail',
                 query:{
-                    id: product.id,
+                    id: product.goods_id,
                     name: product.name,
                     small_image: product.small_image,
                     present_price:product.present_price,
                     spec: product.spec,
                     total_sales:product.total_sales,
                     origin_price: product.origin_price,
+                    like_num: product.like_num,
                 }
             })
       }

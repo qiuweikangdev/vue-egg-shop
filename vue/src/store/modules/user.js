@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-26 15:23:16
+ * @LastEditTime: 2020-04-05 22:32:59
  */
 import { login, register, authorization, getUserInfo, captcha,addToCart ,getShopCartData,addGoods,reduceGoods,generateOrderID,generateOrder,getOrderInfo} from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
@@ -113,7 +113,6 @@ const mutations = {
         // 7.2查找id的那个对象
         for (let index = 0; index < shippingAddress.length; index++) {
             if (shippingAddress[index].id == content.id) {
-                // console.log(shippingAddress[index]);
                 shippingAddress[index] = content;
                 break;
             }
@@ -212,7 +211,6 @@ const mutations = {
     },
     //更新购物车数据
     [UPDATE_SHOP_CART](state,newShopCart){
-        // console.log(state,'state')
         let shopCart = state.shopCart;
         //如果本地数据为空，则直接赋值
         if(!shopCart.length){
@@ -296,7 +294,6 @@ const actions = {
             //调用后台接口授权，来获取token
             authorization().then(res => {
                     setToken(res.data.token)
-                    // console.log(res)
                     resolve()
                 // if (parseInt(res.data.code) === 401) {
                 //     //token过期
@@ -448,7 +445,6 @@ const actions = {
     //13、获取用户订单
     async getOrderInfo({commit},order_status){
        let result = await getOrderInfo({order_status})
-    //    console.log(result)
        commit(ORDER_STATUS_INFO,result.data.data)
     }
     

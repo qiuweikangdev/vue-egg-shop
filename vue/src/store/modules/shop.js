@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-02-20 18:05:48
+ * @LastEditTime: 2020-04-05 16:56:15
  */
 /*
  * @Descripttion: 商品类数据存储
@@ -63,7 +63,7 @@ const actions = {
     // 3. 获取首页限时抢购
     async reqHomeFlash({ commit }) {
         const result = await getHomeFlash()
-        commit('HOME_FLASH', result.data.data.data.product_list)
+        commit('HOME_FLASH', result.data.data)
     },
     // 4. 获取商品分类目录
     async reqCategorySub({ commit }) {

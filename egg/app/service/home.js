@@ -3,8 +3,8 @@
  * @version: 
  * @Author: qqqiu
  * @Date: 2020-01-21 17:32:16
- * @LastEditors  : qqqiu
- * @LastEditTime : 2020-01-21 19:03:51
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-04-05 16:39:07
  */
 "use strict"
 const Service = require('egg').Service
@@ -32,7 +32,10 @@ class HomeService extends Service {
     //首页 限时抢购
     async getHomeFlash() {
         const { ctx } = this;
-        const result = require('../data/flashSale.json')
+        // const result = require('../data/flashSale.json')
+        let sqlStr = 'SELECT * FROM goods limit 10'
+        let result = await this.app.mysql.query(sqlStr)
+        console.log(result,'result')
             return {
                 code: 200,
                 data: result

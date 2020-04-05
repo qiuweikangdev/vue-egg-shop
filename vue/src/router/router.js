@@ -77,13 +77,13 @@ export default [{
                     import ('@/pages/search/Search.vue')
             },
             {
-                // 搜索
+                //商品详情
                 path: '/goodsDetail',
                 name: 'goodsdetail',
                 meta: {
                     login_require: false,
                     showBottomTabBar: false,
-                    keepAlive: true
+                    keepAlive: false
                 },
                 component: () =>
                     import ('@/pages/goodsDetail/goodsDetail.vue')

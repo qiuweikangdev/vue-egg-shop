@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-26 16:08:16
+ * @LastEditTime: 2020-04-05 16:48:37
  */
 "use strict";
 
@@ -48,8 +48,6 @@ class UserService extends Service {
         let { username, password, authCode } = params;
         let secret = app.config.jwt.secret
         let sqlStr = 'SELECT * FROM users WHERE username = "' + username + '"'
-        console.log(authCode,'client')
-        console.log(ctx.session.code,'session')
         let result
         let result1 = await app.mysql.query(sqlStr)
           //result如果没有匹配到结果，返回的是空数组
@@ -203,7 +201,7 @@ class UserService extends Service {
  //添加商品到购物车
   async addToCart(params){
      const { ctx, app } = this;
-     const { id:product_id,product_name,present_price,small_image}   = params
+     const { goods_id:product_id,product_name,present_price,small_image}   = params
     const { id:user_id } =ctx.state.user
     let product_amount = 1;
     // let  sqlStr = 'SELECT * FROM cart where product_id  = "'+product_id +'" LIMIT 1'
@@ -412,35 +410,38 @@ class UserService extends Service {
         //根据订单号id获取商品 数据
         let order_id=[]
         let orderInfo = []
-        result1.map((item)=>{
-            let obj = {}
-            obj.order_status =item.order_status
-            obj.order_id =item.order_id
-            order_id.push(item.order_id)
-            orderInfo.push(obj)
-        })
-        let result2 =  await this.app.mysql.select('order_detail',{
-            where:{ order_id },
-        })
-        let newResult=[]
-        for(let i =0;i<orderInfo.length;++i){
-            let arr = []
-            result2.map((item,index)=>{
-                if(orderInfo[i].order_id ===item.order_id){
-                    item.order_status=orderInfo[i].order_status
-                    arr.push(item)
-                }
+        let newResult = []
+        if(result1.length>0){
+            result1.map((item)=>{
+                let obj = {}
+                obj.order_status =item.order_status
+                obj.order_id =item.order_id
+                order_id.push(item.order_id)
+                orderInfo.push(obj)
             })
-            if(arr.length>0){
-                newResult.push(arr)
-             }
-         
+            let result2 =  await this.app.mysql.select('order_detail',{
+                where:{ order_id },
+            })
+            for(let i =0;i<orderInfo.length;++i){
+                let arr = []
+                result2.map((item,index)=>{
+                    if(orderInfo[i].order_id ===item.order_id){
+                        item.order_status=orderInfo[i].order_status
+                        arr.push(item)
+                    }
+                })
+                if(arr.length>0){
+                    newResult.push(arr)
+                 }
+             
+            }
+          
         }
-
         return {
             code:200,
             data:newResult
         }
+      
     }catch(error){
         console.log(error)
         return {
@@ -450,6 +451,7 @@ class UserService extends Service {
     }
     
   }
+
 }
 
 module.exports = UserService

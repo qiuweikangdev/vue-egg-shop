@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-03-16 20:38:35
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-19 22:02:18
+ * @LastEditTime: 2020-04-05 14:29:23
  -->
 <template>
   <div id="orderType">
@@ -36,9 +36,11 @@
     </div>
     <div v-else
          class="noDataPlaceHold">
-      <img src="@/assets/images/personal/noData.jpeg"
-           alt="">
-      <span class="desc">暂时还没有相关订单</span>
+      <!-- <img src="@/assets/images/personal/noData.jpeg" alt=""> -->
+      <div class='icon-order'>
+        <svg-icon iconClass='order' style="width:2.3rem;height:2.3rem"></svg-icon>
+      </div>
+      <span class="desc" >暂时还没有相关订单</span>
     </div>
   </div>
 </template>
@@ -187,6 +189,9 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .icon-order{
+      padding:2rem 0;
+    }
     img {
       width: 60%;
       height: 60%;
@@ -194,6 +199,7 @@ export default {
     .desc {
       color: grey;
       font-size: 0.6rem;
+      padding-bottom: 0.5rem;
     }
   }
   .noData {

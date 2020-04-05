@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-09-18 12:59:37
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-18 10:27:02
+ * @LastEditTime: 2020-04-05 19:19:54
  */
 import axios from './index'
 
@@ -62,5 +62,27 @@ export const searchGoods = (name) => {
         }
     })
 }
+
+// 7.判断用户是否对商品已点赞
+export const isLiked = (goods_id) => {
+    return axios.request({
+        url: 'goods/isLiked',
+        method: 'get',
+        params: {
+            goods_id
+        }
+    })
+}
+// 8.对商品已点赞
+export const goodsLike = (goods_id,like_num) => {
+    return axios.request({
+        url: 'goods/goodsLike',
+        method: 'post',
+        data: {
+            goods_id,like_num
+        }
+    })
+}
+
 
 

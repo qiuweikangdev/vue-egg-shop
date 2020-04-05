@@ -16,14 +16,13 @@
             <div class="title">{{goodsInfo.name}}</div>
             <div class="sub-title">{{goodsInfo.spec}}</div>
             <div class="easy-like" @click='handleLike'>
-                 <!-- 赞  (1) -->
+                 <!-- 点赞   -->
                  <span class="like-icon"><img :src="likeDefault" alt=""></span>
-                 <span class="like-num">{{likeNum}}</span>
+                 <span :class="[{'like-num':true,'liked':flagLike}]">{{likeNum}}</span>
             </div>
             <div class="price">
             <span class="now-price">{{goodsInfo.present_price | moneyFormat}}</span>   
             <span class="origin-price">{{goodsInfo.origin_price }}</span>
-            <span class="total-sales">已售:{{goodsInfo.total_sales}}</span>
             </div>
          </div>
     </div>
@@ -39,25 +38,29 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'   //导入命名空间辅助函数
-const {  mapState, mapMutations, mapActions } = createNamespacedHelpers('user')
+const {  mapState, mapMutations, mapActions  } = createNamespacedHelpers('user')
 import {
     Toast
 } from 'vant'
+import { isLiked , goodsLike } from '@/api/shop'
 export default {
     data(){
         return {
             goodsInfo:this.$route.query, //接受传过来路由参数
+            likeNum:this.$route.query.like_num, //点赞数
             likeDefault:require('@/assets/images/easyLike/like_default.png'), //没点赞图标
             likeSelected:require('@/assets/images/easyLike/like_selected.png'), //已点赞图标
              errorImg:'this.src="'+require('@/assets/images/errorImg.png') +'"',  //图片失效的替补图片
-            flagLike:false, //点赞标志
-            likeNum:30 //点赞数
+             flagLike:false, //点赞标志
         }
     },
     created(){
     //初始化购物车商品数据
     this.INIT_SHOP_CART()
     // this.tabbarSelected()
+    if(this.token){
+        this.isGoodsLiked()  //判断用户商品是否已经点赞
+    }
   },
      methods:{
          //获取mutaions里的方法，初始化购物车数据 、添加购物车
@@ -78,35 +81,52 @@ export default {
                 })
          },
          //点赞
-         handleLike(){
-             this.flagLike = !this.flagLike
-             if(this.flagLike){
+       async  handleLike(){
+              let result  =  await goodsLike(this.goodsInfo.id,this.likeNum)
+                if(result.data.isLiked == 1){
+                    console.log('bbbb')
+                     this.flagLike = true
+                     this.likeNum = result.data.likeNum
                  document.querySelector('.like-icon img').src = this.likeSelected
-                 document.querySelector('.like-num').style.color = '#6CBD45'
-                 this.likeNum++
-             }else{
+
+                }else{
+                    this.flagLike = false
+                    this.likeNum = result.data.likeNum
                   document.querySelector('.like-icon img').src = this.likeDefault
-                  document.querySelector('.like-num').style.color = '#ccc'
-                  this.likeNum--
-             }
+
+
+                }  
+
          },
          //去购物车
          goCart(){
               this.$router.push({ name: 'cart' });
+         },
+         //判断当前商品是否已点赞
+         async isGoodsLiked(){
+            let result =  await isLiked(this.goodsInfo.id)
+            if(result.data.isliked === 0){
+                 document.querySelector('.like-icon img').src = this.likeDefault
+            }else{
+                 document.querySelector('.like-icon img').src = this.likeSelected
+                 this.likeNum = result.data.likeNum
+                 this.flagLike = true
+                
+            }
          }
      },
      computed:{
-          ...mapState(['shopCart']),
+          ...mapState(['shopCart','token']),
            //购物车数量
          goodsNum(){
-          let num = 0
+             let num = 0
           Object.values(this.shopCart).forEach((goods)=>{
             num += goods.num
           })
           if(num>0){
               return num            
           }
-      }
+       },
      }
 }
 </script>
@@ -130,7 +150,7 @@ export default {
             border-bottom: 2px #EFF8F5 solid;
             position: relative;
             div{
-                  padding-bottom: 0.3rem;
+                  padding-bottom: 0.6rem;
             }
             .title{
                 width:60%;
@@ -138,6 +158,10 @@ export default {
             .sub-title{
                 font-size: 12px;
                 color:#A3A3A3;
+            }
+            //点赞的样式
+            .liked{
+                color:#6CBD45 !important;
             }
             .easy-like{  
                 position: absolute;
@@ -152,11 +176,14 @@ export default {
                     padding-left:0.5rem;
                 }
                 .like-num{
-                    font-weight: bold;
+                    display:inline-block;
+                   font-weight: bold;
+                    color:#ccc;
                 }
                 img{
                     width: 1rem;
                     height:1rem;
+                    
                 }
             }
             .price{

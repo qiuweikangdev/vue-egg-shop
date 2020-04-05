@@ -89,7 +89,7 @@ export default {
       this.isShowLoading = true;
       let result = await searchGoods(this.name || name);
       setTimeout(() => {
-        if (result.data.ok === "1") {
+        if (result.data.ok === 1) {
           this.emptyGoods = false;
           this.goodsInfo = result.data.message;
           this.isShowLoading = false;

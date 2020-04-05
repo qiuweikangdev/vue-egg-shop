@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-27 18:46:56
+ * @LastEditTime: 2020-04-05 19:08:05
  */
 'use strict';
 const Controller = require('egg').Controller;
@@ -26,6 +26,17 @@ class GoodsController extends Controller {
   async getGoodsData(){
     this.ctx.body = await this.ctx.service.goods.getGoodsData()
   }
+  //商品点赞
+  async goodsLike(){
+      this.ctx.body = await this.ctx.service.goods.goodsLike(this.ctx.params)
+  }
+
+  //判断用户是否对商品已点赞
+async isLiked(){
+  this.ctx.body = await this.ctx.service.goods.isLiked(this.ctx.params)
+
+}
+
   //获取订单数据
   async getOrderData(){
     this.ctx.body = await this.ctx.service.goods.getOrdeData()
