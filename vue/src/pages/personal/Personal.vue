@@ -82,10 +82,10 @@
         <van-button size="large" @click="handleLogout">退出登录</van-button>
       </van-col>
     </van-row>
-    <transition name="router-slider"
+    <!-- <transition name="router-slider"
                 mode="out-in">
       <router-view></router-view>
-    </transition>
+    </transition> -->
   </div>
 </template>
 
@@ -189,6 +189,7 @@ export default {
 $fonColor: #fff;
 $bgColor: #e5017d;
 .personal-main {
+  height:100%;
   .van-nav-bar__title {
     color: $fonColor;
   }

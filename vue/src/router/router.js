@@ -42,6 +42,18 @@ export default [{
                 },
                 component: () =>
                      import ('@/pages/personal/Personal.vue'),  
+                // children:[
+                //     {
+                //         // 订单
+                //         path: '/myOrder',
+                //         name: 'myOrder',
+                //         meta: {
+                //             login_require: true
+                //         },
+                //         component:()=>
+                //             import('@/pages/personal/components/myOrder/index'),
+                //     },
+                // ]     
             }, {
                 // 购物车
                 path: '/cart',

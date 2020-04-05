@@ -3,8 +3,8 @@
  * @version: 
  * @Author: sueRimn
  * @Date: 2019-09-16 19:13:01
- * @LastEditors  : sueRimn
- * @LastEditTime : 2020-01-01 16:06:38
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-04-05 23:08:44
  -->
 <template>
  <div id="app">
@@ -28,7 +28,7 @@ html,
 body,
 #app {
   height: 100%;
-  /* touch-action: none 这样任何触摸事件都不会产生默认行为，但是 touch 事件照样触发。 */
+    width: 100%;
 }
 </style>
 
