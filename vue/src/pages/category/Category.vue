@@ -87,7 +87,7 @@ export default {
         })
       }
       if(this.name){
-         this.$nextTick(()=>{ 
+         this.$nextTicqk(()=>{ 
            this.NavToSub()
           })
       }

@@ -100,11 +100,6 @@ export default {
     return {
       imgUrl:require('@/assets/images/flag.png'),  //未登录的头像标志
       token: getToken(),
-      // userInfo1: {
-      //   id: "",
-      //   username: "",
-      //   avatar: ""
-      // },
      //  订单状态
       orderData: [
         { icon: 'cart-circle-o', title: '待支付' },
@@ -125,9 +120,6 @@ export default {
       this.INIT_USER_INFO()  //初始化用户信息,把localstorage中的本地数据保存在vuex
       this.getInfo()  //如果存在token,则获取用户信息
      } 
-  },
-  mounted(){
-    console.log(this.userInfo,'userInfo')
   },
   methods: {
     ...mapActions(["logout", "getUserInfo"]),

@@ -40,7 +40,9 @@ export default {
       product_list: []
     };
   },
-  props: {},
+  created(){
+    this.initData()
+  },
   methods: {
     ...mapMutations(['ADD_TO_CART']),
       addToCart(product){

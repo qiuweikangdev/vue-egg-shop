@@ -82,9 +82,9 @@ export default {
          },
          //点赞
        async  handleLike(){
-              let result  =  await goodsLike(this.goodsInfo.id,this.likeNum)
+            if(this.token){
+                 let result  =  await goodsLike(this.goodsInfo.id,this.likeNum)
                 if(result.data.isLiked == 1){
-                    console.log('bbbb')
                      this.flagLike = true
                      this.likeNum = result.data.likeNum
                  document.querySelector('.like-icon img').src = this.likeSelected
@@ -93,9 +93,11 @@ export default {
                     this.flagLike = false
                     this.likeNum = result.data.likeNum
                   document.querySelector('.like-icon img').src = this.likeDefault
-
-
                 }  
+            }else{
+                this.$router.push('/login')
+            }
+             
 
          },
          //去购物车
