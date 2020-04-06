@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-05 19:08:05
+ * @LastEditTime: 2020-04-06 10:44:22
  */
 'use strict';
 const Controller = require('egg').Controller;
@@ -13,6 +13,10 @@ class GoodsController extends Controller {
         //限时抢购商品
     async getFlashSale(){
         this.ctx.body = await this.ctx.service.goods.getFlashSale()
+    }
+      //限时抢购商品
+      async getHotProduct(){
+        this.ctx.body = await this.ctx.service.goods.getHotProduct()
     }
       //获取商品类别
   async getGoodsSumType(){

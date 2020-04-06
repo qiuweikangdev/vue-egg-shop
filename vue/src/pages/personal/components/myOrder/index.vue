@@ -4,12 +4,11 @@
  * @Author: qqqiu
  * @Date: 2020-03-16 19:47:53
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-06 00:17:47
+ * @LastEditTime: 2020-04-06 10:22:36
  -->
 <template>
   <div id="myOrder">
-    <div class='order-content'>
-    <van-nav-bar title="我的订单"
+       <van-nav-bar title="我的订单"
                  :border=false
                  :fixed="true"
                  @click-left="onClickLeft"
@@ -20,7 +19,6 @@
               swipeable
               sticky
               :offset-top='42'
-              :border="false"
               ref="tabs"
               type="line"
               color="#28BE57"
@@ -28,13 +26,14 @@
               @click='handleTabs(active)'
               scrollspy
               @scroll='handleTabScroll'
-              animated:yes>
+              animated:yes
+              >
       <!-- 全部 -->
         <van-tab 
           v-for ='(item,index) in itemsTitle'
           :key='index'
         >
-        <div slot="title">
+        <div slot="title" class='tabs-item'>
           <span>{{item}}</span>
         </div>
            <div class='order-type'> <OrderType :orderTypeDataArray="orderStatusInfo" :orderActive='active' /></div>
@@ -46,7 +45,6 @@
         </van-tab>
     </van-tabs>
     
-  </div>
       </div>
 </template>
 <script >
@@ -54,7 +52,6 @@ import OrderType from './components/orderType'
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapState, mapMutations } = createNamespacedHelpers("user");
 import HotProduce from '@/pages/home/components/hot/hotProduce.vue'
-import BScroll from 'better-scroll'
 export default {
   data () {
     return {
@@ -73,9 +70,6 @@ export default {
    created(){
      //获取订单信息
      this.handleTabs()
-  },
-  mounted(){
-    this.initBScroll()
   },
   watch:{
     '$route'(to){
@@ -107,24 +101,6 @@ export default {
       }
         this.getOrderInfo(order_status)
     },
-    initBScroll(){
-        // 1.1.初始化滚动视图
-            this.$nextTick(() => {
-              if (!this.scroll) {
-                this.scroll = new BScroll('.order-content', {
-                  probeType: 3,
-                  click: true,
-                  scrollY: true,
-                  tap: true,
-                  mouseWheel: true,
-                  eventPassthrough:'vertical'  //保留原生滚动
-
-                });
-              } else {
-                this.scroll.refresh();
-              }
-            });
-    },
     handleTabScroll({scrollTop,isFixed}){
         if(scrollTop>=100){
            isFixed = true
@@ -136,17 +112,14 @@ export default {
 
 <style lang="scss" scoped>
 #myOrder {
-  // height:100%;
-  //  position: fixed;
-  // //  position:absolute;
-  // left: 0;
-  // right: 0;
-  // top: 0;
-  // bottom:0;
-  // z-index: 100;
-  // background-color: #f5f5f5;
-  // overflow: hidden;  //一定要设置溢出隐藏，否则滚动的时候，会超出内容 
-
+   position:fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom:0;
+  z-index: 100;
+   height:100%;
+    overflow-y:scroll;
   .van-icon {
     color: #a19494;
   }

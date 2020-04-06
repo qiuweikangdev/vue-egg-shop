@@ -59,18 +59,18 @@ export default {
           ...mapMutations({
              ADD_TO_CART:'user/ADD_TO_CART'
             }),
-         goToGoodsDetail(produce){
-             console.log(produce)
+         goToGoodsDetail(product){
             this.$router.push({
                 path:'/goodsDetail',
                 query:{
-                    id: produce.id,
-                    name: produce.name,
-                    small_image: produce.small_image,
-                    present_price:produce.present_price,
-                    spec: produce.spec,
-                    total_sales:produce.total_sales,
-                    origin_price: produce.origin_price,
+                    id: product.goods_id,
+                    name: product.name,
+                    small_image: product.small_image,
+                    present_price:product.present_price,
+                    spec: product.spec,
+                    total_sales:product.total_sales,
+                    origin_price: product.origin_price,
+                    like_num: product.like_num,
                 }
             })
          },

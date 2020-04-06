@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-19 20:12:40
+ * @LastEditTime: 2020-04-06 13:45:17
  */
 const getters = {
     token: state => state.user.token,

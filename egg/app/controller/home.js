@@ -16,9 +16,6 @@ class HomeController extends Controller {
     async homeNav(){
         this.ctx.body  = await this.ctx.service.home.getHomeNav()
     }
-    async homeFlash(){
-        this.ctx.body  = await this.ctx.service.home.getHomeFlash()
-    }
 }
 
 module.exports = HomeController

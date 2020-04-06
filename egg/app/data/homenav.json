@@ -1,20 +1,20 @@
 {
     "data": [
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon01.png", "icontitle": "限时秒杀" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon02.png", "icontitle": "每日清仓" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon03.png", "icontitle": "品牌馆" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon04.png", "icontitle": "天天领红包" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon05.png", "icontitle": "9块9特卖" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon06.gif", "icontitle": "充值中心" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon07.png", "icontitle": "秋冬上新" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon08.png", "icontitle": "现金签到" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon09.png", "icontitle": "食品超市" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon10.png", "icontitle": "电器城" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon11.png", "icontitle": "助力享免单" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon12.png", "icontitle": "天天半价购" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon13.png", "icontitle": "1分抽大奖" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon14.png", "icontitle": "电器城" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon15.png", "icontitle": "海淘" },
-        { "iconurl": "http://127.0.0.1:5000/public/images/home/nav_icon16.png", "icontitle": "帮帮免费团" }
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/cakes.png", "icontitle": "饼干糕点" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/cheese.png", "icontitle": "奶油奶酪" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/fruits.png", "icontitle": "热带水果" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/chocolate.png", "icontitle": "糖果巧克力" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/coffee.png", "icontitle": "咖啡茶饮" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/foods.png", "icontitle": "休闲小食" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/drinks.png", "icontitle": "功能饮料" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/juice.png", "icontitle": "果蔬汁" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/milk.png", "icontitle": "乳制饮料" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/mouth.png", "icontitle": "口腔护理" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/paper.png", "icontitle": "特殊用纸" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/skin.png", "icontitle": "进口护理" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/wine.png", "icontitle": "洋酒" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/water.png", "icontitle": "饮用水" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/nut.png", "icontitle": "坚果炒货" },
+        { "iconurl": "http://127.0.0.1:5000/public/images/home/brew.png", "icontitle": "冲调饮品" }
     ]
 }

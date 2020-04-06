@@ -16,6 +16,7 @@
                       :key="index"
                       :class='[{selected:currentIndex === index},{categoryItem:true}]'
                       @click="clickLeft(item.id,index)"
+                      ref='sub'
                   >
                      <span class="text-item">{{item.mall_sub_name}}</span>
                   </li>
@@ -53,14 +54,24 @@ export default {
          categoriesDetailData:[],
          currenCategorytId:'', // 当前分类目录的id,用于缓存数据时请求最新数据
           isShowLoading:true,  //是否显示加载组件
+          name:this.$route.params.name,
+          subObj:{}
       }
     },
     created(){
        //初始化左边分类目录数据
        this.$store.dispatch('shop/reqCategorySub')
        //初始化分类数据
+       console.log('aaaa')
        this.initCategoriesData()
     },
+    //
+    // beforeUpdate(){
+    //   if(this.name){
+    //     let obj =  this.NavToSub()
+    //     this.clickLeft(obj.id,obj.num)
+    //   }
+    // },
     computed:{
       //获取商品分类
       ...mapState(['homenav','CategorySub']),
@@ -74,18 +85,37 @@ export default {
         this.$nextTick(()=>{
           this._initBScroll()
         })
-         
+      }
+      if(this.name){
+         this.$nextTick(()=>{ 
+           this.NavToSub()
+          })
       }
     },
     //keep-alive 组件激活时调用。 （即页面缓存了数据时进入页面就触发）
     activated(){
-       if(this.currenCategorytId){
+        if(this.name){
+              let obj =  this.NavToSub()
+              this.clickLeft(obj.id,obj.num)
+          }
+       else if(this.currenCategorytId ){
            this.$nextTick(()=>{
           //根据当前分类的id,请求最新的数据
               this.clickLeft(this.currenCategorytId,this.currentIndex)
         })
        }
-      
+    },
+    watch:{
+      $route(to,from){
+         this.name = to.params.name
+      },
+       CategorySub(val){
+             if(this.name){
+              let obj =  this.NavToSub()
+              this.clickLeft(this.currenCategorytId,this.currentIndex)
+            }
+
+      }
     },
     methods:{
       // 1、初始化滚动事件
@@ -113,7 +143,6 @@ export default {
           this.categoriesDetailData = result.data.success
             this.isShowLoading= false
        }
-       
       
       },
      async  clickLeft(id,index){
@@ -121,12 +150,38 @@ export default {
          this.currentIndex = index;
          // 根据分类id读取某分类商品数据
         let result = await getGoodsByCategoryID(id)
+        console.log(result,'result')
         this.currenCategorytId = id  //记录当前分类目录的id
         if(result.data.success){
           this.categoriesDetailData = result.data.success
         }
-      }
+     //滚动到对应的位置
+      setTimeout(() => {
+        let menuLists = this.$refs.sub;
+        let el = menuLists[index];
+        // 2.3 滚动到对应元素上
+        this.leftScroll.scrollToElement(el, 100);
+       },100);
+
+
+      },
+      NavToSub(){
+        let obj = {}
+         for(let i=0;i<this.CategorySub.length;++i){
+            if(this.CategorySub[i].mall_sub_name.includes(this.name)){
+                this.currenCategorytId =  this.CategorySub[i].id
+                this.currentIndex =i
+                obj.id = this.CategorySub[i].id
+                obj.num =i
+                  break;
+            }
+         }
+         console.log(this.currenCategorytId,'currenCategorytId')
+         console.log(this.currentIndex,'currentIndex')
+         return obj
+      
      
+      }
     }
 }
 </script>

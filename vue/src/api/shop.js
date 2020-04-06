@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-09-18 12:59:37
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-05 19:19:54
+ * @LastEditTime: 2020-04-06 14:36:49
  */
 import axios from './index'
 
@@ -44,7 +44,7 @@ export const getCategorySub = () => {
 // 5.根据分类id读取某分类商品数据
 export const getGoodsByCategoryID = (subID) => {
     return axios.request({
-        url: 'goods/getGoodsByCategoryID',
+        url: 'goods/getGoodsByCategoryID?time'+ new Date(),
         method: 'get',
         params: {
             subID
@@ -83,6 +83,15 @@ export const goodsLike = (goods_id,like_num) => {
         }
     })
 }
+// 8.获取火爆商品
+export const getHotProduct = () => {
+    return axios.request({
+        url: 'goods/getHotProduct',
+        method: 'get'
+       
+    })
+}
+
 
 
 

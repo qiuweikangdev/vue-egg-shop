@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-05 18:09:20
+ * @LastEditTime: 2020-04-06 10:56:23
  */
 'use strict';
 /**
@@ -27,6 +27,7 @@ module.exports = app => {
     //商品
     router.get('/goods/isLiked',app.jwt, controller.goods.isLiked);  //判断用户是否对商品已点赞
     router.post('/goods/goodsLike',app.jwt, controller.goods.goodsLike);  //商品点赞
+    router.get('/goods/getHotProduct',controller.goods.getHotProduct);  //火爆商品
 
 
     //订单

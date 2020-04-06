@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:50:39
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-05 22:28:09
+ * @LastEditTime: 2020-04-06 11:03:05
  */
 const Service = require('egg').Service
 class GoodsService extends Service {
@@ -18,6 +18,17 @@ class GoodsService extends Service {
             data:result
         }
     }
+    //火爆商品
+    async getHotProduct(){
+        let sqlStr = 'SELECT * FROM goods limit 2,10'
+        let result = await this.app.mysql.query(sqlStr)
+        return {
+            code:200,
+            data:result
+        }
+    }
+    
+
     //获取商品类别
     async getGoodsSumType(){
         let sqlStr = 'SELECT mall_sub_name as name,count(sub_id) as count FROM goods go,category_sub ca GROUP BY go.sub_id,ca.mall_sub_name,ca.id HAVING go.sub_id =ca.id '

@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-03-16 20:38:35
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-05 14:29:23
+ * @LastEditTime: 2020-04-06 09:42:35
  -->
 <template>
   <div id="orderType">

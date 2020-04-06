@@ -5,10 +5,10 @@
   <div class="hot-nav">
     <!--滚动区域-->
     <div class="hot-nav-content" v-if="homenav.length > 0">
-      <div class="nav-content-inner" >
-        <a class="inner-item" v-for="(nav, index) in homenav" :key="index" >
-          <img :src="nav.iconurl" alt />
-          <span>{{nav.icontitle}}</span>
+      <div class="nav-content-inner">
+        <a class="inner-item" v-for="(item, index) in homenav" :key="index" @click="handleClick(item)">
+          <img :src="item.iconurl" alt />
+          <span>{{item.icontitle}}</span>
         </a>
       </div>
     </div>
@@ -128,6 +128,14 @@ export default {
             this.scrollContentW = width*2  //滚动内容的宽度
               this.bgBarW = 256//滚动背景宽度
          }
+    },
+    handleClick(item){
+      this.$router.push({
+        name:'category',
+        params:{
+          name:item.icontitle
+        }
+      })
     }
   }
 };
