@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-06 10:56:23
+ * @LastEditTime: 2020-04-07 19:48:46
  */
 'use strict';
 /**
@@ -60,4 +60,6 @@ module.exports = app => {
     router.post('/deleteOrderID', controller.goods.deleteOrderID); //根据编号删除订单
     router.post('/deleteGoodsID', controller.goods.deleteGoodsID); //根据编号删除商品
 
+    //小程序
+    router.get('/user/wxLoginAuth', controller.user.wxLoginAuth); //小程序登录凭证
 };

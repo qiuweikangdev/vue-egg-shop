@@ -23,6 +23,7 @@
                   :after-read="afterRead"
                   :max-count="1"
                   :max-size="1024 * 100"
+                  deletable
                   @oversize="oversize"
                 />
               </van-col>
@@ -103,25 +104,18 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["register", "upload"]),
+    ...mapActions(["register"]),
     goBack() {
       //    this.$router.go(-1)
       this.$router.push("/");
     },
     registerAction() {
       //表单验证 和 提交表单数据结果
-      this.checkForm() &&  this.afterRead() && this.registerUser();
+      this.checkForm() && this.registerUser();
     },
     //上传到服务器
     afterRead(files) {
-      //   this.userInfo.avatar = file.content
-      if(files){
-        this.file = files.file; //获取File对象
-        return true
-      }else{
-        Toast.fail("请选择图片");
-          return false
-      }
+         this.file = files.file; //获取File对象
     },
     //判断文件类型
     beforRead(file) {
@@ -167,44 +161,60 @@ export default {
       type = type === "jpg" ? "jpeg" : type;
       return canvas.toDataURL("image/" + type, 0.7); //这里的0.7值的是图片的质量
     },
-
-    registerUser() {
-      this.openLoading = true;
-
-      var reader = new FileReader();
+    //处理头像
+    dealAvatar(){
+    return new Promise((resolve,reject)=>{
+             var reader = new FileReader();
       var fileName = this.file.name; //文件名字
       var fileType = this.file.name.split(".")[1]; //文件类型
       reader.readAsArrayBuffer(this.file);
-
       reader.onload = (ev) => {
         var blob = new Blob([ev.target["result"]]);
         window["URL"] = window["URL"] || window["webkitURL"];
         var blobURL = window["URL"].createObjectURL(blob);
         var image = new Image();
         image.src = blobURL;
-        image.onload = (e) => {
+        image.onload =  (e) => {
           var thumb = this.resizeMe(image, fileType, 400, 0); //获得的路径是将图片转换成了base64
-          this.userInfo.avatar = thumb;
-          // console.log(thumb)
-          this.userInfo.fileName = fileName;
-          this.register(this.userInfo)
-            .then((res) => {
-              if (res.message === "注册成功") {
+        //   this.userInfo.avatar = thumb;
+        //   this.userInfo.fileName = fileName;
+          let obj = {thumb,fileName}
+          resolve(obj)
+        }
+    }
+    })
+     
+    },
+    async registerUser() {
+        this.openLoading = true;
+       let obj = await this.dealAvatar()
+       this.userInfo.avatar = obj.thumb
+       this.userInfo.fileName = obj.fileName
+         this.register(this.userInfo).then((res) => {
+              if (res.code === 200 && res.message === "注册成功") {
                 Toast.success("注册成功");
                 this.$router.push({ name: "login" });
-              } else {
+                return;
+              }else if(res.message === "验证码错误"){
+                    this.openLoading = false;
+                    this.userInfo.authCode = "";
+                      Toast({
+                    message: "验证码错误",
+                    duration: 800,
+                    type: "fail",
+                    });
+              }
+               else {
                 this.openLoading = false;
                 Toast.fail("用户名已存在");
               }
-              // Toast.success('注册成功')
-              //  this.$router.push({name:'login'})
             })
             .catch((err) => {
+                console.log(err,'err')
               this.openLoading = false;
               Toast.fail("注册失败");
             });
-        };
-      };
+      
     },
     //获取验证码
     getAuthCode(code) {
@@ -227,6 +237,11 @@ export default {
       }
       if (!this.userInfo.authCode) {
         this.authCodeErrorMsg = "请输入验证码";
+         isOk = false;
+      }
+      if(!this.fileList.length){
+        Toast.fail("请上传头像");
+         isOk = false;
       }
 
       return isOk;
@@ -240,7 +255,6 @@ $fonColor: #fff;
 $bgColor: #e5017d;
 .wrapper {
   height: 100%;
-  background: rgb(221, 4, 123);
   background-image: url("~@/assets/images/bg.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;

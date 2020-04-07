@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-20 17:52:22
+ * @LastEditTime: 2020-04-07 23:32:09
  */
 import axios from 'axios'
 import { baseURL } from '@/config/baseURL'
@@ -37,7 +37,6 @@ class HttpRequest {
         //可让每个请求携带令牌token
         instance.interceptors.request.use(config => {
                 //config : 请求的所有配置 
-
                 // 每次发送请求之前判断vuex中是否存在token        
                 // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况
                 // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断 

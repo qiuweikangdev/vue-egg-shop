@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-21 20:22:33
+ * @LastEditTime: 2020-04-07 20:30:55
  */
 'use strict';
 
@@ -29,7 +29,7 @@ module.exports = appInfo => {
         ignore: [/^\/user\/login/, /^\/user\/register/] // 哪些请求不需要认证
     }
     config.middleware = ['params', 'errorHandle'];
-
+    
 
     // config.mysql = {
     //     client: {

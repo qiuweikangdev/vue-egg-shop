@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2019-12-16 17:34:14
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-05 22:32:59
+ * @LastEditTime: 2020-04-08 01:20:20
  */
 import { login, register, authorization, getUserInfo, captcha,addToCart ,getShopCartData,addGoods,reduceGoods,generateOrderID,generateOrder,getOrderInfo} from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
@@ -250,10 +250,10 @@ const actions = {
             register(username.trim(), password, avatar, fileName, authCode)
                 .then(res => {
                     const { data } = res
-                    if (data.code === 200 && data.message === '注册成功' || data.message === '用户名已存在,注册失败') {
+                    if (data.code === 200 && data.message === '注册成功' || data.message === '用户名已存在,注册失败' || data.message === '验证码错误') {
                         resolve(data)
                     } else {
-                        reject()
+                        reject(data)
                     }
 
                 })

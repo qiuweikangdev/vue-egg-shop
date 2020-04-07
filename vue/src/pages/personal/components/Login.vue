@@ -20,6 +20,7 @@
             icon="clear"
             placeholder="请输入用户名"
             required
+            @input='handleInput("username")'
             @click-icon="username = ''"
             :error-message="usernameErrorMsg"
           />
@@ -29,6 +30,7 @@
             label="密码"
             placeholder="请输入密码"
             required
+            @input='handleInput("password")'
             @keyup.enter.native="loginAction"
             :error-message="passwordErrorMsg"
           />
@@ -94,7 +96,6 @@ export default {
       this.login(this.userInfo)
         .then((res) => {
           if (res.code === 200 && res.message === "登录成功") {
-            console.log("success");
             Toast({
               message: "登录成功",
               duration: 800,
@@ -137,25 +138,35 @@ export default {
     checkForm() {
       let isOk = true;
       if (this.userInfo.username.length < 3) {
-        this.usernameErrorMsg = "用户名不能少于3位";
-        isOk = false;
-      } else {
-        this.usernameErrorMsg = "";
-      }
+           this.usernameErrorMsg = this.userInfo.username.length?"用户名不能少于3位":'用户名不能为空';
+                   isOk = false;
+      } 
       if (this.userInfo.password.length < 6) {
-        this.passwordErrorMsg = "密码不能少于6位";
+        this.passwordErrorMsg = this.userInfo.password.length?"密码不能少于6位":"密码不能为空";
         isOk = false;
-      } else {
-        this.passwordErrorMsg = "";
       }
       if (!this.userInfo.authCode) {
         this.authCodeErrorMsg = "请输入验证码";
         isOk = false;
-      } else {
-        this.authCodeErrorMsg = "";
-      }
+      } 
       return isOk;
     },
+    handleInput(type){
+        switch(type){
+          case 'username':
+             if(this.userInfo.username.length){
+                 this.usernameErrorMsg = ''
+             }
+             break;
+          case 'password':
+              if(this.userInfo.password.length){
+                 this.passwordErrorMsg = ''
+             }   
+             break;
+          default :
+             return false   
+        }
+    }
   },
 };
 </script>

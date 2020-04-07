@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-03-20 20:32:28
+ * @LastEditTime: 2020-04-07 19:18:36
  */
 
 
@@ -66,6 +66,11 @@ class UserController extends Controller{
     }
     async getUserAll(){
         this.ctx.body =await this.ctx.service.user.getUserAll()
+    }
+    //小程序
+    async wxLoginAuth(){
+        this.ctx.body =await this.ctx.service.user.wxLoginAuth(this.ctx.params)
+
     }
 }
 module.exports = UserController;
