@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-12-03 09:47:49
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-05 14:22:29
+ * @LastEditTime: 2020-04-15 11:34:41
  -->
 <template>
   <div id="myAddress">
@@ -29,8 +29,7 @@
     ></van-address-list>
 
     <!-- 子路由 (添加地址/编辑地址) -->
-     <transition name="router-slider"
-                mode="out-in">
+    <transition name="router-slider" mode="out-in">
       <router-view></router-view>
     </transition>
   </div>
@@ -40,18 +39,18 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapMutations } = createNamespacedHelpers("user");
 // 引入发布订阅
-import { CHOOSE_USER_ADDRESS } from '@/config/pubsub-type.js'
+import { CHOOSE_USER_ADDRESS } from "@/config/pubsub-type.js";
 export default {
   data() {
     return {
-      chosenAddressId:0, 	//当前选中地址的 id
+      chosenAddressId: 0 //当前选中地址的 id
     };
   },
   computed: {
-    ...mapState(["shippingAddress"]),  //收货地址列表
+    ...mapState(["shippingAddress"]) //收货地址列表
   },
   created() {
-    this.INIT_USER_SHIPPING_ADDRESS();  //初始化收货地址信息
+    this.INIT_USER_SHIPPING_ADDRESS(); //初始化收货地址信息
   },
   methods: {
     //1.用户地址
@@ -66,18 +65,18 @@ export default {
     },
     //4.编辑地址
     onEdit(item) {
-       this.$router.push({ name: "editAddress",params:{content:item}});
+      this.$router.push({ name: "editAddress", params: { content: item } });
     },
-    onBackAddress(item){
-       this.$router.replace({name:'order',params:item});
+    onBackAddress(item) {
+      this.$router.replace({ name: "order", params: item });
     }
     //5. 切换选中的地址时触发
-  //  onBackAddress (item, index) {
-  //     // 发布通知到订单界面修改值
-  //     PubSub.publish(CHOOSE_USER_ADDRESS, item);
-  //     // 返回到上一个界面
-  //     // this.$router.back();
-  //   }
+    //  onBackAddress (item, index) {
+    //     // 发布通知到订单界面修改值
+    //     PubSub.publish(CHOOSE_USER_ADDRESS, item);
+    //     // 返回到上一个界面
+    //     // this.$router.back();
+    //   }
   }
 };
 </script>

@@ -1,23 +1,23 @@
 /*
  * @Descripttion: 
  * @version: 
- * @Author: sueRimn
- * @Date: 2019-11-29 16:20:03
- * @LastEditors: sueRimn
- * @LastEditTime: 2019-12-02 18:02:54
+ * @Author: qqqiu
+ * @Date: 2019-12-17 10:03:20
+ * @LastEditors: qqqiu
+ * @LastEditTime: 2020-04-10 00:40:00
  */
 'use strict';
 
-/** @type Egg.EggPlugin */
+/** Egg.EggPlugin */
 
 exports.mysql = {
-    enable: true,
-    package: 'egg-mysql',
+    le: true,
+  package: 'egg-mysql',
 };
-// 跨域
+//跨域
 exports.cors = {
-    enable: true,
-    package: 'egg-cors',
+  enable: true,
+ package: 'egg-cors',
 };
 //websocket
 exports.io = {

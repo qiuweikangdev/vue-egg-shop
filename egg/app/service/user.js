@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-08 01:19:29
+ * @LastEditTime: 2020-04-14 20:45:36
  */
 "use strict";
 
@@ -23,20 +23,19 @@ class UserService extends Service {
     let result = {};
     let result1 = await app.mysql.query(queryUser); //查询用户存不存在
     if (authCode !== ctx.session.code) {
-        result = {
-          code: 200,
-          message: "验证码错误",
-        };
-      } 
-      else  if (!result1.length) {
+      result = {
+        code: 200,
+        message: "验证码错误",
+      };
+    } else if (!result1.length) {
       //如果用户名不存在,则新建用户
-        let insertUser =
-            "INSERT INTO users(username,password,avatar) VALUES (?, ? , ?)";
-        let result2 = await app.mysql.query(insertUser, [
-            username,
-            saltPwd,
-            dataBuffer,
-        ]);
+      let insertUser =
+        "INSERT INTO users(username,password,avatar) VALUES (?, ? , ?)";
+      let result2 = await app.mysql.query(insertUser, [
+        username,
+        saltPwd,
+        dataBuffer,
+      ]);
       if (result2) {
         result = {
           code: 200,
@@ -227,7 +226,6 @@ class UserService extends Service {
     } = params;
     const { id: user_id } = ctx.state.user;
     let product_amount = 1;
-    // let  sqlStr = 'SELECT * FROM cart where product_id  = "'+product_id +'" LIMIT 1'
     let sqlStr =
       'SELECT * FROM cart where product_id  = "' +
       product_id +
@@ -525,20 +523,20 @@ class UserService extends Service {
   }
 
   //微信小程序 登录凭证
-  async wxLoginAuth(params){
-      const { code } = params 
-      const appid ='wxff85544758458d9e' //小程序id
-      const secret ='db4e3a0ba6184ce0e5c230b4a1ba487d'    //小程序密钥
+  async wxLoginAuth(params) {
+    const { code } = params;
+    const appid = "wxff85544758458d9e"; //小程序id
+    const secret = "db4e3a0ba6184ce0e5c230b4a1ba487d"; //小程序密钥
     //   const url = 'https:aE//api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code'
-     const url =`https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code` 
-     var data = await this.ctx.curl(url,{
-        method: "GET",
-        dataType: "json"
+    const url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code`;
+    var data = await this.ctx.curl(url, {
+      method: "GET",
+      dataType: "json",
     });
-     return {
-         data:data.data
-     }
-   }
+    return {
+      data: data.data,
+    };
+  }
 }
 
 module.exports = UserService;

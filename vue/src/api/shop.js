@@ -1,10 +1,10 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: sueRimn
  * @Date: 2019-09-18 12:59:37
- * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-06 14:36:49
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-04-09 19:20:34
  */
 import axios from './index'
 
@@ -12,16 +12,15 @@ import axios from './index'
 export const getHomeCarousel = () => {
     return axios.request({
         url: 'home/homecarousel',
-        method: 'get'
+        method: 'get',
     })
 }
-
 
 // 2.请求首页导航区域
 export const getHomeNav = () => {
     return axios.request({
         url: 'home/homenav',
-        method: 'get'
+        method: 'get',
     })
 }
 
@@ -29,7 +28,7 @@ export const getHomeNav = () => {
 export const getHomeFlash = () => {
     return axios.request({
         url: 'home/getFlashSale',
-        method: 'get'
+        method: 'get',
     })
 }
 
@@ -37,18 +36,18 @@ export const getHomeFlash = () => {
 export const getCategorySub = () => {
     return axios.request({
         url: 'goods/getCategorySub',
-        method: 'get'
+        method: 'get',
     })
 }
 
 // 5.根据分类id读取某分类商品数据
 export const getGoodsByCategoryID = (subID) => {
     return axios.request({
-        url: 'goods/getGoodsByCategoryID?time'+ new Date(),
+        url: 'goods/getGoodsByCategoryID?time' + new Date(),
         method: 'get',
         params: {
-            subID
-        }
+            subID,
+        },
     })
 }
 
@@ -58,8 +57,8 @@ export const searchGoods = (name) => {
         url: 'goods/searchGoods?time=' + new Date(),
         method: 'get',
         params: {
-            name
-        }
+            name,
+        },
     })
 }
 
@@ -69,29 +68,25 @@ export const isLiked = (goods_id) => {
         url: 'goods/isLiked',
         method: 'get',
         params: {
-            goods_id
-        }
+            goods_id,
+        },
     })
 }
 // 8.对商品已点赞
-export const goodsLike = (goods_id,like_num) => {
+export const goodsLike = (goods_id, like_num) => {
     return axios.request({
         url: 'goods/goodsLike',
         method: 'post',
         data: {
-            goods_id,like_num
-        }
+            goods_id,
+            like_num,
+        },
     })
 }
 // 8.获取火爆商品
 export const getHotProduct = () => {
     return axios.request({
         url: 'goods/getHotProduct',
-        method: 'get'
-       
+        method: 'get',
     })
 }
-
-
-
-

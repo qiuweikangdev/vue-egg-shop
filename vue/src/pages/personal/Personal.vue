@@ -28,7 +28,7 @@
               <img :src="imgUrl" alt width="100%" />
             </van-col>
             <van-col span="16" class="username">
-              <p @click='$router.push("/login")'>立即登录</p>
+              <p @click="$router.push("/login")">立即登录</p>
             </van-col>
           </van-row>
 
@@ -55,19 +55,17 @@
 
     <!-- 收获地址 -->
     <van-cell-group>
-      <van-cell title="我的收获地址"  icon="todo-list"  is-link @click="goToMyAddredd"></van-cell>
-    
+      <van-cell title="我的收获地址" icon="todo-list" is-link @click="goToMyAddredd"></van-cell>
     </van-cell-group>
 
     <!-- 意见反馈 -->
-       <van-cell-group>
-      <van-cell title="意见反馈"  icon="comment-circle"  is-link @click="goToSuggest"></van-cell>
+    <van-cell-group>
+      <van-cell title="意见反馈" icon="comment-circle" is-link @click="goToSuggest"></van-cell>
     </van-cell-group>
 
-    
     <!-- 联系客服 -->
-       <van-cell-group>
-      <van-cell title="联系客服"  icon="phone"  value="客服时间 07:00-22:00" ></van-cell>
+    <van-cell-group>
+      <van-cell title="联系客服" icon="phone" value="客服时间 07:00-22:00"></van-cell>
     </van-cell-group>
 
     <!-- 分割线 -->
@@ -77,7 +75,7 @@
     <!-- <set-color></set-color> -->
 
     <!-- 退出登录 -->
-    <van-row class="exit" type="flex" justify="center" v-if='token'>
+    <van-row class="exit" type="flex" justify="center" v-if="token">
       <van-col span="18">
         <van-button size="large" @click="handleLogout">退出登录</van-button>
       </van-col>
@@ -85,59 +83,59 @@
     <!-- <transition name="router-slider"
                 mode="out-in">
       <router-view></router-view>
-    </transition> -->
+    </transition>-->
   </div>
 </template>
 
 <script>
 import { getToken } from "@/utils/auth";
 import setColor from "./components/setColor";
-import { createNamespacedHelpers} from "vuex";
-const { mapActions ,mapState,mapMutations } = createNamespacedHelpers("user");
-import { Toast } from 'vant'
+import { createNamespacedHelpers } from "vuex";
+const { mapActions, mapState, mapMutations } = createNamespacedHelpers("user");
+import { Toast } from "vant";
 export default {
   data() {
     return {
-      imgUrl:require('@/assets/images/flag.png'),  //未登录的头像标志
+      imgUrl: require("@/assets/images/flag.png"), //未登录的头像标志
       token: getToken(),
-     //  订单状态
+      //  订单状态
       orderData: [
-        { icon: 'cart-circle-o', title: '待支付' },
-        { icon: 'gift-o', title: '待收货' },
-        { icon: 'smile-comment-o', title: '待评价' },
-        { icon: 'cash-back-record', title: '售后/退款' }
-      ],
+        { icon: "cart-circle-o", title: "待支付" },
+        { icon: "gift-o", title: "待收货" },
+        { icon: "smile-comment-o", title: "待评价" },
+        { icon: "cash-back-record", title: "售后/退款" }
+      ]
     };
   },
   components: {
     setColor
   },
-  computed:{
-    ...mapState(['userInfo']),
+  computed: {
+    ...mapState(["userInfo"])
   },
   created() {
-    if(this.token){
-      this.INIT_USER_INFO()  //初始化用户信息,把localstorage中的本地数据保存在vuex
-      this.getInfo()  //如果存在token,则获取用户信息
-     } 
+    if (this.token) {
+      this.INIT_USER_INFO(); //初始化用户信息,把localstorage中的本地数据保存在vuex
+      this.getInfo(); //如果存在token,则获取用户信息
+    }
   },
   methods: {
     ...mapActions(["logout", "getUserInfo"]),
     ...mapMutations(["INIT_USER_INFO"]),
     //跳转到登录界面
-    login () {
-      this.$router.push('/login');
+    login() {
+      this.$router.push("/login");
     },
     //退出登录
     handleLogout() {
       this.logout();
-       this.$router.go(0)  //刷新当前页面
+      this.$router.go(0); //刷新当前页面
       // this.$router.push({ name: "login" });
     },
     getInfo() {
-        // console.log(this.userInfo)
-        // const { username , avatar } = this.userInfo
-        // this.userInfo.avatar = "data:image/jpeg;base64," + avatar;
+      // console.log(this.userInfo)
+      // const { username , avatar } = this.userInfo
+      // this.userInfo.avatar = "data:image/jpeg;base64," + avatar;
       // this.getUserInfo().then(res => {
       //    console.log(res)
       //   const { id, username, avatar } = res.userInfo;
@@ -155,24 +153,28 @@ export default {
       // })
     },
     //订单
-    goToOrder(index){
-          if(index==3){
-               Toast({
-                message: '尚未开通!',
-                duration: 800
-            })
-          }else{
-             this.$router.push({name:'myOrder',params:{active:index+1}})
-          }
-          
+    goToOrder(index) {
+      if (index == 3) {
+        Toast({
+          message: "尚未开通!",
+          duration: 800
+        });
+      } else {
+        this.$router.push({ name: "myOrder", params: { active: index + 1 } });
+      }
     },
     //收获地址
-    goToMyAddredd(){
-       this.$router.push({ name: 'myAddress' })
+    goToMyAddredd() {
+      this.$router.push({ name: "myAddress" });
     },
     //意见反馈
-    goToSuggest(){
-        this.$router.push({ name: 'suggest' }); } 
+    goToSuggest() {
+       Toast({
+          message: "尚未开通!",
+          duration: 800
+        });
+      // this.$router.push({ name: "suggest" });
+    }
   }
 };
 </script>
@@ -181,7 +183,7 @@ export default {
 $fonColor: #fff;
 $bgColor: #e5017d;
 .personal-main {
-  height:100%;
+  height: 100%;
   .van-nav-bar__title {
     color: $fonColor;
   }
@@ -206,10 +208,10 @@ $bgColor: #e5017d;
     font-size: 1.2rem;
   }
   //退出登录
-  .exit{
-     margin-top: 1rem
+  .exit {
+    margin-top: 1rem;
   }
-    /*转场动画*/
+  /*转场动画*/
   .router-slider-enter-active,
   .router-slider-leave-active {
     transition: all 0.3s;
