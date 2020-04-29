@@ -4,7 +4,7 @@
  * @Author: sueRimn
  * @Date: 2019-11-29 16:20:03
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-15 14:11:17
+ * @LastEditTime: 2020-04-29 20:35:43
  */
 "use strict";
 /**
@@ -51,7 +51,9 @@ module.exports = (app) => {
 
   //后台系统
   router.post("/user/loginAdmin", controller.user.loginAdmin); //登录
+  router.get("/user/getUserRole", app.jwt, controller.user.getUserRole); //获取用户角色
   router.get("/user/getUserAll", controller.user.getUserAll); //获取所有用户
+  router.post("/user/deleteUserID", controller.user.deleteUserID); //删除用户
   router.post("/searchUser", controller.search.searchUser); //搜索某用户
   router.get("/getGoodsSumType", controller.goods.getGoodsSumType); //获取商品类别
   router.get("/getTypsData", controller.goods.getTypsData); //获取类别数据

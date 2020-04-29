@@ -4,7 +4,7 @@
  * @Author: qqqiu
  * @Date: 2020-01-21 14:48:38
  * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-14 20:45:36
+ * @LastEditTime: 2020-04-29 20:14:36
  */
 "use strict";
 
@@ -36,6 +36,12 @@ class UserService extends Service {
         saltPwd,
         dataBuffer,
       ]);
+      let queryUserId =
+        'SELECT user_id FROM users WHERE username = "' + username + '"';
+      let result3 = await app.mysql.query(queryUserId); //查询用户id
+      let insertRole = "INSERT INTO user_roles(role_id,user_id) VALUES (? , ?)";
+      //插入用户角色
+      await app.mysql.query(insertRole, [0, result3[0].user_id]);
       if (result2) {
         result = {
           code: 200,
@@ -184,6 +190,19 @@ class UserService extends Service {
       token,
     };
   }
+  //根据token，获取对应的用户角色
+  async getUserRole(params) {
+    const { ctx, app } = this;
+    const { id, name } = ctx.state.user;
+    let sqlStr = `select role_name from role WHERE role_id = (SELECT role_id FROM user_roles WHERE user_id = ${id})`;
+    let result = await app.mysql.query(sqlStr);
+
+    return {
+      code: 200,
+      role_name: result[0].role_name,
+    };
+  }
+
   //获取用户信息，需要登录授权成功才能获取用户信息
   async getUserInfo() {
     const { ctx, app } = this;
@@ -521,7 +540,26 @@ class UserService extends Service {
       };
     }
   }
-
+  async deleteUserID(params) {
+    const { user_id } = params;
+    try {
+      let sqlStr = 'DELETE FROM users WHERE user_id = +"' + user_id + '"';
+      let result = await this.app.mysql.query(sqlStr);
+      if (result.affectedRows > 0) {
+        return {
+          code: 200,
+          ok: 1,
+          data: result,
+        };
+      }
+    } catch (e) {
+      return {
+        code: 500,
+        ok: 0,
+        message: "发生错误",
+      };
+    }
+  }
   //微信小程序 登录凭证
   async wxLoginAuth(params) {
     const { code } = params;

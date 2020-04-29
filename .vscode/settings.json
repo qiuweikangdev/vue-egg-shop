@@ -1,0 +1,100 @@
+{
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.editor.closeEmptyGroups": false,
+  "emmet.triggerExpansionOnTab": true,
+  "files.associations": {
+    "*.js": "javascript",
+    "*.vue": "vue",
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript"
+  },
+  "http.proxy": "http://127.0.0.1",
+  "git.autofetch": true,
+  "git.autorefresh": false,
+  // "[javascript]": {
+  //     "editor.defaultFormatter": "vscode.typescript-language-features"
+  // },
+  // "[json]": {
+  //     "editor.defaultFormatter": "vscode.json-language-features"
+  // },
+  "workbench.colorCustomizations": {
+    "[Atom One Light]": {
+      "editor.background": "#C7EDCC",
+      "sideBar.background": "#C7EDCC",
+      "activityBar.background": "#C7EDCC"
+    }
+  },
+  "fileheader.customMade": {
+    "Descripttion": "",
+    "version": "",
+    "Author": "qqqiu",
+    "Date": "Do not edit",
+    "LastEditors": "qqqiu",
+    "LastEditTime": "Do not Edit"
+  },
+  //函数注释
+  "fileheader.cursorMode": {
+    "name": "qqqiu",
+    "test": "test font",
+    "msg": "",
+    "param": "",
+    "return": ""
+  },
+
+  "window.zoomLevel": 0,
+  "search.followSymlinks": false,
+  "emmet.includeLanguages": {
+    "wxml": "html"
+  },
+  "minapp-vscode.disableAutoConfig": true,
+  "explorer.confirmDragAndDrop": false,
+  // settings.json
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "eslint.debug": true,
+  "eslint.format.enable": true,
+  "eslint.validate": ["vue", "html", "javascript", "typescript"],
+  "eslint.options": {
+    //指定eslint配置文件位置
+    "configFile": ".eslintrc.js" //指定项目根目录中的eslint配置文件
+  },
+  "files.autoSave": "off"
+}

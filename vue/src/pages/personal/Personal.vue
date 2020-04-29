@@ -13,22 +13,38 @@
       <van-cell style="background:#E5017D">
         <!--登录状态-->
         <template slot="title">
-          <van-row v-if="token" class="user-info" type="flex" justify="center" align="center">
+          <van-row
+            v-if="token"
+            class="user-info"
+            type="flex"
+            justify="center"
+            align="center"
+          >
             <van-col span="8" class="avatar">
-              <img :src="'data:image/jpeg;base64,'+userInfo.avatar" alt width="100%" />
+              <img
+                :src="'data:image/jpeg;base64,' + userInfo.avatar"
+                alt
+                width="100%"
+              />
             </van-col>
             <van-col span="16" class="username">
-              <p>{{userInfo.username}}</p>
+              <p>{{ userInfo.username }}</p>
             </van-col>
           </van-row>
 
           <!-- 未登录状态 -->
-          <van-row v-else class="user-info" type="flex" justify="center" align="center">
+          <van-row
+            v-else
+            class="user-info"
+            type="flex"
+            justify="center"
+            align="center"
+          >
             <van-col span="8" class="avatar">
               <img :src="imgUrl" alt width="100%" />
             </van-col>
             <van-col span="16" class="username">
-              <p @click="$router.push("/login")">立即登录</p>
+              <p @click="$router.push('/login')">立即登录</p>
             </van-col>
           </van-row>
 
@@ -40,11 +56,17 @@
 
     <!-- 订单相关 -->
     <van-cell-group>
-      <van-cell title="我的订单" icon="label" value="查看全部订单" is-link @click="goToOrder(-1)"></van-cell>
+      <van-cell
+        title="我的订单"
+        icon="label"
+        value="查看全部订单"
+        is-link
+        @click="goToOrder(-1)"
+      ></van-cell>
       <!-- Grid宫格 -->
       <van-grid :border="false">
         <van-grid-item
-          v-for="(order,index) in orderData"
+          v-for="(order, index) in orderData"
           :key="index"
           :icon="order.icon"
           :text="order.title"
@@ -55,17 +77,31 @@
 
     <!-- 收获地址 -->
     <van-cell-group>
-      <van-cell title="我的收获地址" icon="todo-list" is-link @click="goToMyAddredd"></van-cell>
+      <van-cell
+        title="我的收获地址"
+        icon="todo-list"
+        is-link
+        @click="goToMyAddredd"
+      ></van-cell>
     </van-cell-group>
 
     <!-- 意见反馈 -->
     <van-cell-group>
-      <van-cell title="意见反馈" icon="comment-circle" is-link @click="goToSuggest"></van-cell>
+      <van-cell
+        title="意见反馈"
+        icon="comment-circle"
+        is-link
+        @click="goToSuggest"
+      ></van-cell>
     </van-cell-group>
 
     <!-- 联系客服 -->
     <van-cell-group>
-      <van-cell title="联系客服" icon="phone" value="客服时间 07:00-22:00"></van-cell>
+      <van-cell
+        title="联系客服"
+        icon="phone"
+        value="客服时间 07:00-22:00"
+      ></van-cell>
     </van-cell-group>
 
     <!-- 分割线 -->
@@ -103,15 +139,15 @@ export default {
         { icon: "cart-circle-o", title: "待支付" },
         { icon: "gift-o", title: "待收货" },
         { icon: "smile-comment-o", title: "待评价" },
-        { icon: "cash-back-record", title: "售后/退款" }
-      ]
+        { icon: "cash-back-record", title: "售后/退款" },
+      ],
     };
   },
   components: {
-    setColor
+    setColor,
   },
   computed: {
-    ...mapState(["userInfo"])
+    ...mapState(["userInfo"]),
   },
   created() {
     if (this.token) {
@@ -157,7 +193,7 @@ export default {
       if (index == 3) {
         Toast({
           message: "尚未开通!",
-          duration: 800
+          duration: 800,
         });
       } else {
         this.$router.push({ name: "myOrder", params: { active: index + 1 } });
@@ -169,17 +205,17 @@ export default {
     },
     //意见反馈
     goToSuggest() {
-       Toast({
-          message: "尚未开通!",
-          duration: 800
-        });
+      Toast({
+        message: "尚未开通!",
+        duration: 800,
+      });
       // this.$router.push({ name: "suggest" });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 $fonColor: #fff;
 $bgColor: #e5017d;
 .personal-main {
