@@ -1,12 +1,4 @@
-/*
- * @Descripttion: 
- * @version: 
- * @Author: sueRimn
- * @Date: 2019-11-29 16:20:03
- * @LastEditors: qqqiu
- * @LastEditTime: 2020-04-07 20:30:55
- */
-'use strict';
+'use strict'
 
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -16,10 +8,10 @@ module.exports = appInfo => {
      * built-in config
      * @type {Egg.EggAppConfig}
      **/
-    const config = exports = {};
+    const config = (exports = {})
 
     // use for cookie sign key, should change to your own and keep security
-    config.keys = appInfo.name + '_1573697703688_9789';
+    config.keys = appInfo.name + '_1573697703688_9789'
 
     // config.secret = 'secret'; //密钥
     // add your middleware config here
@@ -28,8 +20,7 @@ module.exports = appInfo => {
         secret: 'secret', //密钥
         ignore: [/^\/user\/login/, /^\/user\/register/] // 哪些请求不需要认证
     }
-    config.middleware = ['params', 'errorHandle'];
-    
+    config.middleware = ['params', 'errorHandle']
 
     // config.mysql = {
     //     client: {
@@ -56,35 +47,33 @@ module.exports = appInfo => {
             enable: false,
             ignoreJSON: true
         },
-        domainWhiteList: ['http://127.0.0.1:8080','http://localhost:3000']
-    };
+        domainWhiteList: ['http://127.0.0.1:8080', 'http://localhost:3000']
+    }
     config.cors = {
         allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
-        credentials: true, //获得前端的cookie
-        // origin: () => 'http://127.0.0.1:8080' //这边不能为*号，需要指定明确的、与请求网页一致的域名
+        credentials: true //获得前端的cookie
         // origin: () => 'http://127.0.0.1:3000'//这边不能为*号，需要指定明确的、与请求网页一致的域名
-
-    };
+    }
     config.cluster = {
         listen: {
-        path: '',
-        port: 5000,
-        hostname: '0.0.0.0'
-        },
-    };
+            path: '',
+            port: 5000,
+            hostname: '0.0.0.0'
+        }
+    }
     //静态资源
     config.static = {
         prefix: '/public/', //前缀
-        // dir: path.join(appInfo.baseDir, 'app/public'), 
+        // dir: path.join(appInfo.baseDir, 'app/public'),
         dynamic: true,
         preload: false,
-        buffer: true,
+        buffer: true
         // maxAge: 31536000,
-      };
+    }
     // add your user config here
     const userConfig = {
         // myAppName: 'egg',
-    };
+    }
 
     //session
     // config.session = {
@@ -92,20 +81,10 @@ module.exports = appInfo => {
     //     maxAge: 864000, //过期时间
     //     httpOnly: true,
     //     encrypt: true,
-    //     renew: true //延长会话有效期 
+    //     renew: true //延长会话有效期
     // }
     return {
         ...config,
-        ...userConfig,
-    };
-};
-// exports.io = {
-//     namespace: {
-//         '/': {
-//             // connectionMiddleware是在client保持连接的时候调用的中间件
-//             connectionMiddleware: ['auth'],
-//             // packetMiddleware是在server发送包给client之后调用的中间件
-//             packetMiddleware: ['filter']
-//         },
-//     },
-// };
+        ...userConfig
+    }
+}
