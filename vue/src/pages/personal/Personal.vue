@@ -125,7 +125,6 @@
 
 <script>
 import { getToken } from "@/utils/auth";
-import setColor from "./components/setColor";
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapState, mapMutations } = createNamespacedHelpers("user");
 import { Toast } from "vant";
@@ -142,9 +141,6 @@ export default {
         { icon: "cash-back-record", title: "售后/退款" },
       ],
     };
-  },
-  components: {
-    setColor,
   },
   computed: {
     ...mapState(["userInfo"]),
